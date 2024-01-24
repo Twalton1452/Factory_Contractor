@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7tcwq4dw64bd"]
+
+[ext_resource type="Script" path="res://scripts/Component.gd" id="1_eykw4"]
+[ext_resource type="Texture2D" uid="uid://dwycodtm3ha5w" path="res://art/spritesheets/1-bit-pack-colored-transparent.png" id="2_43j7q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6dew"]
+atlas = ExtResource("2_43j7q")
+region = Rect2(697, 51, 16, 16)
+
+[node name="Component" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_eykw4")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_i6dew")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)

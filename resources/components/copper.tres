@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ComponentData" load_steps=3 format=3 uid="uid://dbnjeqlvv6fwl"]
+
+[ext_resource type="Texture2D" uid="uid://bqewswrqvr7af" path="res://art/game_icons/copper_icon.tres" id="1_ytqo4"]
+[ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="2_rkh1r"]
+
+[resource]
+script = ExtResource("2_rkh1r")
+display_name = &"Copper"
+icon = ExtResource("1_ytqo4")
+required_components = Array[ExtResource("2_rkh1r")]([])

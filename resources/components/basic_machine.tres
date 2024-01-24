@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ComponentData" load_steps=5 format=3 uid="uid://be3v14j1yeubf"]
+
+[ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_machine_icon.tres" id="1_6ccgk"]
+[ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_j1fjs"]
+[ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="2_5jjq2"]
+[ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="3_gj1fe"]
+
+[resource]
+script = ExtResource("1_j1fjs")
+display_name = &"Basic Machine"
+icon = ExtResource("1_6ccgk")
+required_components = Array[ExtResource("1_j1fjs")]([ExtResource("2_5jjq2"), ExtResource("3_gj1fe")])
