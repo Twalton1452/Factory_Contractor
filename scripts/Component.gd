@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Area2D
 class_name Component
 
 @export var data : ComponentData : 

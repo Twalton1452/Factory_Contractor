@@ -31,4 +31,4 @@ grow_vertical = 2
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="Button" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

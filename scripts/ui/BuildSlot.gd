@@ -9,5 +9,5 @@ extends Control
 
 @export var button : Button
 
-func _on_texture_button_pressed():
-	pass # Emit an event signaling we pressed this Slot
+func _on_button_pressed():
+	MessageBus.build_slot_pressed.emit(data)

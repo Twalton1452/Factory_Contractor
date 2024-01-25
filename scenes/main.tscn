@@ -1,16 +1,42 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=10 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
+[ext_resource type="Script" path="res://scripts/player/ObjectPlacer.gd" id="2_tg2pd"]
 [ext_resource type="Resource" uid="uid://be3v14j1yeubf" path="res://resources/components/basic_machine.tres" id="3_631xw"]
 [ext_resource type="PackedScene" uid="uid://8skmj0bdmaea" path="res://scenes/build_slot.tscn" id="3_wmb04"]
+[ext_resource type="Texture2D" uid="uid://cnfccy8m4x6ih" path="res://art/game_icons/selector_outline.tres" id="3_xdq3l"]
 [ext_resource type="Resource" uid="uid://cmwvmjjn3vpkg" path="res://resources/components/conveyor_belt.tres" id="4_n2mmp"]
 [ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="4_t7mge"]
 [ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="5_yjmxl"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
+size = Vector2(15, 15)
+
 [node name="Main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("1_vnbxi")
+
+[node name="ObjectPlacer" type="Node" parent="." node_paths=PackedStringArray("objects_parent")]
+script = ExtResource("2_tg2pd")
+objects_parent = NodePath("../Objects")
+
+[node name="Placer" type="Node2D" parent="ObjectPlacer"]
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="ObjectPlacer/Placer"]
+shape = SubResource("RectangleShape2D_ncy1r")
+target_position = Vector2(0, 0)
+collide_with_areas = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectPlacer/Placer"]
+modulate = Color(1, 1, 1, 0.545098)
+z_index = 10
+
+[node name="Outline" type="Sprite2D" parent="ObjectPlacer/Placer"]
+texture = ExtResource("3_xdq3l")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -21,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -80,3 +107,5 @@ layout_mode = 2
 
 [node name="Slot10" parent="CanvasLayer/HUD/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
+
+[node name="Objects" type="Node2D" parent="."]
