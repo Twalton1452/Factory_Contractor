@@ -25,6 +25,7 @@ func disable() -> void:
 	set_physics_process(false)
 	sprite.hide()
 	sprite.rotation = 0.0
+	current_data = null
 
 func _on_build_slot_pressed(component_data: ComponentData) -> void:
 	current_data = component_data
@@ -33,10 +34,9 @@ func _on_build_slot_pressed(component_data: ComponentData) -> void:
 		sprite.texture = component_data.icon
 
 func _on_player_selected() -> void:
-	if not is_physics_processing():
+	if current_data == null:
 		return
 	
-	#disable()
 	await get_tree().physics_frame
 	if shape_cast.get_collision_count() > 0:
 		return
