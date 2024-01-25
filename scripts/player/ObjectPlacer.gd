@@ -38,7 +38,7 @@ func _on_player_selected() -> void:
 		return
 	
 	await get_tree().physics_frame
-	if shape_cast.get_collision_count() > 0:
+	if shape_cast.is_colliding():
 		return
 	
 	var component : Component = component_scene.instantiate()
@@ -48,7 +48,14 @@ func _on_player_selected() -> void:
 	objects_parent.add_child(component)
 
 func _on_player_canceled() -> void:
-	disable()
+	if current_data != null:
+		sprite.hide()
+		current_data = null
+	
+	if shape_cast.is_colliding():
+		var node = shape_cast.get_collider(0)
+		if node is Component and not node.is_queued_for_deletion():
+			node.queue_free()
 
 func _on_player_rotated() -> void:
 	sprite.rotation += PI/2
@@ -57,7 +64,7 @@ func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), 16.0), snapped(floor(pos.y), 16.0))
 
 func _physics_process(_delta):
-	if shape_cast.get_collision_count() > 0:
+	if shape_cast.is_colliding():
 		sprite.modulate = Color.RED
 		sprite.modulate.a = 0.5
 	else:
