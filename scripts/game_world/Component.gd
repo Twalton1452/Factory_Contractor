@@ -6,5 +6,6 @@ class_name Component
 	set(value):
 		data = value
 		sprite.texture = data.icon
+		sprite.modulate = data.color_adjustment
 
 @export var sprite : Sprite2D

@@ -8,4 +8,5 @@
 script = ExtResource("1_voj4m")
 display_name = &"Conveyor Belt"
 icon = ExtResource("1_wmqoq")
+color_adjustment = Color(1, 1, 1, 1)
 required_components = Array[ExtResource("1_voj4m")]([ExtResource("2_en0lx")])

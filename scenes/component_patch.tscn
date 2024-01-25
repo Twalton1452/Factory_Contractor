@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbxds4sxc77aq"]
+
+[ext_resource type="Script" path="res://scripts/game_world/ComponentPatch.gd" id="1_qy8kn"]
+[ext_resource type="Shape2D" uid="uid://b78svonwtky2g" path="res://resources/collision_rect_16.tres" id="2_dakwf"]
+
+[node name="ComponentPatch" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_qy8kn")
+sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_dakwf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

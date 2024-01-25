@@ -53,6 +53,11 @@ cancel={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Factory"
+2d_physics/layer_2="Patches"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

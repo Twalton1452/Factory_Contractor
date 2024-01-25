@@ -9,4 +9,5 @@
 script = ExtResource("1_j1fjs")
 display_name = &"Basic Machine"
 icon = ExtResource("1_6ccgk")
+color_adjustment = Color(1, 1, 1, 1)
 required_components = Array[ExtResource("1_j1fjs")]([ExtResource("2_5jjq2"), ExtResource("3_gj1fe")])
