@@ -9,3 +9,5 @@ display_name = &"Copper"
 icon = ExtResource("1_ytqo4")
 color_adjustment = Color(0.909804, 0.529412, 0.290196, 1)
 required_components = Array[ExtResource("2_rkh1r")]([])
+placed_layer = 2
+required_layer = 0

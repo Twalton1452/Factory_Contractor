@@ -7,4 +7,7 @@
 script = ExtResource("1_uu2ir")
 display_name = &"Iron"
 icon = ExtResource("1_dgbvj")
+color_adjustment = Color(1, 1, 1, 1)
 required_components = Array[ExtResource("1_uu2ir")]([])
+placed_layer = 2
+required_layer = 0

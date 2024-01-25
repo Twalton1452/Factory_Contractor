@@ -28,10 +28,17 @@ objects_parent = NodePath("../Objects")
 
 [node name="Placer" type="Node2D" parent="PlayerInputHandler"]
 
-[node name="ShapeCast2D" type="ShapeCast2D" parent="PlayerInputHandler/Placer"]
+[node name="PlaceShapeCast2D" type="ShapeCast2D" parent="PlayerInputHandler/Placer"]
 visible = false
 shape = SubResource("RectangleShape2D_ncy1r")
 target_position = Vector2(0, 0)
+collide_with_areas = true
+
+[node name="RequiredShapeCast2D" type="ShapeCast2D" parent="PlayerInputHandler/Placer"]
+visible = false
+shape = SubResource("RectangleShape2D_ncy1r")
+target_position = Vector2(0, 0)
+collision_mask = 0
 collide_with_areas = true
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerInputHandler/Placer"]
@@ -117,34 +124,28 @@ data = ExtResource("4_t7mge")
 [node name="ComponentPatch" parent="Objects" instance=ExtResource("9_iknef")]
 position = Vector2(80, 96)
 component_to_extract = ExtResource("4_t7mge")
-amount = 100
 
 [node name="ComponentPatch2" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 96)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-amount = 100
 
 [node name="ComponentPatch3" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-amount = 100
 
 [node name="ComponentPatch4" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-amount = 100
 
 [node name="ComponentPatch5" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 128)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-amount = 100
 
 [node name="ComponentPatch6" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 128)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-amount = 100

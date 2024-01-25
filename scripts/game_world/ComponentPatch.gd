@@ -1,3 +1,4 @@
+@icon("res://art/editor_icons/patch.svg")
 @tool
 extends Area2D
 class_name ComponentPatch
