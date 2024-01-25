@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqyscbwpwuffy"]
 
 [ext_resource type="Script" path="res://scripts/game_world/Building.gd" id="1_jle6u"]
-[ext_resource type="Shape2D" uid="uid://b78svonwtky2g" path="res://resources/collision_rect_16.tres" id="1_pet5m"]
+[ext_resource type="Shape2D" uid="uid://b1xc55lyyhwnn" path="res://resources/collision_rect_15.tres" id="2_vh31f"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_mask = 0
@@ -9,6 +9,6 @@ script = ExtResource("1_jle6u")
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = ExtResource("1_pet5m")
+shape = ExtResource("2_vh31f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

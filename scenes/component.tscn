@@ -9,6 +9,7 @@ atlas = ExtResource("2_43j7q")
 region = Rect2(697, 51, 16, 16)
 
 [node name="Component" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_eykw4")
 sprite = NodePath("Sprite2D")

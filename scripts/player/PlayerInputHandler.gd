@@ -51,6 +51,7 @@ func _on_player_selected() -> void:
 	
 	placed_node.position = player_selected_position
 	placed_node.rotation = sprite.rotation
+	placed_node.collision_layer = current_data.placed_layer
 	objects_parent.add_child(placed_node)
 
 func _on_player_canceled() -> void:

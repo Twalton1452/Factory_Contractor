@@ -11,7 +11,6 @@ class_name Component
 		data = value
 		sprite.texture = data.icon
 		sprite.modulate = data.color_adjustment
-		collision_layer = data.placed_layer
 
 @export var sprite : Sprite2D
 

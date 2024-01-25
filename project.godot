@@ -64,6 +64,7 @@ cancel={
 
 2d_physics/layer_1="Factory"
 2d_physics/layer_2="Patch"
+2d_physics/layer_3="Component"
 
 [rendering]
 
