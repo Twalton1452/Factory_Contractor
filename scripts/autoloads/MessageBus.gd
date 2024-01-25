@@ -10,3 +10,4 @@ signal build_slot_pressed(component_data: ComponentData)
 # Player
 signal player_selected
 signal player_canceled
+signal player_rotated

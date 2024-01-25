@@ -14,6 +14,7 @@ func _ready():
 	MessageBus.build_slot_pressed.connect(_on_build_slot_pressed)
 	MessageBus.player_selected.connect(_on_player_selected)
 	MessageBus.player_canceled.connect(_on_player_canceled)
+	MessageBus.player_rotated.connect(_on_player_rotated)
 	disable()
 
 func enable() -> void:
@@ -25,6 +26,7 @@ func disable() -> void:
 	set_physics_process(false)
 	set_process(false)
 	placer.hide()
+	sprite.rotation = 0.0
 
 func _on_build_slot_pressed(component_data: ComponentData) -> void:
 	current_data = component_data
@@ -43,12 +45,15 @@ func _on_player_selected() -> void:
 	
 	var component : Component = component_scene.instantiate()
 	component.data = current_data
-	var mouse_pos = get_viewport().get_mouse_position()
-	component.position = placing_position(mouse_pos)
+	component.position = placing_position(get_viewport().get_mouse_position())
+	component.rotation = sprite.rotation
 	objects_parent.add_child(component)
 
 func _on_player_canceled() -> void:
 	disable()
+
+func _on_player_rotated() -> void:
+	sprite.rotation += PI/2
 
 func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), 16.0), snapped(floor(pos.y), 16.0))
@@ -62,5 +67,4 @@ func _physics_process(_delta):
 		sprite.modulate.a = 0.5
 
 func _process(_delta):
-	var mouse_pos = get_viewport().get_mouse_position()
-	placer.global_position = placing_position(mouse_pos)
+	placer.global_position = placing_position(get_viewport().get_mouse_position())
