@@ -58,7 +58,12 @@ func _on_player_canceled() -> void:
 			node.queue_free()
 
 func _on_player_rotated() -> void:
-	sprite.rotation += PI/2
+	if current_data != null:
+		sprite.rotation += PI/2
+	elif shape_cast.is_colliding():
+		var node = shape_cast.get_collider(0)
+		if node is Component:
+			node.rotation += PI/2
 
 func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), 16.0), snapped(floor(pos.y), 16.0))
