@@ -1,5 +1,7 @@
 extends Node
 
+## Class to handle Player Input
+
 @export var objects_parent : Node2D
 
 @onready var placer : Node2D = $Placer
@@ -18,11 +20,9 @@ func _ready():
 	disable()
 
 func enable() -> void:
-	set_physics_process(true)
 	sprite.show()
 
 func disable() -> void:
-	set_physics_process(false)
 	sprite.hide()
 	sprite.rotation = 0.0
 	current_data = null
@@ -37,13 +37,14 @@ func _on_player_selected() -> void:
 	if current_data == null:
 		return
 	
-	await get_tree().physics_frame
+	var player_selected_position = placing_position(get_viewport().get_mouse_position())
+	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding():
 		return
 	
 	var component : Component = component_scene.instantiate()
 	component.data = current_data
-	component.position = placing_position(get_viewport().get_mouse_position())
+	component.position = player_selected_position
 	component.rotation = sprite.rotation
 	objects_parent.add_child(component)
 
@@ -75,6 +76,5 @@ func _physics_process(_delta):
 	else:
 		sprite.modulate = Color.WHITE
 		sprite.modulate.a = 0.5
-
-func _process(_delta):
+	
 	placer.global_position = placing_position(get_viewport().get_mouse_position())
