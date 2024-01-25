@@ -19,13 +19,11 @@ func _ready():
 
 func enable() -> void:
 	set_physics_process(true)
-	set_process(true)
-	placer.show()
+	sprite.show()
 
 func disable() -> void:
 	set_physics_process(false)
-	set_process(false)
-	placer.hide()
+	sprite.hide()
 	sprite.rotation = 0.0
 
 func _on_build_slot_pressed(component_data: ComponentData) -> void:
