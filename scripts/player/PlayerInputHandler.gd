@@ -73,8 +73,8 @@ func _physics_process(_delta):
 	if shape_cast.is_colliding():
 		sprite.modulate = Color.RED
 		sprite.modulate.a = 0.5
-	else:
-		sprite.modulate = Color.WHITE
+	elif current_data:
+		sprite.modulate = current_data.color_adjustment
 		sprite.modulate.a = 0.5
 	
 	placer.global_position = placing_position(get_viewport().get_mouse_position())

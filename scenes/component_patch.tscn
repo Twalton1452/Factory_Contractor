@@ -10,6 +10,7 @@ script = ExtResource("1_qy8kn")
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = ExtResource("2_dakwf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

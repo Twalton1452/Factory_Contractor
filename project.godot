@@ -25,6 +25,13 @@ window/size/viewport_width=640
 window/size/viewport_height=480
 window/stretch/mode="canvas_items"
 
+[file_customization]
+
+folder_colors={
+"res://resources/components/": "purple",
+"res://scripts/": "blue"
+}
+
 [input]
 
 menu={
