@@ -1,5 +1,8 @@
 class_name Constants
 
+# World
+const TILE_SIZE = 16
+
 # Groups
 const CONVEYOR_GROUP = "ConveyorBelts"
 const EXTRACTOR_GROUP = "Extractors"
@@ -8,3 +11,7 @@ const EXTRACTOR_GROUP = "Extractors"
 const FACTORY_LAYER = 1 << 0
 const COMPONENT_PATCH_LAYER = 1 << 1
 const COMPONENT_LAYER = 1 << 2
+
+# Building Component Names
+const EXTRACTOR = "Extractor"
+const CONVEYOR_BELT = "ConveyorBelt"

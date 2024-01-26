@@ -150,6 +150,6 @@ component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
 [node name="ComponentPatch6" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
-position = Vector2(96, 128)
+position = Vector2(160, 160)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
