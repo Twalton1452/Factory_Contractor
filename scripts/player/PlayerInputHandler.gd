@@ -31,6 +31,7 @@ func disable() -> void:
 
 func _on_build_slot_pressed(component_data: ComponentData) -> void:
 	enter_build_mode_with(component_data)
+	sprite.rotation = 0.0
 
 func enter_build_mode_with(component_data: ComponentData) -> void:
 	current_data = component_data
