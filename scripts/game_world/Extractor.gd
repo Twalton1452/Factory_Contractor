@@ -26,10 +26,17 @@ func _ready() -> void:
 func _on_building_entered(area: Area2D) -> void:
 	if area.collision_layer & Constants.COMPONENT_PATCH_LAYER == Constants.COMPONENT_PATCH_LAYER:
 		extracting_from = area
+		extracting_from.empty.connect(_on_patch_empty)
 
 func _on_building_exited(area: Area2D) -> void:
 	if area == extracting_from:
+		if extracting_from.empty.is_connected(_on_patch_empty):
+			extracting_from.empty.disconnect(_on_patch_empty)
 		extracting_from = null
+
+func _on_patch_empty() -> void:
+	extracting_from = null
+	building.modulate = building.modulate.darkened(0.6)
 
 ## When the Extract is placed, it needs to fight where to Extract to
 ## If it was already placed and there is nothing nearby then whenever a neighboring
@@ -72,7 +79,7 @@ func _unregister_requestor() -> void:
 	requestors.erase(to_erase)
 
 func tick() -> void:
-	if extracting_from and extracting_from.can_extract() and requestors.size() > 0:
+	if extracting_from and requestors.size() > 0:
 		var extracted = extracting_from.extract()
 		if extracted == null:
 			return

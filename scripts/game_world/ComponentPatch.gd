@@ -27,4 +27,5 @@ func extract() -> ComponentData:
 		return component_to_extract
 	
 	empty.emit()
+	queue_free()
 	return null
