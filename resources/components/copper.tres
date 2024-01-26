@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="ComponentData" load_steps=4 format=3 uid="uid://dbnjeqlvv6fwl"]
+[gd_resource type="Resource" script_class="ComponentData" load_steps=3 format=3 uid="uid://dbnjeqlvv6fwl"]
 
 [ext_resource type="Texture2D" uid="uid://bqewswrqvr7af" path="res://art/game_icons/copper_icon.tres" id="1_ytqo4"]
 [ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="2_rkh1r"]
-[ext_resource type="Script" path="res://scripts/game_world/ComponentPatch.gd" id="3_o5rwf"]
 
 [resource]
 script = ExtResource("2_rkh1r")
@@ -10,6 +9,5 @@ display_name = &"Copper"
 icon = ExtResource("1_ytqo4")
 color_adjustment = Color(0.909804, 0.529412, 0.290196, 1)
 required_components = Array[ExtResource("2_rkh1r")]([])
-to_attach = ExtResource("3_o5rwf")
-placed_layer = 2
+placed_layer = 4
 required_layer = 0

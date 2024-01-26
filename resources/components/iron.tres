@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="ComponentData" load_steps=4 format=3 uid="uid://cb2pd6h300fto"]
+[gd_resource type="Resource" script_class="ComponentData" load_steps=3 format=3 uid="uid://cb2pd6h300fto"]
 
 [ext_resource type="Texture2D" uid="uid://b82qxftkda407" path="res://art/game_icons/iron_icon.tres" id="1_dgbvj"]
 [ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_uu2ir"]
-[ext_resource type="Script" path="res://scripts/game_world/ComponentPatch.gd" id="3_uunnv"]
 
 [resource]
 script = ExtResource("1_uu2ir")
@@ -10,6 +9,5 @@ display_name = &"Iron"
 icon = ExtResource("1_dgbvj")
 color_adjustment = Color(1, 1, 1, 1)
 required_components = Array[ExtResource("1_uu2ir")]([])
-to_attach = ExtResource("3_uunnv")
-placed_layer = 2
+placed_layer = 4
 required_layer = 0
