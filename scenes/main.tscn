@@ -33,14 +33,18 @@ objects_parent = NodePath("../Objects")
 visible = false
 shape = SubResource("RectangleShape2D_ncy1r")
 target_position = Vector2(0, 0)
+max_results = 9
 collide_with_areas = true
+collide_with_bodies = false
 
 [node name="RequiredShapeCast2D" type="ShapeCast2D" parent="PlayerInputHandler/Placer"]
 visible = false
 shape = SubResource("RectangleShape2D_ncy1r")
 target_position = Vector2(0, 0)
+max_results = 9
 collision_mask = 0
 collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerInputHandler/Placer"]
 modulate = Color(1, 1, 1, 0.545098)
