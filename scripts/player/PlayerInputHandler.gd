@@ -62,7 +62,7 @@ func _on_player_canceled() -> void:
 	# Remove things underneath what we're hovering
 	elif shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
-		if node is Component and not node.is_queued_for_deletion():
+		if node is Building and not node.is_queued_for_deletion():
 			node.queue_free()
 
 func _on_player_rotated() -> void:
@@ -70,7 +70,7 @@ func _on_player_rotated() -> void:
 		sprite.rotation += PI/2
 	elif shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
-		if node is Component:
+		if node is Building:
 			node.rotation += PI/2
 
 func placing_position(pos: Vector2) -> Vector2:
