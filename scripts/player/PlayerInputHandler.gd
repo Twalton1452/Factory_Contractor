@@ -21,8 +21,8 @@ var deleted_something_during_cancel = false
 
 func _ready():
 	MessageBus.build_slot_pressed.connect(_on_build_slot_pressed)
-	MessageBus.player_selected.connect(_on_player_selected)
-	MessageBus.player_canceled.connect(_on_player_canceled)
+	MessageBus.player_selecting.connect(_on_player_selected)
+	MessageBus.player_canceling.connect(_on_player_canceled)
 	MessageBus.player_released_cancel.connect(_on_player_released_cancel)
 	MessageBus.player_rotated.connect(_on_player_rotated)
 	MessageBus.player_picked.connect(_on_player_picked)

@@ -8,9 +8,9 @@ extends Node
 signal build_slot_pressed(component_data: ComponentData)
 
 # Player
-signal player_selected
+signal player_selecting
 signal player_released_select
-signal player_canceled
+signal player_canceling
 signal player_released_cancel
 signal player_rotated
 signal player_picked

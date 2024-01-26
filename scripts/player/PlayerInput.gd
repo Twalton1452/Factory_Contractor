@@ -31,7 +31,7 @@ func select() -> void:
 	
 	selecting = true
 	while selecting:
-		MessageBus.player_selected.emit()
+		MessageBus.player_selecting.emit()
 		await get_tree().physics_frame
 
 func stop_select() -> void:
@@ -44,7 +44,7 @@ func cancel() -> void:
 	
 	canceling = true
 	while canceling:
-		MessageBus.player_canceled.emit()
+		MessageBus.player_canceling.emit()
 		await get_tree().physics_frame
 
 func stop_cancel() -> void:
