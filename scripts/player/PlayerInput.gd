@@ -19,6 +19,9 @@ func _unhandled_input(event):
 	if event.is_action_pressed("rotate"):
 		rotate()
 	
+	if event.is_action_pressed("picker"):
+		picker()
+	
 	if event.is_action_pressed("menu"):
 		pass # Open inventory/crafting
 
@@ -33,6 +36,7 @@ func select() -> void:
 
 func stop_select() -> void:
 	selecting = false
+	MessageBus.player_release_selected.emit()
 
 func cancel() -> void:
 	if canceling:
@@ -48,3 +52,6 @@ func stop_cancel() -> void:
 
 func rotate() -> void:
 	MessageBus.player_rotated.emit()
+
+func picker() -> void:
+	MessageBus.player_picked.emit()

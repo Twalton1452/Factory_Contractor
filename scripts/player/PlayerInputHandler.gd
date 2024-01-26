@@ -18,6 +18,7 @@ func _ready():
 	MessageBus.player_selected.connect(_on_player_selected)
 	MessageBus.player_canceled.connect(_on_player_canceled)
 	MessageBus.player_rotated.connect(_on_player_rotated)
+	MessageBus.player_picked.connect(_on_player_picked)
 	disable()
 
 func enable() -> void:
@@ -29,6 +30,9 @@ func disable() -> void:
 	current_data = null
 
 func _on_build_slot_pressed(component_data: ComponentData) -> void:
+	enter_build_mode_with(component_data)
+
+func enter_build_mode_with(component_data: ComponentData) -> void:
 	current_data = component_data
 	enable()
 	if current_data:
@@ -68,13 +72,22 @@ func _on_player_canceled() -> void:
 func _on_player_rotated() -> void:
 	if current_data != null:
 		sprite.rotation += PI/2
-	elif shape_cast.is_colliding():
+	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building:
 			node.rotation += PI/2
 
+func _on_player_picked() -> void:
+	if shape_cast.is_colliding():
+		var node = shape_cast.get_collider(0)
+		if node is Building:
+			enter_build_mode_with(node.data)
+			sprite.rotation = node.rotation
+	else:
+		disable()
+
 func placing_position(pos: Vector2) -> Vector2:
-	return Vector2(snapped(floor(pos.x), 16.0), snapped(floor(pos.y), 16.0))
+	return Vector2(snapped(floor(pos.x), Constants.TILE_SIZE), snapped(floor(pos.y), Constants.TILE_SIZE))
 
 func _physics_process(_delta):
 	if required_shape_cast.is_colliding() and not shape_cast.is_colliding():
