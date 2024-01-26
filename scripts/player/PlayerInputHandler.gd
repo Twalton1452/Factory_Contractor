@@ -14,10 +14,16 @@ var component_scene : PackedScene = preload("res://scenes/component.tscn")
 
 var current_data : ComponentData = null
 
+## When the player holds Right click and is building something at the same time-
+## delete things, but keep what they're building.
+## When the player didn't delete something then cancel their build
+var deleted_something_during_cancel = false
+
 func _ready():
 	MessageBus.build_slot_pressed.connect(_on_build_slot_pressed)
 	MessageBus.player_selected.connect(_on_player_selected)
 	MessageBus.player_canceled.connect(_on_player_canceled)
+	MessageBus.player_released_cancel.connect(_on_player_released_cancel)
 	MessageBus.player_rotated.connect(_on_player_rotated)
 	MessageBus.player_picked.connect(_on_player_picked)
 	exit_build_mode()
@@ -61,14 +67,18 @@ func _on_player_selected() -> void:
 	objects_parent.add_child(placed_node)
 
 func _on_player_canceled() -> void:
-	# Cancel the Build if we aren't hovering anything
-	if in_build_mode() and not shape_cast.is_colliding():
-		exit_build_mode()
 	# Remove things underneath what we're hovering
-	elif shape_cast.is_colliding():
+	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building and not node.is_queued_for_deletion():
 			node.queue_free()
+			deleted_something_during_cancel = true
+
+func _on_player_released_cancel() -> void:
+	# Cancel the Build if we aren't hovering anything
+	if in_build_mode() and not shape_cast.is_colliding() and not deleted_something_during_cancel:
+		exit_build_mode()
+	deleted_something_during_cancel = false
 
 func _on_player_rotated() -> void:
 	if in_build_mode():

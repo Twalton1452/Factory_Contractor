@@ -36,7 +36,7 @@ func select() -> void:
 
 func stop_select() -> void:
 	selecting = false
-	MessageBus.player_release_selected.emit()
+	MessageBus.player_released_select.emit()
 
 func cancel() -> void:
 	if canceling:
@@ -49,6 +49,7 @@ func cancel() -> void:
 
 func stop_cancel() -> void:
 	canceling = false
+	MessageBus.player_released_cancel.emit()
 
 func rotate() -> void:
 	MessageBus.player_rotated.emit()
