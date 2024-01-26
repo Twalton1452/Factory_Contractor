@@ -20,6 +20,9 @@ size = Vector2(15, 15)
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
+[node name="Ticker" type="Node" parent="."]
+script = ExtResource("4_safy8")
+
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("1_vnbxi")
 
@@ -52,9 +55,6 @@ z_index = 10
 
 [node name="Outline" type="Sprite2D" parent="PlayerInputHandler/Placer"]
 texture = ExtResource("3_xdq3l")
-
-[node name="Ticker" type="Node" parent="."]
-script = ExtResource("4_safy8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -19,9 +19,23 @@ func _ready() -> void:
 	building = get_parent()
 	building.area_entered.connect(_on_building_entered)
 	building.area_exited.connect(_on_building_exited)
+	
+	# Detecting Patch's to Extract from them
 	building.collision_mask |= Constants.COMPONENT_PATCH_LAYER
 	
 	find_requestors()
+
+func find_requestors() -> void:
+	for neighbor in building.get_neighbors().as_array():
+		var conveyor : ConveyorBelt = neighbor.get_node_or_null(Constants.CONVEYOR_BELT)
+		if conveyor != null:
+			conveyor.update_neighbors()
+
+func register_requestor(requestor: ConveyorBelt) -> void:
+	requestors.push_back(requestor)
+
+func unregister_requestor(requestor: ConveyorBelt) -> void:
+	requestors.erase(requestor)
 
 func _on_building_entered(area: Area2D) -> void:
 	if area.collision_layer & Constants.COMPONENT_PATCH_LAYER == Constants.COMPONENT_PATCH_LAYER:
@@ -38,55 +52,31 @@ func _on_patch_empty() -> void:
 	extracting_from = null
 	building.modulate = building.modulate.darkened(0.6)
 
-## When the Extract is placed, it needs to fight where to Extract to
-## If it was already placed and there is nothing nearby then whenever a neighboring
-## requestor is placed, it will register itself to this Extractor
-func find_requestors() -> void:
-	# TODO: Check to make sure the Building is facing the opposite direction of this Extractor
-	# Problem (E is Extractor, > is Conveyor facing Right):
-	# 		E
-	#		>
-	# The conveyor is receiving Extracted Components, but I want it to Pull when it visually makes sense
-	var left = Helpers.ray_cast(building, Vector2.LEFT, Constants.TILE_SIZE, Constants.FACTORY_LAYER)
-	var down = Helpers.ray_cast(building, Vector2.DOWN, Constants.TILE_SIZE, Constants.FACTORY_LAYER)
-	var right = Helpers.ray_cast(building, Vector2.RIGHT, Constants.TILE_SIZE, Constants.FACTORY_LAYER)
-	var up = Helpers.ray_cast(building, Vector2.UP, Constants.TILE_SIZE, Constants.FACTORY_LAYER)
-	
-	if left.size() > 0:
-		check_for_valid_requestor(left.collider)
-	if down.size() > 0:
-		check_for_valid_requestor(down.collider)
-	if right.size() > 0:
-		check_for_valid_requestor(right.collider)
-	if up.size() > 0:
-		check_for_valid_requestor(up.collider)
-
-func check_for_valid_requestor(area: Area2D) -> void:
-	var conveyor : ConveyorBelt = area.get_node_or_null(Constants.CONVEYOR_BELT)
-	if conveyor != null:
-		register_requestor(conveyor)
-
-func register_requestor(requestor: ConveyorBelt) -> void:
-	requestors.push_back(requestor)
-	requestor.tree_exited.connect(_unregister_requestor)
-
-func _unregister_requestor() -> void:
-	var to_erase : ConveyorBelt = null
-	for requestor in requestors:
-		if not requestor.is_inside_tree():
-			to_erase = requestor
-			break
-	requestors.erase(to_erase)
+func get_next_requestor() -> ConveyorBelt:
+	var iterations = 0
+	while !requestors[current_requestor].can_receive() or requestors[current_requestor].is_queued_for_deletion():
+		current_requestor = (current_requestor + 1) % requestors.size()
+		
+		iterations += 1
+		if iterations > requestors.size() - 1:
+			return null
+	return requestors[current_requestor]
 
 func tick() -> void:
 	if extracting_from and requestors.size() > 0:
+		var next_requestor = get_next_requestor()
+		# All requestors are full!
+		if next_requestor == null:
+			return
+		current_requestor = (current_requestor + 1) % requestors.size()
+		
 		var extracted = extracting_from.extract()
 		if extracted == null:
 			return
 		
 		var extracted_component : Component = component_scene.instantiate()
 		extracted_component.data = extracted
-		extracted_component.position = requestors[current_requestor].building.position
-		current_requestor = (current_requestor + 1) % requestors.size()
-		# Temporary, maybe add Spawner autoload?
+		next_requestor.receive(extracted_component)
+		extracted_component.position = next_requestor.building.position
+		# Temporary, maybe add Spawner autoload? This is just relying on the Patch to be a child of "Objects"
 		building.get_parent().add_child(extracted_component)

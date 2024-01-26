@@ -87,7 +87,7 @@ func _on_player_rotated() -> void:
 	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building:
-			node.rotation += PI/2
+			node.rotate_to(node.rotation + PI/2)
 			sprite.rotation = node.rotation
 
 func _on_player_picked() -> void:

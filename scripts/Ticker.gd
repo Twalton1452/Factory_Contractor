@@ -12,6 +12,9 @@ func _physics_process(_delta):
 func tick_conveyors() -> void:
 	for conveyor in get_tree().get_nodes_in_group(Constants.CONVEYOR_GROUP):
 		(conveyor as ConveyorBelt).tick()
+	
+	for conveyor in get_tree().get_nodes_in_group(Constants.CONVEYOR_GROUP):
+		(conveyor as ConveyorBelt).post_tick()
 
 func tick_extractors() -> void:
 	for conveyor in get_tree().get_nodes_in_group(Constants.EXTRACTOR_GROUP):
