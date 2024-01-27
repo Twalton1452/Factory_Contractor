@@ -46,7 +46,8 @@ func update_neighbors() -> void:
 			grabbing_from = extractor
 
 func _on_rotated() -> void:
-	grabbing_from.unregister_requestor(self)
+	if grabbing_from:
+		grabbing_from.unregister_requestor(self)
 	update_neighbors()
 
 func find_next_in_line() -> void:

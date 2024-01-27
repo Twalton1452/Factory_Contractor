@@ -1,12 +1,10 @@
 extends Node
 
-const CONVEYOR_TICK_RATE = 60
-const EXTRACTOR_TICK_RATE = 60
 
 func _physics_process(_delta):
-	if Engine.get_physics_frames() % CONVEYOR_TICK_RATE == 0:
+	if Engine.get_physics_frames() % Constants.CONVEYOR_TICK_RATE == 0:
 		tick_conveyors()
-	if Engine.get_physics_frames() % EXTRACTOR_TICK_RATE == 0:
+	if Engine.get_physics_frames() % Constants.EXTRACTOR_TICK_RATE == 0:
 		tick_extractors()
 
 func tick_conveyors() -> void:

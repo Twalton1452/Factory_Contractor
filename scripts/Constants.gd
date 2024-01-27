@@ -15,3 +15,7 @@ const COMPONENT_LAYER = 1 << 2
 # Building Component Names
 const EXTRACTOR = "Extractor"
 const CONVEYOR_BELT = "ConveyorBelt"
+
+# Tick Rates
+const CONVEYOR_TICK_RATE = 60
+const EXTRACTOR_TICK_RATE = 60
