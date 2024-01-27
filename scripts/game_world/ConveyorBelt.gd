@@ -10,6 +10,7 @@ var holding : Component = null
 var next_in_line : ConveyorBelt = null
 var grabbing_from : Extractor = null
 var received_this_tick = false
+var moved_this_tick = false
 
 func _ready() -> void:
 	add_to_group(Constants.CONVEYOR_GROUP)
@@ -80,12 +81,23 @@ func receive(something: Component) -> void:
 	holding = something
 	received_this_tick = true
 
+# TODO: Revisit
+# Unused, I kind of like the instant popping.
+# I think Lerping will be better for perf than tweening, but the smoothness and ease
+# of the tween looks nice from an aesthetic perspective just watching things work
+func animate_move() -> void:
+	var t = holding.create_tween()
+	var time_to_move = float(Constants.CONVEYOR_TICK_RATE) / float(Engine.physics_ticks_per_second) - 0.05
+	var target_position = holding.position + building.transform.x.normalized() * Constants.TILE_SIZE
+	t.tween_property(holding, "position", target_position, time_to_move)
+
 func tick() -> void:
-	if holding and not received_this_tick:
+	if holding and (not received_this_tick or moved_this_tick):
 		if next_in_line != null:
 			if next_in_line.can_receive():
 				next_in_line.receive(holding)
 				holding.position += building.transform.x.normalized() * Constants.TILE_SIZE
+				moved_this_tick = true
 				holding = null
 		# Throw it off the Belt
 		#else:
@@ -95,3 +107,4 @@ func tick() -> void:
 
 func post_tick() -> void:
 	received_this_tick = false
+	moved_this_tick = false

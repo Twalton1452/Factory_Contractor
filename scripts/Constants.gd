@@ -17,5 +17,5 @@ const EXTRACTOR = "Extractor"
 const CONVEYOR_BELT = "ConveyorBelt"
 
 # Tick Rates
-const CONVEYOR_TICK_RATE = 60
+const CONVEYOR_TICK_RATE = 20
 const EXTRACTOR_TICK_RATE = 60
