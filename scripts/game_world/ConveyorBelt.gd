@@ -66,6 +66,7 @@ func find_next_in_line() -> void:
 		#if (-next_in_line.building.transform.x.normalized()).is_equal_approx(building.transform.x.normalized()):
 			#next_in_line.next_in_line = self
 
+## Primarily for when a conveyor is placed ontop of a free Component
 func _on_building_entered(area: Area2D) -> void:
 	if area.collision_layer & Constants.COMPONENT_LAYER == Constants.COMPONENT_LAYER:
 		receive(area)
@@ -82,7 +83,7 @@ func receive(something: Component) -> void:
 	received_this_tick = true
 
 # TODO: Revisit
-# Unused, I kind of like the instant popping.
+# Unused, I kind of like the instant popping for the 1-bit artstyle atm.
 # I think Lerping will be better for perf than tweening, but the smoothness and ease
 # of the tween looks nice from an aesthetic perspective just watching things work
 func animate_move() -> void:
@@ -96,7 +97,7 @@ func tick() -> void:
 		if next_in_line != null:
 			if next_in_line.can_receive():
 				next_in_line.receive(holding)
-				holding.position += building.transform.x.normalized() * Constants.TILE_SIZE
+				holding.position += (building.transform.x.normalized().snapped(Vector2.ONE) * Constants.TILE_SIZE)
 				moved_this_tick = true
 				holding = null
 		# Throw it off the Belt
