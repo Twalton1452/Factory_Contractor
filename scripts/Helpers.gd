@@ -40,3 +40,29 @@ static func ray_right(from: Node2D) -> Node2D:
 	return right.collider
 
 #endregion
+
+#region Directional Helpers
+# https://docs.godotengine.org/en/stable/tutorials/math/vector_math.html#dot-product
+
+## Checks the rotations of two nodes facing the same direction (-> ->)
+static func is_facing_same_direction(node_one: Node2D, node_two: Node2D) -> bool:
+	var dot = node_one.transform.x.normalized().dot(node_two.transform.x.normalized())
+	if dot == 1:
+		return true
+	return false
+
+## Checks the rotations of two nodes facing each other (-> <-)
+static func is_facing_each_other(node_one: Node2D, node_two: Node2D) -> bool:
+	var dot = node_one.transform.x.normalized().dot(node_two.transform.x.normalized())
+	if dot == -1:
+		return true
+	return false
+
+## Checks the rotations of two nodes perpendicular to each other (-> v)
+static func is_perpendicular(node_one: Node2D, node_two: Node2D) -> bool:
+	var dot = node_one.transform.x.normalized().dot(node_two.transform.x.normalized())
+	if is_equal_approx(dot, 0.0): # noticed 0.0000XXXX values
+		return true
+	return false
+
+#endregion
