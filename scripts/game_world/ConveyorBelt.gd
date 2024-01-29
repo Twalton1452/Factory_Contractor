@@ -20,19 +20,15 @@ func _ready() -> void:
 	building.area_entered.connect(_on_building_entered)
 	building.area_exited.connect(_on_building_exited)
 	building.rotated.connect(_on_rotated)
+	building.new_neighbor.connect(_on_new_neighbor)
 	
 	# Detecting Components to move them
 	building.collision_mask |= Constants.COMPONENT_LAYER
 	
 	update_neighbors()
 
-func _exit_tree():
-	if grabbing_from != null:
-		grabbing_from.unregister_requestor(self)
-
 func update_neighbors() -> void:
 	find_next_in_line()
-	
 	var neighbors = building.get_neighbors()
 	for neighbor in neighbors.as_array():
 		var conveyor : ConveyorBelt = neighbor.get_node_or_null(Constants.CONVEYOR_BELT)
@@ -43,12 +39,12 @@ func update_neighbors() -> void:
 	if neighbors.behind != null:
 		var extractor : Extractor = neighbors.behind.get_node_or_null(Constants.EXTRACTOR)
 		if extractor:
-			extractor.register_requestor(self)
 			grabbing_from = extractor
 
+func _on_new_neighbor(_new_neighbor: Building) -> void:
+	update_neighbors()
+
 func _on_rotated() -> void:
-	if grabbing_from:
-		grabbing_from.unregister_requestor(self)
 	update_neighbors()
 
 func find_next_in_line() -> void:
@@ -75,6 +71,12 @@ func _on_building_exited(area: Area2D) -> void:
 	if area == holding:
 		holding = null
 
+func grab() -> void:
+	if grabbing_from.holding != null and can_receive():
+		var taking = grabbing_from.take_from()
+		taking.position = building.position
+		receive(taking)
+
 func can_receive() -> bool:
 	return holding == null and not received_this_tick
 
@@ -93,8 +95,8 @@ func animate_move() -> void:
 	t.tween_property(holding, "position", target_position, time_to_move)
 
 func tick() -> void:
-	if holding and (not received_this_tick or moved_this_tick):
-		if next_in_line != null:
+	if holding:
+		if next_in_line != null and (not received_this_tick or moved_this_tick):
 			if next_in_line.can_receive():
 				next_in_line.receive(holding)
 				holding.position += (building.transform.x.normalized().snapped(Vector2.ONE) * Constants.TILE_SIZE)
@@ -105,6 +107,8 @@ func tick() -> void:
 			#holding.position += building.transform.x.normalized() * Constants.TILE_SIZE
 			#holding = null
 			#print("end of the line for ", name)
+	elif grabbing_from != null:
+		grab()
 
 func post_tick() -> void:
 	received_this_tick = false

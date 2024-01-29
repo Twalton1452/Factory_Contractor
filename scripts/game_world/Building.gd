@@ -7,6 +7,7 @@ class_name Building
 ## Buildings have child Nodes for their logic
 
 signal rotated
+signal new_neighbor(neighbor: Building)
 
 @export var data : ComponentData : 
 	set(value):
@@ -48,6 +49,17 @@ class Neighbors:
 func _ready():
 	if data.to_attach != null:
 		add_child.call_deferred(data.to_attach.new())
+	
+	# Let this Building move in and get setup
+	# Then tell the neighbors about how you moved in
+	greet_neighbors.call_deferred()
+
+func greet_neighbors() -> void:
+	for neighbor in get_neighbors().as_array():
+		neighbor.receive_neighbor_greeting(self)
+
+func receive_neighbor_greeting(building: Building) -> void:
+	new_neighbor.emit(building)
 
 func rotate_to(new_rotation: float) -> void:
 	rotation = new_rotation
