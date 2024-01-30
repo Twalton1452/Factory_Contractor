@@ -7,7 +7,11 @@ class_name Assembler
 
 var building : Building = null
 var storage : Dictionary = {} # { key: ComponentData, val: int }
-var end_result : ComponentData = null
+var end_result : ComponentData = null :
+	set(value):
+		end_result = value
+		if end_result:
+			check_building()
 
 func _ready() -> void:
 	add_to_group(Constants.ASSEMBLER_GROUP)
@@ -17,6 +21,10 @@ func _ready() -> void:
 	building.received_component.connect(_on_component_received)
 	
 	building.collision_layer |= Constants.ASSEMBLER_LAYER
+
+func check_building() -> void:
+	if building.holding:
+		_on_component_received(building.holding)
 
 func _on_component_received(component: Component) -> void:
 	# Don't store things if the Assembler doesn't have a recipe yet
@@ -28,13 +36,12 @@ func _on_component_received(component: Component) -> void:
 	else:
 		storage[component.data] = 1
 	
-	building.take_from()
-	
 	# Wait some frames so the Player can see it go into the Building
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
+	building.take_from()
 	# Delete it because now it will just be kept track in the UI
 	component.queue_free()
 
