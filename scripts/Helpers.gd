@@ -1,11 +1,12 @@
 class_name Helpers
 
-static func ray_cast(from: Node2D, direction: Vector2, distance: float, mask: int) -> Dictionary:
+static func ray_cast(from: Node2D, direction: Vector2, distance: float, mask: int, hit_from_inside = false) -> Dictionary:
 	var space_state = from.get_world_2d().direct_space_state
 	var origin = from.global_position
 	var end = origin + direction * distance
 	var query = PhysicsRayQueryParameters2D.create(origin, end, mask)
 	query.collide_with_areas = true
+	query.hit_from_inside = hit_from_inside
 	return space_state.intersect_ray(query)
 
 #region Directional rays in relation to the Node
@@ -38,6 +39,13 @@ static func ray_right(from: Node2D) -> Node2D:
 	if right.size() == 0:
 		return null
 	return right.collider
+
+## Cast a ray ontop of the Node. Used to find specific things when placing Nodes
+static func ray_self(from: Node2D, mask: int) -> Node2D:
+	var ontop_self = Helpers.ray_cast(from, Vector2(0.1, 0.1), 0.1, mask, true)
+	if ontop_self.size() == 0:
+		return null
+	return ontop_self.collider
 
 #endregion
 

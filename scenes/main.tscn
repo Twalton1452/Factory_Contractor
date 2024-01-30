@@ -165,108 +165,92 @@ data = ExtResource("4_n2mmp")
 
 [node name="Building2" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(192, 160)
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building3" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(208, 160)
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building4" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(224, 160)
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building5" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(240, 160)
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building6" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(256, 160)
 rotation = 1.5708
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building7" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(256, 176)
 rotation = 1.59267
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building8" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(256, 192)
 rotation = 1.59267
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building9" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(256, 208)
 rotation = 1.59267
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building10" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(256, 224)
 rotation = 3.14159
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building11" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(240, 224)
 rotation = 3.14159
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building12" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(224, 224)
 rotation = 3.14159
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building13" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(208, 224)
 rotation = 3.14159
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building14" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(192, 224)
 rotation = 4.71239
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building15" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(192, 208)
 rotation = 4.71239
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building16" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(192, 192)
 rotation = 4.71239
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
 
 [node name="Building17" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
 position = Vector2(192, 176)
 rotation = 4.71239
-collision_mask = 4
 data = ExtResource("4_n2mmp")
 sprite = NodePath("../Building/Sprite2D")
