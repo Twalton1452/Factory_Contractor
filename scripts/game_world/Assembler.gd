@@ -11,7 +11,11 @@ var end_result : ComponentData = null :
 	set(value):
 		end_result = value
 		if end_result:
+			storage.clear()
+			update_building_allow_dict()
 			check_building()
+
+var component_scene : PackedScene = preload("res://scenes/component.tscn")
 
 func _ready() -> void:
 	add_to_group(Constants.ASSEMBLER_GROUP)
@@ -22,9 +26,18 @@ func _ready() -> void:
 	
 	building.collision_layer |= Constants.ASSEMBLER_LAYER
 
+func update_building_allow_dict() -> void:
+	building.holding_allow_dict = end_result.required_components.duplicate()
+
+func block_component(component_data: ComponentData) -> void:
+	building.holding_allow_dict.erase(component_data)
+
 func check_building() -> void:
 	if building.holding:
-		_on_component_received(building.holding)
+		if end_result.required_components.has(building.holding.data):
+			_on_component_received(building.holding)
+		else:
+			building.holding.queue_free()
 
 func _on_component_received(component: Component) -> void:
 	# Don't store things if the Assembler doesn't have a recipe yet
@@ -32,9 +45,12 @@ func _on_component_received(component: Component) -> void:
 		return
 	
 	if storage.has(component.data):
-		storage[component.data] += 1
+		if storage[component.data] < end_result.required_components[component.data]:
+			storage[component.data] += 1
 	else:
 		storage[component.data] = 1
+	building.holding_allow_dict[component.data] -= 1
+	
 	
 	# Wait some frames so the Player can see it go into the Building
 	await get_tree().physics_frame
@@ -42,8 +58,27 @@ func _on_component_received(component: Component) -> void:
 	await get_tree().physics_frame
 	
 	building.take_from()
+	check_storage_for_all_components_met()
+	
 	# Delete it because now it will just be kept track in the UI
 	component.queue_free()
+
+func check_storage_for_all_components_met() -> void:
+	for key in storage.keys():
+		if storage[key] < end_result.required_components[key]:
+			return
+	
+	storage.clear()
+	var crafted_component : Component = craft()
+	crafted_component.position = building.position
+	building.holding = crafted_component
+	update_building_allow_dict()
+
+func craft() -> Component:
+	var component : Component = component_scene.instantiate()
+	component.data = end_result
+	building.get_parent().add_child(component)
+	return component
 
 func _on_building_entered(_area) -> void:
 	pass

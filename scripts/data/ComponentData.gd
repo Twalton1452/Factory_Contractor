@@ -5,7 +5,7 @@ class_name ComponentData
 @export var display_name : StringName
 @export var icon : Texture
 @export var color_adjustment = Color.WHITE
-@export var required_components : Array[ComponentData]
+@export var required_components : Dictionary # { key: ComponentData, val: int }
 
 @export_category("Placement")
 ## Nodes to attach to this Component when placed. Signifies it is a Building whe not null |

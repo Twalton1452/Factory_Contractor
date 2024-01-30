@@ -20,7 +20,7 @@ signal new_neighbor(neighbor: Building)
 @export var sprite : Sprite2D
 
 var holding : Component = null
-var holding_allow_list : Array[ComponentData] = []
+var holding_allow_dict : Dictionary = {} # { key: ComponentData, val: int }
 
 # TODO: Bit flags?
 var received_this_frame = false
@@ -88,7 +88,7 @@ func can_receive(component: Component) -> bool:
 	return \
 	holding == null and \
 	not received_this_frame and \
-	(holding_allow_list.size() == 0 or component.data in holding_allow_list)
+	(holding_allow_dict.size() == 0 or holding_allow_dict.has(component.data) and holding_allow_dict[component.data] > 0)
 
 func receive(component: Component) -> void:
 	holding = component
