@@ -41,7 +41,7 @@ func animate_move() -> void:
 
 func tick() -> void:
 	if building.holding:
-		if next_in_line != null and next_in_line.can_receive() and not building.received_this_frame:
+		if next_in_line != null and next_in_line.can_receive(building.holding) and not building.received_this_frame:
 			var moving = building.take_from()
 			next_in_line.receive(moving)
 	elif grabbing_from != null and grabbing_from.can_take():

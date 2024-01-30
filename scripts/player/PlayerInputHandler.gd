@@ -22,6 +22,7 @@ var deleted_something_during_cancel = false
 func _ready():
 	MessageBus.build_slot_pressed.connect(_on_build_slot_pressed)
 	MessageBus.player_selecting.connect(_on_player_selected)
+	MessageBus.player_released_select.connect(_on_player_released_selected)
 	MessageBus.player_canceling.connect(_on_player_canceled)
 	MessageBus.player_released_cancel.connect(_on_player_released_cancel)
 	MessageBus.player_rotated.connect(_on_player_rotated)
@@ -47,6 +48,7 @@ func exit_build_mode() -> void:
 	sprite.hide()
 	sprite.rotation = 0.0
 	current_data = null
+	shape_cast.collision_mask |= Constants.ASSEMBLER_LAYER
 
 func _on_player_selected() -> void:
 	if not in_build_mode():
@@ -65,6 +67,18 @@ func _on_player_selected() -> void:
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
 	objects_parent.add_child(placed_node)
+
+func _on_player_released_selected() -> void:
+	if in_build_mode():
+		return
+	
+	if shape_cast.is_colliding():
+		var colliding = shape_cast.get_collider(0)
+		if colliding is Building:
+			var assembler = colliding.get_node_or_null(Constants.ASSEMBLER)
+			if assembler:
+				MessageBus.player_selected_assembler.emit(assembler)
+				# TODO: Display UI to set Assembler
 
 func _on_player_canceled() -> void:
 	# Remove things underneath what we're hovering

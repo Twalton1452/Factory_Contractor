@@ -10,6 +10,7 @@ signal build_slot_pressed(component_data: ComponentData)
 # Player
 signal player_selecting
 signal player_released_select
+signal player_selected_assembler(assembler: Assembler)
 signal player_canceling
 signal player_released_cancel
 signal player_rotated

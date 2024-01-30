@@ -13,6 +13,7 @@ const EXTRACTOR_GROUP = "Extractors"
 const FACTORY_LAYER = 1 << 0
 const COMPONENT_PATCH_LAYER = 1 << 1
 const COMPONENT_LAYER = 1 << 2
+const ASSEMBLER_LAYER = 1 << 3
 
 # Building Component Names
 const ASSEMBLER = "Assembler"

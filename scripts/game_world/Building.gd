@@ -20,6 +20,8 @@ signal new_neighbor(neighbor: Building)
 @export var sprite : Sprite2D
 
 var holding : Component = null
+var holding_allow_list : Array[ComponentData] = []
+
 # TODO: Bit flags?
 var received_this_frame = false
 var taken_from_this_frame = false
@@ -82,8 +84,11 @@ func rotate_to(new_rotation: float) -> void:
 func get_neighbors() -> Neighbors:
 	return Neighbors.new(self)
 
-func can_receive() -> bool:
-	return holding == null and not received_this_frame
+func can_receive(component: Component) -> bool:
+	return \
+	holding == null and \
+	not received_this_frame and \
+	(holding_allow_list.size() == 0 or component.data in holding_allow_list)
 
 func receive(component: Component) -> void:
 	holding = component
@@ -103,9 +108,3 @@ func take_from() -> Component:
 func post_tick() -> void:
 	taken_from_this_frame = false
 	received_this_frame = false
-
-#func _on_building_entered(area) -> void:
-	#holding = area
-#
-#func _on_building_exited(area) -> void:
-	#holding = null
