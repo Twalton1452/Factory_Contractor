@@ -6,6 +6,7 @@ extends Node
 
 # UI
 signal build_slot_pressed(component_data: ComponentData)
+signal recipe_slot_pressed(component_data: ComponentData)
 
 # Player
 signal player_selecting
