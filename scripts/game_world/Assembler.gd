@@ -28,6 +28,9 @@ func _ready() -> void:
 
 func update_building_allow_dict() -> void:
 	building.holding_allow_dict = end_result.required_components.duplicate()
+	storage = end_result.required_components.duplicate()
+	for key in storage.keys():
+		storage[key] = 0
 
 func block_component(component_data: ComponentData) -> void:
 	building.holding_allow_dict.erase(component_data)

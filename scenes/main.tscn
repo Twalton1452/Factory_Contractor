@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=15 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://4wa3ctsf8gv2" path="res://resources/components/basic_extractor.tres" id="7_mdcut"]
 [ext_resource type="PackedScene" uid="uid://cbxds4sxc77aq" path="res://scenes/component_patch.tscn" id="9_iknef"]
 [ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="11_o3b7r"]
-[ext_resource type="PackedScene" uid="uid://dqyscbwpwuffy" path="res://scenes/building.tscn" id="12_fox1h"]
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_machine_icon.tres" id="12_yw04d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
@@ -218,70 +217,26 @@ component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
 [node name="ComponentPatch6" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
-position = Vector2(160, 160)
-component_to_extract = ExtResource("4_t7mge")
-sprite = NodePath("../ComponentPatch/Sprite2D")
-
-[node name="ComponentPatch7" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
-position = Vector2(160, 144)
+position = Vector2(80, 336)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="Building" parent="Objects" instance=ExtResource("12_fox1h")]
-position = Vector2(176, 160)
-data = ExtResource("4_n2mmp")
+[node name="ComponentPatch7" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(96, 336)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="Building2" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(192, 160)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
+[node name="ComponentPatch8" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(96, 352)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="Building3" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(208, 160)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
+[node name="ComponentPatch9" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(80, 352)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="Building4" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(224, 160)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building5" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(240, 160)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building6" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(256, 160)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building7" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(176, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building8" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(192, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building9" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(208, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building10" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(224, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building11" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(240, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
-
-[node name="Building12" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("12_fox1h")]
-position = Vector2(256, 144)
-data = ExtResource("4_n2mmp")
-sprite = NodePath("../Building/Sprite2D")
+[node name="ComponentPatch10" parent="Objects" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(80, 320)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
