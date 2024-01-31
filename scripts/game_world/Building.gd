@@ -9,6 +9,7 @@ class_name Building
 signal received_component(component: Component)
 signal rotated
 signal new_neighbor(neighbor: Building)
+signal neighbor_left(neighbor: Building)
 
 @export var data : ComponentData : 
 	set(value):
@@ -69,13 +70,21 @@ func _ready():
 func _exit_tree() -> void:
 	if holding != null:
 		holding.queue_free()
+	say_goodbye_to_neighbors()
+
+func say_goodbye_to_neighbors() -> void:
+	for neighbor in get_neighbors().as_array():
+		neighbor.accept_goodbye_from_neighbor(self)
+
+func accept_goodbye_from_neighbor(neighbor: Building) -> void:
+	neighbor_left.emit(neighbor)
 
 func greet_neighbors() -> void:
 	for neighbor in get_neighbors().as_array():
 		neighbor.receive_neighbor_greeting(self)
 
-func receive_neighbor_greeting(building: Building) -> void:
-	new_neighbor.emit(building)
+func receive_neighbor_greeting(neighbor: Building) -> void:
+	new_neighbor.emit(neighbor)
 
 func rotate_to(new_rotation: float) -> void:
 	rotation = new_rotation

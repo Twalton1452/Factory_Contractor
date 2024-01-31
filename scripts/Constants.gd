@@ -8,6 +8,7 @@ const ASSEMBLER_GROUP = "Assemblers"
 const BUILDING_GROUP = "Buildings"
 const CONVEYOR_GROUP = "ConveyorBelts"
 const EXTRACTOR_GROUP = "Extractors"
+const SPLITTER_GROUP = "Splitters"
 
 # Layers
 const FACTORY_LAYER = 1 << 0
@@ -19,6 +20,7 @@ const ASSEMBLER_LAYER = 1 << 3
 const ASSEMBLER = "Assembler"
 const EXTRACTOR = "Extractor"
 const CONVEYOR_BELT = "ConveyorBelt"
+const SPLITTER = "Splitter"
 
 # Tick Rates
 const BUILDING_TICK_RATE = 20

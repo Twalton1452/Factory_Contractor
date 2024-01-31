@@ -52,6 +52,12 @@ static func ray_self(from: Node2D, mask: int) -> Node2D:
 #region Directional Helpers
 # https://docs.godotengine.org/en/stable/tutorials/math/vector_math.html#dot-product
 
+## Checks to see if a node is looking away from another node
+static func is_node_facing_away_from_other_node(node_to_check: Node2D, against: Node2D) -> bool:
+	var direction = (against.position - node_to_check.position).normalized()
+	var dot = snapped(direction.dot(node_to_check.transform.x), 1.0)
+	return dot <= 0
+
 ## Checks the rotations of two nodes facing the same direction (-> ->)
 static func is_facing_same_direction(node_one: Node2D, node_two: Node2D) -> bool:
 	var dot = node_one.transform.x.normalized().dot(node_two.transform.x.normalized())
