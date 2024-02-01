@@ -14,4 +14,5 @@ func _ready():
 func set_to(data: ComponentData, amount: int) -> void:
 	texture_rect.texture = data.icon
 	texture_rect.modulate = data.color_adjustment
+	texture_rect.tooltip_text = Constants.TOOLTIP_LINE.format({"amount": amount, "display_name": data.display_name })
 	amount_label.text = str(amount)

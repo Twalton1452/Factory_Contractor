@@ -27,3 +27,6 @@ const UNDERGROUND_CONVEYOR = "UndergroundConveyor"
 
 # Tick Rates
 const BUILDING_TICK_RATE = 20
+
+# UI
+const TOOLTIP_LINE = "{amount}x {display_name}"
