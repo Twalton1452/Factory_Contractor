@@ -8,7 +8,7 @@ extends Control
 
 var available_recipes : Array[ComponentData] = [
 	load("res://resources/components/basic_extractor.tres"),
-	load("res://resources/components/basic_machine.tres"),
+	load("res://resources/components/basic_assembler.tres"),
 	load("res://resources/components/conveyor_belt.tres"),
 	load("res://resources/components/underground_conveyor.tres"),
 ]

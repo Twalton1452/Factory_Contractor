@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
-[ext_resource type="Resource" uid="uid://be3v14j1yeubf" path="res://resources/components/basic_machine.tres" id="3_631xw"]
+[ext_resource type="Resource" uid="uid://be3v14j1yeubf" path="res://resources/components/basic_assembler.tres" id="3_631xw"]
 [ext_resource type="PackedScene" uid="uid://8skmj0bdmaea" path="res://scenes/ui/build_slot.tscn" id="3_wmb04"]
 [ext_resource type="Texture2D" uid="uid://cnfccy8m4x6ih" path="res://art/game_icons/selector_outline.tres" id="3_xdq3l"]
 [ext_resource type="Resource" uid="uid://cmwvmjjn3vpkg" path="res://resources/components/conveyor_belt.tres" id="4_n2mmp"]
@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://cewfescrk46q8" path="res://resources/components/splitter.tres" id="9_xekue"]
 [ext_resource type="Resource" uid="uid://cu11vjkpwtxi1" path="res://resources/components/underground_conveyor.tres" id="10_siwwc"]
 [ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="11_o3b7r"]
-[ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_machine_icon.tres" id="12_yw04d"]
+[ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
 size = Vector2(15, 15)
