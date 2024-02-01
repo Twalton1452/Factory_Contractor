@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ComponentData" load_steps=6 format=3 uid="uid://cu11vjkpwtxi1"]
+
+[ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_nwjp0"]
+[ext_resource type="Texture2D" uid="uid://cipy2g8umsktw" path="res://art/game_icons/underground_conveyor_icon.tres" id="1_ofhh5"]
+[ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="2_q0hsx"]
+[ext_resource type="Resource" uid="uid://cmwvmjjn3vpkg" path="res://resources/components/conveyor_belt.tres" id="3_720r8"]
+[ext_resource type="Script" path="res://scripts/game_world/UndergroundConveyor.gd" id="5_myl76"]
+
+[resource]
+script = ExtResource("1_nwjp0")
+display_name = &"Underground Conveyor"
+icon = ExtResource("1_ofhh5")
+color_adjustment = Color(1, 1, 1, 1)
+required_components = {
+ExtResource("2_q0hsx"): 5,
+ExtResource("3_720r8"): 2
+}
+to_attach = ExtResource("5_myl76")
+placed_layer = 9
+required_layer = 0

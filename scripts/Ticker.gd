@@ -6,11 +6,14 @@ func _physics_process(_delta):
 		tick_buildings()
 
 func tick_buildings() -> void:
+	for underground_conveyor in get_tree().get_nodes_in_group(Constants.UNDERGROUND_CONVEYOR_GROUP):
+		(underground_conveyor as UndergroundConveyor).tick()
+	
 	for conveyor in get_tree().get_nodes_in_group(Constants.CONVEYOR_GROUP):
 		(conveyor as ConveyorBelt).tick()
 	
-	for conveyor in get_tree().get_nodes_in_group(Constants.SPLITTER_GROUP):
-		(conveyor as Splitter).tick()
+	for splitter in get_tree().get_nodes_in_group(Constants.SPLITTER_GROUP):
+		(splitter as Splitter).tick()
 	
 	for extractor in get_tree().get_nodes_in_group(Constants.EXTRACTOR_GROUP):
 		(extractor as Extractor).tick()

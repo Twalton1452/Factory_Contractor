@@ -70,6 +70,7 @@ picker={
 2d_physics/layer_1="Factory"
 2d_physics/layer_2="Patch"
 2d_physics/layer_3="Component"
+2d_physics/layer_4="Underground"
 
 [rendering]
 
