@@ -11,6 +11,7 @@ var available_recipes : Array[ComponentData] = [
 	load("res://resources/components/basic_assembler.tres"),
 	load("res://resources/components/conveyor_belt.tres"),
 	load("res://resources/components/underground_conveyor.tres"),
+	load("res://resources/components/storage_container.tres"),
 ]
 
 var currently_selected_assembler : Assembler = null :
@@ -46,10 +47,6 @@ func setup_required_component_slots() -> void:
 		required_components_parent.add_child(required_component_slot)
 		required_component_slot.hide()
 
-func _on_player_chose_recipe(recipe: ComponentData) -> void:
-	currently_selected_assembler.end_result = recipe
-	_on_player_released_cancel()
-
 func populate_required_component_slots(crafting_intent: ComponentData) -> void:
 	var i = 0
 	for key in crafting_intent.required_components.keys(): # { key: ComponentData, val: int }
@@ -61,6 +58,10 @@ func populate_required_component_slots(crafting_intent: ComponentData) -> void:
 	for j in range(i, required_components_parent.get_child_count()):
 		required_components_parent.get_child(j).hide()
 
+func _on_player_chose_recipe(recipe: ComponentData) -> void:
+	currently_selected_assembler.end_result = recipe
+	hide_display()
+
 func _on_player_selected_assembler(assembler: Assembler) -> void:
 	MessageBus.recipe_slot_pressed.connect(_on_player_chose_recipe)
 	MessageBus.player_released_cancel.connect(_on_player_released_cancel)
@@ -70,7 +71,13 @@ func _on_player_selected_assembler(assembler: Assembler) -> void:
 	show()
 
 func _on_player_released_cancel() -> void:
-	MessageBus.recipe_slot_pressed.disconnect(_on_player_chose_recipe)
-	MessageBus.player_released_cancel.disconnect(_on_player_released_cancel)
+	hide_display()
+
+func hide_display() -> void:
+	if MessageBus.recipe_slot_pressed.is_connected(_on_player_chose_recipe):
+		MessageBus.recipe_slot_pressed.disconnect(_on_player_chose_recipe)
+	if MessageBus.player_released_cancel.is_connected(_on_player_released_cancel):
+		MessageBus.player_released_cancel.disconnect(_on_player_released_cancel)
+	
 	currently_selected_assembler = null
 	hide()
