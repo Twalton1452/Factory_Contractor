@@ -11,6 +11,8 @@ class_name ComponentData
 ## Nodes to attach to this Component when placed. Signifies it is a Building whe not null |
 ## TODO: BuildingData instead?
 @export var to_attach : Script
+## Override the default Building Scene. Useful when you need a more customized Building.
+@export var scene_override : PackedScene
 
 ## When the Component is placed into the game world it will exist on this collision layer
 @export_flags_2d_physics var placed_layer : int

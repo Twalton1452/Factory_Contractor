@@ -11,7 +11,7 @@ var available_recipes : Array[ComponentData] = [
 	load("res://resources/components/basic_assembler.tres"),
 	load("res://resources/components/conveyor_belt.tres"),
 	load("res://resources/components/underground_conveyor.tres"),
-	load("res://resources/components/storage_container.tres"),
+	load("res://resources/components/storage_building.tres"),
 ]
 
 var currently_selected_assembler : Assembler = null :

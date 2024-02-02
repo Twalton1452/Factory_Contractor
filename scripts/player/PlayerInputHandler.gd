@@ -10,7 +10,6 @@ extends Node
 @onready var required_shape_cast : ShapeCast2D = $Placer/RequiredShapeCast2D
 
 var placed_scene : PackedScene = preload("res://scenes/building.tscn")
-var component_scene : PackedScene = preload("res://scenes/component.tscn")
 
 var current_data : ComponentData = null
 
@@ -59,7 +58,7 @@ func _on_player_selected() -> void:
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return
 	
-	var placed_node : Node2D = placed_scene.instantiate() if current_data.to_attach != null else component_scene.instantiate()
+	var placed_node : Node2D = placed_scene.instantiate() if current_data.scene_override == null else current_data.scene_override.instantiate()
 	if placed_node is Building or placed_node is Component:
 		placed_node.data = current_data
 	

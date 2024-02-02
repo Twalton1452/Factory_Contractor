@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://cewfescrk46q8" path="res://resources/components/splitter.tres" id="9_xekue"]
 [ext_resource type="Resource" uid="uid://cu11vjkpwtxi1" path="res://resources/components/underground_conveyor.tres" id="10_siwwc"]
 [ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="11_o3b7r"]
-[ext_resource type="Resource" uid="uid://chh7x12ixj1iu" path="res://resources/components/storage_container.tres" id="11_rh0mx"]
+[ext_resource type="Resource" uid="uid://chh7x12ixj1iu" path="res://resources/components/storage_building.tres" id="11_rh0mx"]
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]

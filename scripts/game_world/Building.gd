@@ -14,9 +14,10 @@ signal neighbor_left(neighbor: Building)
 @export var data : ComponentData : 
 	set(value):
 		data = value
-		sprite.texture = data.icon
-		sprite.modulate = data.color_adjustment
-		collision_layer = data.placed_layer
+		if data:
+			sprite.texture = data.icon
+			sprite.modulate = data.color_adjustment
+			collision_layer = data.placed_layer
 
 @export var sprite : Sprite2D
 

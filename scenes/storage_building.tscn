@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cybhs60b5s201"]
+
+[ext_resource type="PackedScene" uid="uid://dqyscbwpwuffy" path="res://scenes/building.tscn" id="1_ychcf"]
+[ext_resource type="Script" path="res://scripts/game_world/StorageBuilding.gd" id="2_gyeom"]
+
+[node name="StorageBuilding" instance=ExtResource("1_ychcf")]
+script = ExtResource("2_gyeom")
