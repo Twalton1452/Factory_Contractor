@@ -9,7 +9,6 @@ class_name StorageBuilding
 # Filter Grabber?
 var inventory : Dictionary = {} # { key: ComponentData, val: int }
 var max_slot_size = 99
-var num_slots = 16
 
 var component_scene : PackedScene = preload("res://scenes/component.tscn")
 
