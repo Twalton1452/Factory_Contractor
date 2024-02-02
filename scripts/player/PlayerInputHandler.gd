@@ -2,6 +2,8 @@ extends Node
 
 ## Class to handle Player Input
 
+signal exited_build_mode
+
 @export var objects_parent : Node2D
 
 @onready var placer : Node2D = $Placer
@@ -43,12 +45,23 @@ func enter_build_mode_with(component_data: ComponentData) -> void:
 		sprite.texture = component_data.icon
 		shape_cast.collision_mask = current_data.placed_layer
 		required_shape_cast.collision_mask = current_data.required_layer
+		if shape_cast.collision_mask & Constants.UNDERGROUND_LAYER == Constants.UNDERGROUND_LAYER:
+			show_range_indicator(Constants.UNDERGROUND_CONVEYOR_MAX_RANGE)
+
+func show_range_indicator(_max_range: int) -> void:
+	# enable a ray cast in 4 directions
+	# when the ray finds another of the same building
+	# facing the same direction as the player is trying to build
+	# highlight it green
+	await exited_build_mode
+	# hide
 
 func exit_build_mode() -> void:
 	sprite.hide()
 	sprite.rotation = 0.0
 	current_data = null
 	shape_cast.collision_mask |= Constants.ASSEMBLER_LAYER
+	exited_build_mode.emit()
 
 func _on_player_selected() -> void:
 	if not in_build_mode():

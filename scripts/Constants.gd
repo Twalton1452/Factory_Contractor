@@ -2,6 +2,7 @@ class_name Constants
 
 # World
 const TILE_SIZE = 16
+const UNDERGROUND_CONVEYOR_MAX_RANGE = 5 * Constants.TILE_SIZE
 
 # Groups
 const ASSEMBLER_GROUP = "Assemblers"

@@ -1,8 +1,6 @@
 extends Node
 class_name UndergroundConveyor
 
-var max_range = 5 * Constants.TILE_SIZE
-
 var building : Building = null
 var next_in_line : Building = null
 var ticks_to_next_in_line = 0
@@ -22,9 +20,9 @@ func _ready() -> void:
 
 func update_neighbors() -> void:
 	for underground_neighbor in [
-		Helpers.ray_behind(building, max_range, Constants.UNDERGROUND_LAYER),
-		Helpers.ray_left(building, max_range, Constants.UNDERGROUND_LAYER),
-		Helpers.ray_right(building, max_range, Constants.UNDERGROUND_LAYER)
+		Helpers.ray_behind(building, Constants.UNDERGROUND_CONVEYOR_MAX_RANGE, Constants.UNDERGROUND_LAYER),
+		Helpers.ray_left(building, Constants.UNDERGROUND_CONVEYOR_MAX_RANGE, Constants.UNDERGROUND_LAYER),
+		Helpers.ray_right(building, Constants.UNDERGROUND_CONVEYOR_MAX_RANGE, Constants.UNDERGROUND_LAYER)
 	]:
 		if underground_neighbor != null:
 			(underground_neighbor.get_node(Constants.UNDERGROUND_CONVEYOR) as UndergroundConveyor).find_next_underground_conveyor()
@@ -32,7 +30,7 @@ func update_neighbors() -> void:
 ## Tries to find another UndergroundConveyor first.
 ## When it cannot be found, it looks for a Building infront
 func find_next_underground_conveyor() -> void:
-	next_in_line = Helpers.ray_forward(building, max_range, Constants.UNDERGROUND_LAYER)
+	next_in_line = Helpers.ray_forward(building, Constants.UNDERGROUND_CONVEYOR_MAX_RANGE, Constants.UNDERGROUND_LAYER)
 	if next_in_line != null:
 		ticks_to_next_in_line = snapped(building.position.distance_to(next_in_line.position), 1.0) / Constants.TILE_SIZE
 	else:
