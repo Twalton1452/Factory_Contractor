@@ -60,11 +60,12 @@ func _on_component_received(component: Component) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
-	building.take_from()
+	var taking = building.take_from()
 	check_storage_for_all_components_met()
 	
 	# Delete it because now it will just be kept track in the UI
-	component.queue_free()
+	if taking:
+		taking.queue_free()
 
 func check_storage_for_all_components_met() -> void:
 	for key in storage.keys():

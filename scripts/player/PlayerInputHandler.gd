@@ -26,6 +26,7 @@ func _ready():
 	MessageBus.player_released_cancel.connect(_on_player_released_cancel)
 	MessageBus.player_rotated.connect(_on_player_rotated)
 	MessageBus.player_picked.connect(_on_player_picked)
+	MessageBus.player_picking_up.connect(_on_player_picking_up)
 	exit_build_mode()
 
 func in_build_mode() -> bool:
@@ -111,6 +112,12 @@ func _on_player_picked() -> void:
 			sprite.rotation = node.rotation
 	else:
 		exit_build_mode()
+
+func _on_player_picking_up() -> void:
+	if shape_cast.is_colliding():
+		var node = shape_cast.get_collider(0)
+		if node is Building and node.holding:
+			node.take_from().queue_free()
 
 func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), Constants.TILE_SIZE), snapped(floor(pos.y), Constants.TILE_SIZE))
