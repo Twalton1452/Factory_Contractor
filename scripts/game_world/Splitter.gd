@@ -30,7 +30,12 @@ func update_neighbors() -> void:
 		if not neighbor.rotated.is_connected(_on_neighbor_rotated):
 			neighbor.rotated.connect(_on_neighbor_rotated)
 		
-		if Helpers.is_node_facing_away_from_other_node(neighbor, building):
+		# Don't output to things that Move Components that are also facing the Splitter
+		# Otherwise directionality doesn't matter
+		if neighbor.get_node_or_null(Constants.CONVEYOR_BELT) or neighbor.get_node_or_null(Constants.UNDERGROUND_CONVEYOR):
+			if Helpers.is_node_facing_away_from_other_node(neighbor, building):
+				neighbors.push_back(neighbor)
+		else:
 			neighbors.push_back(neighbor)
 
 func _on_new_neighbor(_new_neighbor: Building) -> void:
