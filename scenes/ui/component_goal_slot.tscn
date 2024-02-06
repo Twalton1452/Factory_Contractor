@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cknfw37wbjy0n"]
+
+[ext_resource type="Script" path="res://scripts/ui/ComponentGoalSlot.gd" id="1_7qf70"]
+[ext_resource type="Texture2D" uid="uid://bqewswrqvr7af" path="res://art/game_icons/copper_icon.tres" id="1_mp5hq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s5iii"]
+font_size = 12
+
+[node name="ComponentGoalSlot" type="Control"]
+custom_minimum_size = Vector2(84, 16)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7qf70")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_mp5hq")
+
+[node name="CurrentAmountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 57.0
+offset_bottom = 17.0
+text = "9999"
+label_settings = SubResource("LabelSettings_s5iii")
+
+[node name="MaxAmountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 86.0
+offset_bottom = 17.0
+text = "/9999"
+label_settings = SubResource("LabelSettings_s5iii")

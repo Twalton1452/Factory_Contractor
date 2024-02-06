@@ -1,5 +1,5 @@
 extends Control
-class_name RequiredComponentSlot
+class_name ComponentAmountSlot
 
 @export var background : ColorRect
 @export var texture_rect : TextureRect

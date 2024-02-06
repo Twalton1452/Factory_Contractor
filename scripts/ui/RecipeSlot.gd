@@ -11,7 +11,16 @@ class_name RecipeSlot
 			button.tooltip_text = construct_tooltip()
 
 @export var button : Button
+@export var amount_label : Label
 
+
+func set_to(component_data: ComponentData, amount: int = -1) -> void:
+	data = component_data
+	if amount >= 0:
+		amount_label.text = str(amount)
+		amount_label.show()
+	else:
+		amount_label.hide()
 
 func construct_tooltip() -> String:
 	if data == null:

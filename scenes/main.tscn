@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=19 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -13,9 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://cbxds4sxc77aq" path="res://scenes/component_patch.tscn" id="9_iknef"]
 [ext_resource type="Resource" uid="uid://cewfescrk46q8" path="res://resources/components/splitter.tres" id="9_xekue"]
 [ext_resource type="Resource" uid="uid://cu11vjkpwtxi1" path="res://resources/components/underground_conveyor.tres" id="10_siwwc"]
-[ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="11_o3b7r"]
+[ext_resource type="Script" path="res://scripts/ui/SelectedDisplay.gd" id="11_o3b7r"]
 [ext_resource type="Resource" uid="uid://chh7x12ixj1iu" path="res://resources/components/storage_building.tres" id="11_rh0mx"]
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
+[ext_resource type="Script" path="res://scripts/ui/ContractDisplay.gd" id="14_td1vc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
 size = Vector2(15, 15)
@@ -133,8 +134,7 @@ layout_mode = 2
 [node name="Slot10" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="AssemblerDisplay" type="Control" parent="CanvasLayer/HUD"]
-visible = false
+[node name="SelectedDisplay" type="Control" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,59 +144,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_o3b7r")
 
-[node name="RequiredComponentsPanel" type="PanelContainer" parent="CanvasLayer/HUD/AssemblerDisplay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -97.0
-offset_top = -115.0
-offset_right = 103.0
-offset_bottom = -80.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/AssemblerDisplay/RequiredComponentsPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/AssemblerDisplay/RequiredComponentsPanel/MarginContainer"]
-layout_mode = 2
-columns = 6
-
-[node name="AvailableRecipesPanel" type="PanelContainer" parent="CanvasLayer/HUD/AssemblerDisplay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -147.0
-offset_top = -72.0
-offset_right = 145.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/AssemblerDisplay/AvailableRecipesPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/AssemblerDisplay/AvailableRecipesPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 35
-theme_override_constants/v_separation = 35
-columns = 8
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/AssemblerDisplay"]
+[node name="SelectedIcon" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -211,13 +159,77 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_yw04d")
 
-[node name="CurrentRecipeIcon" type="TextureRect" parent="CanvasLayer/HUD/AssemblerDisplay/TextureRect"]
+[node name="CurrentRecipeIcon" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay/SelectedIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AvailableRecipesPanel" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = -120.0
+offset_right = 145.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/AvailableRecipesPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/SelectedDisplay/AvailableRecipesPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 35
+columns = 8
+
+[node name="RequiredComponentsPanel" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = -120.0
+offset_right = 195.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/RequiredComponentsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/SelectedDisplay/RequiredComponentsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="ContractDisplay" type="PanelContainer" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+script = ExtResource("14_td1vc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/ContractDisplay"]
+layout_mode = 2
+alignment = 1
 
 [node name="Objects" type="Node2D" parent="."]
 

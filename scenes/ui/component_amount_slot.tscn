@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds8tem5gjkvyk"]
 
 [ext_resource type="Texture2D" uid="uid://dyr7hd5diflnr" path="res://art/white_16.png" id="1_jwdj0"]
-[ext_resource type="Script" path="res://scripts/ui/RequiredComponentSlot.gd" id="1_rc05n"]
+[ext_resource type="Script" path="res://scripts/ui/ComponentAmountSlot.gd" id="1_rc05n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4gxif"]
 font_size = 14
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
-[node name="RequiredComponentSlot" type="Control" node_paths=PackedStringArray("background", "texture_rect", "amount_label")]
+[node name="ComponentAmountSlot" type="Control" node_paths=PackedStringArray("background", "texture_rect", "amount_label")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 15
@@ -21,7 +21,7 @@ grow_vertical = 2
 script = ExtResource("1_rc05n")
 background = NodePath("Background")
 texture_rect = NodePath("TextureRect")
-amount_label = NodePath("RequiredAmountLabel")
+amount_label = NodePath("AmountLabel")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
@@ -37,7 +37,7 @@ offset_right = 30.0
 offset_bottom = 30.0
 texture = ExtResource("1_jwdj0")
 
-[node name="RequiredAmountLabel" type="Label" parent="."]
+[node name="AmountLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
