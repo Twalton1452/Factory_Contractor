@@ -12,6 +12,12 @@ var max_slot_size = 99
 
 var component_scene : PackedScene = preload("res://scenes/component.tscn")
 
+func can_receive(component: Component) -> bool:
+	return \
+	inventory.get(component.data, 0) < max_slot_size and \
+	not received_this_frame and \
+	(holding_allow_dict.size() == 0 or holding_allow_dict.has(component.data) and holding_allow_dict[component.data] > 0)
+
 func receive(component: Component) -> void:
 	if inventory.has(component.data):
 		if inventory[component.data] < max_slot_size:
