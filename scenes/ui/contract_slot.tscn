@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://blls2jbpnrhbo"]
+
+[ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="1_21wt6"]
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 32)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/icon_max_width = 16
+theme_override_font_sizes/font_size = 14
+text = "Backyard Rollercoaster"
+icon = ExtResource("1_21wt6")
+text_overrun_behavior = 3

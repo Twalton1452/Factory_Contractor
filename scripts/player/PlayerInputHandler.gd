@@ -91,7 +91,6 @@ func _on_player_released_selected() -> void:
 			var assembler = colliding.get_node_or_null(Constants.ASSEMBLER)
 			if assembler:
 				MessageBus.player_selected_assembler.emit(assembler)
-				# TODO: Display UI to set Assembler
 			elif colliding is StorageBuilding:
 				MessageBus.player_selected_storage_container.emit(colliding)
 

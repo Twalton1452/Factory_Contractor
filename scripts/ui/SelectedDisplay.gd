@@ -116,6 +116,7 @@ func _update_storage_container_display(_received_component: Component, storage_c
 	for data_key in storage_container.inventory.keys():
 		(craftable_parent.get_child(i) as RecipeSlot).set_to(data_key, storage_container.inventory[data_key])
 		craftable_parent.get_child(i).show()
+		
 		i += 1
 	
 	for j in range(i, craftable_parent.get_child_count()):

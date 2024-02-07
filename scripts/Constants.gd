@@ -23,6 +23,7 @@ const UNDERGROUND_LAYER = 1 << 4
 const ASSEMBLER = "Assembler"
 const EXTRACTOR = "Extractor"
 const CONVEYOR_BELT = "ConveyorBelt"
+const DELIVERY_SPACE = "DeliverySpace"
 const SPLITTER = "Splitter"
 const UNDERGROUND_CONVEYOR = "UndergroundConveyor"
 
