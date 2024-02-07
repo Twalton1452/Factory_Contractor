@@ -27,8 +27,8 @@ class Goal:
 
 var goals : Array[Goal] = []
 var goals_fulfilled = false
-var display_name = "Backyard Rollercoaster"
-var requested_by = "Sally Longbottom"
+var display_name = ""
+var requested_by = ""
 
 func start() -> void:
 	MessageBus.delivered_component.connect(_on_component_delivered)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=28 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
 [ext_resource type="PackedScene" uid="uid://blls2jbpnrhbo" path="res://scenes/ui/contract_slot.tscn" id="13_5vlik"]
 [ext_resource type="Script" path="res://scripts/ui/ContractBrowser.gd" id="13_e616b"]
+[ext_resource type="PackedScene" uid="uid://cknfw37wbjy0n" path="res://scenes/ui/component_goal_slot.tscn" id="13_q52lk"]
 [ext_resource type="Texture2D" uid="uid://p1cmp4y5pl4o" path="res://art/editor_icons/factory.svg" id="14_47x5a"]
 [ext_resource type="Script" path="res://scripts/ui/ContractDetailDisplay.gd" id="14_lj6pf"]
 [ext_resource type="Script" path="res://scripts/ui/TrackerDisplay.gd" id="14_td1vc"]
@@ -128,8 +129,23 @@ layout_mode = 2
 layout_mode = 2
 data = ExtResource("12_7tl1s")
 
+[node name="ContractButton" type="Button" parent="Camera2D/CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -40.0
+offset_right = -192.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+toggle_mode = true
+icon = ExtResource("15_60g7f")
+
 [node name="SelectedDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,6 +230,7 @@ theme_override_constants/margin_bottom = 2
 layout_mode = 2
 
 [node name="TrackerDisplay" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -221,27 +238,18 @@ offset_bottom = 16.0
 grow_horizontal = 2
 script = ExtResource("14_td1vc")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay"]
+[node name="Goals" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay"]
 layout_mode = 2
 alignment = 1
 
-[node name="ContractButton" type="Button" parent="Camera2D/CanvasLayer/HUD"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -216.0
-offset_top = -40.0
-offset_right = -192.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-toggle_mode = true
-icon = ExtResource("15_60g7f")
+[node name="ComponentGoalSlot" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay/Goals" instance=ExtResource("13_q52lk")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot2" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay/Goals" instance=ExtResource("13_q52lk")]
+layout_mode = 2
 
 [node name="ContractBrowser" type="Control" parent="Camera2D/CanvasLayer/HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
