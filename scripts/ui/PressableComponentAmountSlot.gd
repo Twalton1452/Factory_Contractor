@@ -21,7 +21,9 @@ class_name PressableComponentAmountSlot
 
 func set_to(component_data: ComponentData, amount: int = -1) -> void:
 	data = component_data
-	if amount >= 0:
+	if data == null:
+		amount_label.hide()
+	elif amount >= 0:
 		amount_label.text = str(amount)
 		amount_label.show()
 	else:

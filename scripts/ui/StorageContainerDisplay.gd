@@ -30,9 +30,9 @@ func setup_storage_slots() -> void:
 
 func populate_storage_slots_for(storage_container: StorageBuilding) -> void:
 	var i = 0
-	for key in storage_container.inventory.keys(): # { key: ComponentData, val: int }
+	for inventory_slot in storage_container.inventory_slots:
 		var pressable_slot : PressableComponentAmountSlot = storage_slots_parent.get_child(i)
-		pressable_slot.set_to(key, storage_container.inventory[key])
+		pressable_slot.set_to(inventory_slot.component_data, inventory_slot.amount)
 		pressable_slot.show()
 		i += 1
 	
@@ -59,8 +59,8 @@ func stop_listening_for_changes() -> void:
 # TODO: Can be done better, currently updating every slot upon receiving anything
 func _update_storage_container_display(_received_component: Component, storage_container: StorageBuilding) -> void:
 	var i = 0
-	for data_key in storage_container.inventory.keys():
-		(storage_slots_parent.get_child(i) as PressableComponentAmountSlot).set_to(data_key, storage_container.inventory[data_key])
+	for inventory_slot in storage_container.inventory_slots:
+		(storage_slots_parent.get_child(i) as PressableComponentAmountSlot).set_to(inventory_slot.component_data, inventory_slot.amount)
 		storage_slots_parent.get_child(i).show()
 		
 		i += 1
