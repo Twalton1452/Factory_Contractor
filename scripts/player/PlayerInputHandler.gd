@@ -4,6 +4,10 @@ extends Node
 
 signal exited_build_mode
 
+## Distance in pixels from the avg Placer position
+const DETECTED_AXIS_LOCK_AMOUNT = 12.0
+const LAST_PLACER_POSITIONS_SIZE = 5
+
 @export var objects_parent : Node2D
 
 @onready var placer : Node2D = $Placer
@@ -20,6 +24,17 @@ var current_data : ComponentData = null
 ## When the player didn't delete something then cancel their build
 var deleted_something_during_cancel = false
 
+#region Build Mode Axis Lock
+## Sample the last few placement attempt positions to determine if the player
+## is trying to build only on 1 axis
+var last_placer_positions : Array[Vector2] = []
+var last_placer_i = 0
+var locked_to_x_axis = false
+var locked_to_y_axis = false
+var x_axis_lock_pos = 0.0
+var y_axis_lock_pos = 0.0
+#endregion Build Mode Axis Lock
+
 func _ready():
 	MessageBus.build_slot_pressed.connect(_on_build_slot_pressed)
 	MessageBus.player_selecting.connect(_on_player_selected)
@@ -30,6 +45,7 @@ func _ready():
 	MessageBus.player_picked.connect(_on_player_picked)
 	MessageBus.player_picking_up.connect(_on_player_picking_up)
 	exit_build_mode()
+	last_placer_positions.resize(LAST_PLACER_POSITIONS_SIZE)
 
 func in_build_mode() -> bool:
 	return current_data != null
@@ -63,11 +79,47 @@ func exit_build_mode() -> void:
 	shape_cast.collision_mask |= Constants.ASSEMBLER_LAYER
 	exited_build_mode.emit()
 
+## Sample previous mouse positions to determine if the player wants to build only on 1 axis
+func detect_axis_lock(attempted_placement_pos: Vector2) -> void:
+	if locked_to_x_axis or locked_to_y_axis:
+		return
+	
+	# Hold previous placer positions for axis lock
+	last_placer_positions[last_placer_i] = placer.global_position
+	last_placer_i = (last_placer_i + 1) % LAST_PLACER_POSITIONS_SIZE
+	
+	# last position will be null when player stops building
+	# this is to make sure we have enough data points to accurately determine the axis-lock
+	if last_placer_positions[-1] == null:
+		return
+	
+	var avg_x = 0
+	var avg_y = 0
+	
+	for last_pos in last_placer_positions:
+		avg_x += last_pos.x
+		avg_y += last_pos.y
+	avg_x /= LAST_PLACER_POSITIONS_SIZE
+	avg_y /= LAST_PLACER_POSITIONS_SIZE
+	
+	var x_dist = abs(attempted_placement_pos.x - avg_x)
+	var y_dist = abs(attempted_placement_pos.y - avg_y)
+	
+	if x_dist > DETECTED_AXIS_LOCK_AMOUNT and y_dist > DETECTED_AXIS_LOCK_AMOUNT:
+		pass
+	elif x_dist > DETECTED_AXIS_LOCK_AMOUNT:
+		locked_to_x_axis = true
+		y_axis_lock_pos = attempted_placement_pos.y
+	elif y_dist > DETECTED_AXIS_LOCK_AMOUNT:
+		locked_to_y_axis = true
+		x_axis_lock_pos = attempted_placement_pos.x
+
 func _on_player_selected() -> void:
 	if not in_build_mode():
 		return
-	
-	var player_selected_position = placing_position(get_viewport().get_mouse_position())
+
+	var placer_position = placing_position(placer.position)
+	detect_axis_lock(placer_position)
 	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return
@@ -76,12 +128,17 @@ func _on_player_selected() -> void:
 	if placed_node is Building or placed_node is Component:
 		placed_node.data = current_data
 	
-	placed_node.position = player_selected_position
+	placed_node.position = placer_position
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
 	objects_parent.add_child(placed_node)
 
 func _on_player_released_selected() -> void:
+	locked_to_x_axis = false
+	locked_to_y_axis = false
+	last_placer_i = 0
+	last_placer_positions.clear()
+	last_placer_positions.resize(LAST_PLACER_POSITIONS_SIZE)
 	if in_build_mode():
 		return
 	
@@ -89,11 +146,6 @@ func _on_player_released_selected() -> void:
 		var colliding = shape_cast.get_collider(0)
 		if colliding is Building:
 			MessageBus.player_selected_building.emit(colliding)
-			#var assembler = colliding.get_node_or_null(Constants.ASSEMBLER)
-			#if assembler:
-				#MessageBus.player_selected_assembler.emit(assembler)
-			#elif colliding is StorageBuilding:
-				#MessageBus.player_selected_storage_container.emit(colliding)
 
 func _on_player_canceled() -> void:
 	# Remove things underneath what we're hovering
@@ -123,6 +175,8 @@ func _on_player_picked() -> void:
 	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building:
+			# TODO: When picking Buildings with Assemblers attached
+			# Copy the Assembler recipe and overwrite existing Buildings with this recipe
 			enter_build_mode_with(node.data)
 			sprite.rotation = node.rotation
 	else:
@@ -138,6 +192,8 @@ func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), Constants.TILE_SIZE), snapped(floor(pos.y), Constants.TILE_SIZE))
 
 func _physics_process(_delta):
+	var next_placer_pos = placing_position(get_viewport().get_mouse_position())
+	
 	if required_shape_cast.is_colliding() and not shape_cast.is_colliding():
 		sprite.modulate = Color.GREEN
 		sprite.modulate.a = 0.5
@@ -148,4 +204,9 @@ func _physics_process(_delta):
 		sprite.modulate = current_data.color_adjustment
 		sprite.modulate.a = 0.5
 	
-	placer.global_position = placing_position(get_viewport().get_mouse_position())
+	if locked_to_x_axis:
+		next_placer_pos.y = y_axis_lock_pos
+	elif locked_to_y_axis:
+		next_placer_pos.x = x_axis_lock_pos
+	
+	placer.global_position = next_placer_pos
