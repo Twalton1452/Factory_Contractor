@@ -19,8 +19,10 @@ var assembler_focus : Assembler = null :
 		assembler_focus = value
 		if assembler_focus and assembler_focus.end_result != null:
 			current_recipe_icon.texture = assembler_focus.end_result.icon
+			current_recipe_icon.tooltip_text = ComponentDB.construct_tooltip(assembler_focus.end_result)
 			required_components_panel.show()
 		else:
+			current_recipe_icon.tooltip_text = ""
 			current_recipe_icon.texture = null
 			required_components_panel.hide()
 
@@ -33,11 +35,18 @@ func _ready():
 func show_display(assembler: Assembler) -> void:
 	assembler_focus = assembler
 	if assembler_focus.end_result != null:
-		populate_required_component_slots(assembler_focus.end_result)
+		populate_required_component_slots(assembler_focus)
+		assembler_focus.building.received_component.connect(_on_assembler_building_component_changed)
+		assembler_focus.building.component_taken.connect(_on_assembler_building_component_changed)
 	populate_recipe_slots()
 	show()
 
 func hide_display() -> void:
+	if assembler_focus != null:
+		if assembler_focus.building.received_component.is_connected(_on_assembler_building_component_changed):
+			assembler_focus.building.received_component.disconnect(_on_assembler_building_component_changed)
+		if assembler_focus.building.component_taken.is_connected(_on_assembler_building_component_changed):
+			assembler_focus.building.component_taken.disconnect(_on_assembler_building_component_changed)
 	assembler_focus = null
 	hide()
 
@@ -67,12 +76,17 @@ func populate_recipe_slots() -> void:
 		(craftable_parent.get_child(i) as PressableComponentAmountSlot).set_to(ComponentDB.available_recipes[i])
 		craftable_parent.get_child(i).show()
 
-func populate_required_component_slots(crafting_intent: ComponentData) -> void:
+func populate_required_component_slots(assembler: Assembler) -> void:
 	var i = 0
-	for key in crafting_intent.required_components.keys(): # { key: ComponentData, val: int }
+	for key in assembler.storage.keys(): # { key: ComponentData, val: int }
 		var required_component_slot : ComponentAmountSlot = required_components_parent.get_child(i)
-		required_component_slot.set_to(key, crafting_intent.required_components[key])
+		required_component_slot.set_to(key, assembler.storage[key])
 		required_component_slot.show()
+		
+		if assembler.storage[key] < assembler.end_result.required_components[key]:
+			required_component_slot.background.self_modulate = Color.RED
+		else:
+			required_component_slot.background.self_modulate = Color.WHITE
 		i += 1
 	
 	for j in range(i, required_components_parent.get_child_count()):
@@ -81,3 +95,6 @@ func populate_required_component_slots(crafting_intent: ComponentData) -> void:
 func _on_player_chose_recipe(recipe: ComponentData) -> void:
 	assembler_focus.end_result = recipe
 	hide_display()
+
+func _on_assembler_building_component_changed(_component: Component) -> void:
+	populate_required_component_slots(assembler_focus)

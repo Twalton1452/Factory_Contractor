@@ -30,3 +30,12 @@ var available_recipes : Array[ComponentData] = [
 	STORAGE_BUILDING,
 	UNDERGROUND_CONVEYOR,
 ]
+
+func construct_tooltip(data: ComponentData) -> String:
+	if data == null:
+		return ""
+	
+	var tooltip = data.display_name + "\n"
+	for component_data in data.required_components.keys():
+		tooltip += Constants.TOOLTIP_LINE.format({"amount": data.required_components[component_data], "display_name": component_data.display_name }) + "\n"
+	return tooltip
