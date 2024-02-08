@@ -10,7 +10,10 @@ func tick_buildings() -> void:
 		(underground_conveyor as UndergroundConveyor).tick()
 	
 	for conveyor in get_tree().get_nodes_in_group(Constants.CONVEYOR_GROUP):
-		(conveyor as ConveyorBelt).tick()
+		(conveyor as ConveyorBelt).push()
+	
+	for conveyor in get_tree().get_nodes_in_group(Constants.CONVEYOR_GROUP):
+		(conveyor as ConveyorBelt).pull()
 	
 	for splitter in get_tree().get_nodes_in_group(Constants.SPLITTER_GROUP):
 		(splitter as Splitter).tick()

@@ -39,11 +39,21 @@ func animate_move() -> void:
 	var target_position = building.holding.position + building.transform.x.normalized() * Constants.TILE_SIZE
 	t.tween_property(building.holding, "position", target_position, time_to_move)
 
-func tick() -> void:
-	if building.holding:
-		if next_in_line != null and next_in_line.can_receive(building.holding) and not building.received_this_frame:
-			var moving = building.take_from()
-			next_in_line.receive(moving)
-	elif grabbing_from != null and grabbing_from.can_take():
+func push() -> void:
+	if not building.holding or next_in_line == null:
+		return
+	
+	if next_in_line.can_receive(building.holding) and building.can_take():
+		var moving = building.take_from()
+		next_in_line.receive(moving)
+
+func pull() -> void:
+	if building.holding or grabbing_from == null:
+		return
+	
+	if grabbing_from.can_take():
 		var taking = grabbing_from.take_from()
 		building.receive(taking)
+
+func tick() -> void:
+	pass
