@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=31 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -16,10 +16,13 @@
 [ext_resource type="Script" path="res://scripts/ui/SelectedDisplay.gd" id="11_o3b7r"]
 [ext_resource type="Resource" uid="uid://chh7x12ixj1iu" path="res://resources/components/storage_building.tres" id="11_rh0mx"]
 [ext_resource type="Resource" uid="uid://bbbwc77u2t6kc" path="res://resources/components/delivery_space.tres" id="12_7tl1s"]
+[ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="12_s24bi"]
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
+[ext_resource type="Texture2D" uid="uid://d355370jprifg" path="res://art/game_icons/conveyor_belt_icon.tres" id="13_0tsmh"]
 [ext_resource type="PackedScene" uid="uid://blls2jbpnrhbo" path="res://scenes/ui/contract_slot.tscn" id="13_5vlik"]
 [ext_resource type="Script" path="res://scripts/ui/ContractBrowser.gd" id="13_e616b"]
 [ext_resource type="PackedScene" uid="uid://cknfw37wbjy0n" path="res://scenes/ui/component_goal_slot.tscn" id="13_q52lk"]
+[ext_resource type="Script" path="res://scripts/ui/StorageContainerDisplay.gd" id="13_uixcr"]
 [ext_resource type="Texture2D" uid="uid://p1cmp4y5pl4o" path="res://art/editor_icons/factory.svg" id="14_47x5a"]
 [ext_resource type="Script" path="res://scripts/ui/ContractDetailDisplay.gd" id="14_lj6pf"]
 [ext_resource type="Script" path="res://scripts/ui/TrackerDisplay.gd" id="14_td1vc"]
@@ -146,6 +149,7 @@ toggle_mode = true
 icon = ExtResource("15_60g7f")
 
 [node name="SelectedDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -178,7 +182,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AvailableRecipesPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+[node name="AssemblerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12_s24bi")
+
+[node name="AvailableRecipesPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -192,20 +206,18 @@ offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AvailableRecipesPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AvailableRecipesPanel/MarginContainer"]
+[node name="Recipes" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 35
-theme_override_constants/v_separation = 35
 columns = 8
 
-[node name="RequiredComponentsPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+[node name="RequiredComponentsPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -219,15 +231,65 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/RequiredComponentsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/RequiredComponentsPanel/MarginContainer"]
+[node name="Components" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel/MarginContainer"]
 layout_mode = 2
+
+[node name="CurrentRecipeIcon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 157.0
+offset_top = -160.0
+offset_right = 197.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_0tsmh")
+
+[node name="StorageContainerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_uixcr")
+
+[node name="PanelContainer" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = -120.0
+offset_right = 145.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Inventory" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 8
 
 [node name="TrackerDisplay" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD"]
 visible = false

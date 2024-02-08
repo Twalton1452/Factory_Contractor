@@ -19,6 +19,7 @@ config/icon="res://art/game_icons/factory-purple.svg"
 
 MessageBus="*res://scripts/autoloads/MessageBus.gd"
 Contracts="*res://scripts/autoloads/Contracts.gd"
+ComponentDB="*res://scripts/autoloads/ComponentDB.gd"
 
 [display]
 

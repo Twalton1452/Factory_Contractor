@@ -1,6 +1,6 @@
 @tool
 extends Control
-class_name RecipeSlot
+class_name PressableComponentAmountSlot
 
 @export var data : ComponentData : 
 	set(value):
@@ -9,6 +9,11 @@ class_name RecipeSlot
 			button.icon = data.icon
 			button.add_theme_color_override("icon_normal_color", data.color_adjustment)
 			button.tooltip_text = construct_tooltip()
+		elif data == null and button:
+			button.icon = null
+			button.remove_theme_color_override("icon_normal_color")
+			button.tooltip_text = ""
+			amount_label.hide()
 
 @export var button : Button
 @export var amount_label : Label
@@ -30,6 +35,3 @@ func construct_tooltip() -> String:
 	for component_data in data.required_components.keys():
 		tooltip += Constants.TOOLTIP_LINE.format({"amount": data.required_components[component_data], "display_name": component_data.display_name }) + "\n"
 	return tooltip
-
-func _on_button_pressed():
-	MessageBus.recipe_slot_pressed.emit(data)

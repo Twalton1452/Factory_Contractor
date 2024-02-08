@@ -10,9 +10,10 @@ var data : ComponentData = null
 func _ready():
 	MessageBus.delivered_component.connect(_on_delivered_component)
 
-func _on_delivered_component(delivered: ComponentData) -> void:
-	if delivered == data:
-		current_amount_label
+func _on_delivered_component(_delivered: ComponentData) -> void:
+	#if delivered == data:
+		#current_amount_label
+	pass
 
 func update_amount(new_amount: int) -> void:
 	current_amount_label.text = str(new_amount)

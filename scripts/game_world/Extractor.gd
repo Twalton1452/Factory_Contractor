@@ -7,8 +7,6 @@ class_name Extractor
 var building : Building = null
 var extracting_from : ComponentPatch = null
 
-var component_scene : PackedScene = preload("res://scenes/component.tscn")
-
 func _ready() -> void:
 	add_to_group(Constants.EXTRACTOR_GROUP)
 	name = Constants.EXTRACTOR
@@ -36,7 +34,7 @@ func tick() -> void:
 		if extracted_data == null:
 			return
 		
-		var extracted_component : Component = component_scene.instantiate()
+		var extracted_component : Component = ComponentDB.COMPONENT_SCENE.instantiate()
 		extracted_component.data = extracted_data
 		extracted_component.position = building.position
 		building.receive(extracted_component)

@@ -3,24 +3,20 @@ class_name StorageBuilding
 
 ## Inherited from Building Class to store many things instead of one
 
-# Design: Should this be a single slot holding many of one thing?
-# Storing multiple things makes grabbing from it unpredictable
-# Would need to introduce more complex logic for wanting to grab specific things
-# Filter Grabber?
+# TODO: Refactor into Slot approach so there can be multiple Stacks of a thing
 var inventory : Dictionary = {} # { key: ComponentData, val: int }
-var max_slot_size = 99
-
-var component_scene : PackedScene = preload("res://scenes/component.tscn")
+const MAX_SLOTS = 16
+const MAX_SLOT_SIZE = 99
 
 func can_receive(component: Component) -> bool:
 	return \
-	inventory.get(component.data, 0) < max_slot_size and \
+	(inventory.get(component.data, 0) < MAX_SLOT_SIZE or inventory.size() < MAX_SLOTS) and \
 	not received_this_frame and \
 	(holding_allow_dict.size() == 0 or holding_allow_dict.has(component.data) and holding_allow_dict[component.data] > 0)
 
 func receive(component: Component) -> void:
 	if inventory.has(component.data):
-		if inventory[component.data] < max_slot_size:
+		if inventory[component.data] < MAX_SLOT_SIZE:
 			inventory[component.data] += 1
 	else:
 		inventory[component.data] = 1
@@ -34,7 +30,7 @@ func receive(component: Component) -> void:
 	received_component.emit(component)
 
 func spawn(to_spawn_data: ComponentData) -> Component:
-	var component : Component = component_scene.instantiate()
+	var component : Component = ComponentDB.COMPONENT_SCENE.instantiate()
 	component.data = to_spawn_data
 	get_parent().add_child(component)
 	return component
@@ -51,7 +47,9 @@ func take_from() -> Component:
 		inventory[taking_data] -= 1
 		if inventory[taking_data] <= 0:
 			inventory.erase(taking_data)
+		
+		taken_from_this_frame = true
+		component_taken.emit(taking)
 		return taking
 	
-	taken_from_this_frame = true
 	return taking

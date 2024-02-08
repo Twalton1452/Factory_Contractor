@@ -10,16 +10,16 @@ var completed_contracts : Array[Contract] = []
 
 func _ready():
 	var contract = Contract.new()
-	contract.goals.push_back(Contract.Goal.new(load("res://resources/components/iron.tres"), 100))
-	contract.goals.push_back(Contract.Goal.new(load("res://resources/components/copper.tres"), 30))
+	contract.goals.push_back(Contract.Goal.new(ComponentDB.IRON, 100))
+	contract.goals.push_back(Contract.Goal.new(ComponentDB.COPPER, 30))
 	contract.display_name = "Backyard Rollercoaster"
 	contract.requested_by = "Sally Briggendale"
 	
 	var contract_two = Contract.new()
-	contract_two.goals.push_back(Contract.Goal.new(load("res://resources/components/iron.tres"), 100))
-	contract_two.goals.push_back(Contract.Goal.new(load("res://resources/components/copper.tres"), 100))
-	contract_two.goals.push_back(Contract.Goal.new(load("res://resources/components/conveyor_belt.tres"), 50))
-	contract_two.goals.push_back(Contract.Goal.new(load("res://resources/components/underground_conveyor.tres"), 6))
+	contract_two.goals.push_back(Contract.Goal.new(ComponentDB.IRON, 100))
+	contract_two.goals.push_back(Contract.Goal.new(ComponentDB.COPPER, 100))
+	contract_two.goals.push_back(Contract.Goal.new(ComponentDB.CONVEYOR_BELT, 50))
+	contract_two.goals.push_back(Contract.Goal.new(ComponentDB.UNDERGROUND_CONVEYOR, 6))
 	contract_two.display_name = "Mansion Hedge Maze"
 	contract_two.requested_by = "Jon River"
 	

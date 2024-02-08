@@ -7,6 +7,7 @@ class_name Building
 ## Buildings have child Nodes for their logic
 
 signal received_component(component: Component)
+signal component_taken(component: Component)
 signal rotated
 signal new_neighbor(neighbor: Building)
 signal neighbor_left(neighbor: Building)
@@ -113,6 +114,7 @@ func take_from() -> Component:
 	var taking = holding
 	holding = null
 	taken_from_this_frame = true
+	component_taken.emit(taking)
 	return taking
 
 func post_tick() -> void:

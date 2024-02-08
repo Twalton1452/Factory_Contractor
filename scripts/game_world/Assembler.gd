@@ -15,8 +15,6 @@ var end_result : ComponentData = null :
 			update_building_allow_dict()
 			check_building()
 
-var component_scene : PackedScene = preload("res://scenes/component.tscn")
-
 func _ready() -> void:
 	add_to_group(Constants.ASSEMBLER_GROUP)
 	name = Constants.ASSEMBLER
@@ -79,7 +77,7 @@ func check_storage_for_all_components_met() -> void:
 	update_building_allow_dict()
 
 func craft() -> Component:
-	var component : Component = component_scene.instantiate()
+	var component : Component = ComponentDB.COMPONENT_SCENE.instantiate()
 	component.data = end_result
 	building.get_parent().add_child(component)
 	return component

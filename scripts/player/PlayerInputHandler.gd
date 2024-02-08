@@ -88,11 +88,12 @@ func _on_player_released_selected() -> void:
 	if shape_cast.is_colliding():
 		var colliding = shape_cast.get_collider(0)
 		if colliding is Building:
-			var assembler = colliding.get_node_or_null(Constants.ASSEMBLER)
-			if assembler:
-				MessageBus.player_selected_assembler.emit(assembler)
-			elif colliding is StorageBuilding:
-				MessageBus.player_selected_storage_container.emit(colliding)
+			MessageBus.player_selected_building.emit(colliding)
+			#var assembler = colliding.get_node_or_null(Constants.ASSEMBLER)
+			#if assembler:
+				#MessageBus.player_selected_assembler.emit(assembler)
+			#elif colliding is StorageBuilding:
+				#MessageBus.player_selected_storage_container.emit(colliding)
 
 func _on_player_canceled() -> void:
 	# Remove things underneath what we're hovering
