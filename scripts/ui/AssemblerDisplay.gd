@@ -3,11 +3,6 @@ class_name AssemblerDisplay
 
 ## Class to manage the UI elements related to adjusting Assemblers
 
-# TODO:
-# Instead of showing the Required Components for the Craft
-# Show the contents of the Assembler and update in real time
-# So the player can see the Assembler getting the Components
-
 @onready var craftable_parent : GridContainer = $AvailableRecipesPanel/MarginContainer/Recipes
 @onready var current_recipe_icon : TextureRect = $CurrentRecipeIcon
 @onready var required_components_parent : Container = $RequiredComponentsPanel/MarginContainer/Components
