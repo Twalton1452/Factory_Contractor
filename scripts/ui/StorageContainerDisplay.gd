@@ -4,12 +4,14 @@ class_name StorageContainerDisplay
 ## Class to manage the UI elements related to inspecting Storage Containers
 
 @onready var storage_slots_parent : Container = $PanelContainer/MarginContainer/Inventory
+@onready var empty_button : Button = $EmptyButton
 
 var storage_focus : StorageBuilding = null
 
 func _ready():
 	hide_display()
 	setup_storage_slots()
+	empty_button.pressed.connect(_on_empty_button_pressed)
 
 func show_display(storage_container: StorageBuilding) -> void:
 	storage_focus = storage_container
@@ -67,3 +69,9 @@ func _update_storage_container_display(_received_component: Component, storage_c
 	
 	for j in range(i, storage_slots_parent.get_child_count()):
 		(storage_slots_parent.get_child(j) as PressableComponentAmountSlot).set_to(null)
+
+func _on_empty_button_pressed() -> void:
+	if storage_focus == null:
+		return
+	storage_focus.empty_slots()
+	_update_storage_container_display(null, storage_focus)

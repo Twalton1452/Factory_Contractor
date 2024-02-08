@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=32 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://p1cmp4y5pl4o" path="res://art/editor_icons/factory.svg" id="14_47x5a"]
 [ext_resource type="Script" path="res://scripts/ui/ContractDetailDisplay.gd" id="14_lj6pf"]
 [ext_resource type="Script" path="res://scripts/ui/TrackerDisplay.gd" id="14_td1vc"]
+[ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
 
@@ -149,7 +150,6 @@ toggle_mode = true
 icon = ExtResource("15_60g7f")
 
 [node name="SelectedDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,6 +183,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AssemblerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -290,6 +291,21 @@ theme_override_constants/margin_bottom = 5
 [node name="Inventory" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer/MarginContainer"]
 layout_mode = 2
 columns = 8
+
+[node name="EmptyButton" type="Button" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -52.0
+offset_right = 144.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("15_0kvvc")
 
 [node name="TrackerDisplay" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD"]
 visible = false

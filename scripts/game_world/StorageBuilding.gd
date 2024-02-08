@@ -27,6 +27,11 @@ func _ready():
 	for i in range(inventory_slots.size()):
 		inventory_slots[i] = Slot.new()
 
+func empty_slots() -> void:
+	for slot in inventory_slots:
+		slot.component_data = null
+		slot.amount = 0
+
 func get_next_available_slot_for(component: Component) -> int:
 	if cached_available_slot_i != -1 and \
 	inventory_slots[cached_available_slot_i].component_data == component.data and \
