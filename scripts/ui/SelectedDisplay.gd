@@ -22,16 +22,14 @@ func hide_display() -> void:
 func cleanup_displays() -> void:
 	storage_container_display.hide_display()
 	assembler_display.hide_display()
+	if MessageBus.player_released_cancel.is_connected(_on_player_released_cancel):
+		MessageBus.player_released_cancel.disconnect(_on_player_released_cancel)
 
 func set_selected_icon_to(data: ComponentData) -> void:
 	selected_icon.texture = data.icon
 	selected_icon.self_modulate = data.color_adjustment
 
 func _on_player_selected_building(building: Building) -> void:
-	set_selected_icon_to(building.data)
-	cleanup_displays()
-	show_display()
-	
 	if building is StorageBuilding:
 		select_building(building)
 		assembler_display.hide_display()
@@ -53,8 +51,11 @@ func _on_player_selected_building(building: Building) -> void:
 
 func select_building(building: Building) -> void:
 	building_focus = building
+	set_selected_icon_to(building_focus.data)
+	cleanup_displays()
+	show_display()
 	if not MessageBus.player_released_cancel.is_connected(_on_player_released_cancel):
-		MessageBus.player_released_cancel.connect(_on_player_released_cancel, CONNECT_ONE_SHOT)
+		MessageBus.player_released_cancel.connect(_on_player_released_cancel)
 
 func _on_player_released_cancel() -> void:
 	hide_display()

@@ -59,6 +59,7 @@ func get_first_slot_with_anything() -> int:
 		if inventory_slots[i].component_data != null and inventory_slots[i].amount > 0:
 			cached_slot_with_anything_i = i
 			return i
+	
 	cached_slot_with_anything_i = -1
 	return -1
 
