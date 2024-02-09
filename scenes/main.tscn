@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=36 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -29,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
+[ext_resource type="Texture2D" uid="uid://dwycodtm3ha5w" path="res://art/spritesheets/1-bit-pack-colored-transparent.png" id="30_ljy7k"]
+[ext_resource type="PackedScene" uid="uid://cybhs60b5s201" path="res://scenes/storage_building.tscn" id="31_w2hjk"]
+[ext_resource type="Script" path="res://scripts/game_world/DeliverySpace.gd" id="32_43tug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wumlp"]
 bg_color = Color(0.164706, 0.12549, 0.14902, 1)
@@ -42,6 +45,10 @@ shadow_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
 size = Vector2(15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cfqb"]
+atlas = ExtResource("30_ljy7k")
+region = Rect2(205, 340, 32, 16)
 
 [node name="Main" type="Node"]
 
@@ -577,3 +584,16 @@ sprite = NodePath("../ComponentPatch/Sprite2D")
 position = Vector2(80, 320)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+
+[node name="DeliveryVehicle" type="Node2D" parent="FirstSection"]
+position = Vector2(296, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="FirstSection/DeliveryVehicle"]
+texture = SubResource("AtlasTexture_8cfqb")
+
+[node name="StorageBuilding" parent="FirstSection/DeliveryVehicle" instance=ExtResource("31_w2hjk")]
+position = Vector2(-8, 0)
+data = ExtResource("11_rh0mx")
+
+[node name="DeliverySpace" type="Node" parent="FirstSection/DeliveryVehicle/StorageBuilding"]
+script = ExtResource("32_43tug")

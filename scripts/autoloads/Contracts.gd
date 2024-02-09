@@ -39,3 +39,4 @@ func accept_contract(contract: Contract) -> void:
 func _on_contract_fulfilled(contract: Contract) -> void:
 	active_contracts.erase(contract)
 	completed_contracts.push_back(contract)
+	print("Player fulfilled Contract: ", contract.display_name)
