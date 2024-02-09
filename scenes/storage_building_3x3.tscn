@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjr2r538d5xcj"]
+
+[ext_resource type="PackedScene" uid="uid://cybhs60b5s201" path="res://scenes/storage_building.tscn" id="1_rvwl1"]
+[ext_resource type="Shape2D" uid="uid://cosutg874lhnd" path="res://resources/collision_rect_45.tres" id="2_uciqy"]
+
+[node name="StorageBuilding3x3" instance=ExtResource("1_rvwl1")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = ExtResource("2_uciqy")

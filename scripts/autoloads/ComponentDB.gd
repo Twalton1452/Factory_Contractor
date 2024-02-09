@@ -15,6 +15,7 @@ const IRON = preload("res://resources/components/iron.tres")
 const BASIC_EXTRACTOR = preload("res://resources/components/basic_extractor.tres")
 const BASIC_ASSEMBLER = preload("res://resources/components/basic_assembler.tres")
 const CONVEYOR_BELT = preload("res://resources/components/conveyor_belt.tres")
+const DELIVERY_ZONE = preload("res://resources/components/delivery_zone.tres")
 const STORAGE_BUILDING = preload("res://resources/components/storage_building.tres")
 const SPLITTER = preload("res://resources/components/splitter.tres")
 
@@ -26,6 +27,7 @@ var available_recipes : Array[ComponentData] = [
 	BASIC_EXTRACTOR,
 	BASIC_ASSEMBLER,
 	CONVEYOR_BELT,
+	DELIVERY_ZONE,
 	SPLITTER,
 	STORAGE_BUILDING,
 	UNDERGROUND_CONVEYOR,

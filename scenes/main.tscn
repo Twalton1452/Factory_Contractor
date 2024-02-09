@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=32 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInputHandler.gd" id="2_tg2pd"]
@@ -10,12 +10,12 @@
 [ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="4_t7mge"]
 [ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="5_yjmxl"]
 [ext_resource type="Resource" uid="uid://4wa3ctsf8gv2" path="res://resources/components/basic_extractor.tres" id="7_mdcut"]
+[ext_resource type="Resource" uid="uid://c562g761xxc7j" path="res://resources/components/delivery_zone.tres" id="8_xi875"]
 [ext_resource type="PackedScene" uid="uid://cbxds4sxc77aq" path="res://scenes/component_patch.tscn" id="9_iknef"]
 [ext_resource type="Resource" uid="uid://cewfescrk46q8" path="res://resources/components/splitter.tres" id="9_xekue"]
 [ext_resource type="Resource" uid="uid://cu11vjkpwtxi1" path="res://resources/components/underground_conveyor.tres" id="10_siwwc"]
 [ext_resource type="Script" path="res://scripts/ui/SelectedDisplay.gd" id="11_o3b7r"]
 [ext_resource type="Resource" uid="uid://chh7x12ixj1iu" path="res://resources/components/storage_building.tres" id="11_rh0mx"]
-[ext_resource type="Resource" uid="uid://bbbwc77u2t6kc" path="res://resources/components/delivery_space.tres" id="12_7tl1s"]
 [ext_resource type="Script" path="res://scripts/ui/AssemblerDisplay.gd" id="12_s24bi"]
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="12_yw04d"]
 [ext_resource type="Texture2D" uid="uid://d355370jprifg" path="res://art/game_icons/conveyor_belt_icon.tres" id="13_0tsmh"]
@@ -29,9 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
-[ext_resource type="Texture2D" uid="uid://dwycodtm3ha5w" path="res://art/spritesheets/1-bit-pack-colored-transparent.png" id="30_ljy7k"]
-[ext_resource type="PackedScene" uid="uid://cybhs60b5s201" path="res://scenes/storage_building.tscn" id="31_w2hjk"]
-[ext_resource type="Script" path="res://scripts/game_world/DeliverySpace.gd" id="32_43tug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wumlp"]
 bg_color = Color(0.164706, 0.12549, 0.14902, 1)
@@ -45,10 +42,6 @@ shadow_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
 size = Vector2(15, 15)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8cfqb"]
-atlas = ExtResource("30_ljy7k")
-region = Rect2(205, 340, 32, 16)
 
 [node name="Main" type="Node"]
 
@@ -138,7 +131,7 @@ layout_mode = 2
 
 [node name="Slot10" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
-data = ExtResource("12_7tl1s")
+data = ExtResource("8_xi875")
 
 [node name="ContractButton" type="Button" parent="Camera2D/CanvasLayer/HUD"]
 layout_mode = 1
@@ -584,16 +577,3 @@ sprite = NodePath("../ComponentPatch/Sprite2D")
 position = Vector2(80, 320)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-
-[node name="DeliveryVehicle" type="Node2D" parent="FirstSection"]
-position = Vector2(296, 32)
-
-[node name="Sprite2D" type="Sprite2D" parent="FirstSection/DeliveryVehicle"]
-texture = SubResource("AtlasTexture_8cfqb")
-
-[node name="StorageBuilding" parent="FirstSection/DeliveryVehicle" instance=ExtResource("31_w2hjk")]
-position = Vector2(-8, 0)
-data = ExtResource("11_rh0mx")
-
-[node name="DeliverySpace" type="Node" parent="FirstSection/DeliveryVehicle/StorageBuilding"]
-script = ExtResource("32_43tug")

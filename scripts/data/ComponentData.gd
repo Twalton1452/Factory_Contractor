@@ -13,6 +13,8 @@ class_name ComponentData
 @export var to_attach : Script
 ## Override the default Building Scene. Useful when you need a more customized Building.
 @export var scene_override : PackedScene
+## 1 == 1x1 | 2 == 2x2 | 3 == 3x3
+@export_range(1, 3) var size : int = 1
 
 ## When the Component is placed into the game world it will exist on this collision layer
 @export_flags_2d_physics var placed_layer : int

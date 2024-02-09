@@ -12,6 +12,7 @@ const LAST_PLACER_POSITIONS_SIZE = 5
 
 @onready var placer : Node2D = $Placer
 @onready var sprite : Sprite2D = $Placer/Sprite2D
+@onready var outline : Sprite2D = $Placer/Outline
 @onready var shape_cast : ShapeCast2D = $Placer/PlaceShapeCast2D
 @onready var required_shape_cast : ShapeCast2D = $Placer/RequiredShapeCast2D
 
@@ -56,13 +57,26 @@ func _on_build_slot_pressed(component_data: ComponentData) -> void:
 
 func enter_build_mode_with(component_data: ComponentData) -> void:
 	current_data = component_data
-	if current_data:
-		sprite.show()
-		sprite.texture = component_data.icon
-		shape_cast.collision_mask = current_data.placed_layer
-		required_shape_cast.collision_mask = current_data.required_layer
-		if shape_cast.collision_mask & Constants.UNDERGROUND_LAYER == Constants.UNDERGROUND_LAYER:
-			show_range_indicator(Constants.UNDERGROUND_CONVEYOR_MAX_RANGE)
+	if current_data == null:
+		return
+	
+	sprite.show()
+	sprite.texture = component_data.icon
+	shape_cast.collision_mask = current_data.placed_layer
+	required_shape_cast.collision_mask = current_data.required_layer
+	if shape_cast.collision_mask & Constants.UNDERGROUND_LAYER == Constants.UNDERGROUND_LAYER:
+		show_range_indicator(Constants.UNDERGROUND_CONVEYOR_MAX_RANGE)
+	outline.scale = Vector2(current_data.size, current_data.size)
+	match current_data.size:
+		1:
+			shape_cast.shape = load("res://resources/collision_rect_15.tres")
+			required_shape_cast.shape = load("res://resources/collision_rect_15.tres")
+		2:
+			shape_cast.shape = load("res://resources/collision_rect_30.tres")
+			required_shape_cast.shape = load("res://resources/collision_rect_30.tres")
+		3:
+			shape_cast.shape = load("res://resources/collision_rect_45.tres")
+			required_shape_cast.shape = load("res://resources/collision_rect_45.tres")
 
 func show_range_indicator(_max_range: int) -> void:
 	# enable a ray cast in 4 directions
@@ -79,6 +93,7 @@ func exit_build_mode() -> void:
 	shape_cast.collision_mask |= Constants.ASSEMBLER_LAYER
 	exited_build_mode.emit()
 	last_spawn_position = Vector2(0.1, 0.1)
+	outline.scale = Vector2.ONE
 
 ## Sample previous mouse positions to determine if the player wants to build only on 1 axis
 func detect_axis_lock(attempted_placement_pos: Vector2) -> void:
@@ -122,7 +137,7 @@ func _on_player_selected() -> void:
 	var placer_position = placing_position(placer.position)
 	detect_axis_lock(placer_position)
 	# This wouldn't be an issue if converted to a Grid approach instead of Physics
-	if placer_position == last_spawn_position:
+	if snapped(placer_position.distance_to(last_spawn_position), 1.0) < (Constants.TILE_SIZE * current_data.size - 1):
 		return
 	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
