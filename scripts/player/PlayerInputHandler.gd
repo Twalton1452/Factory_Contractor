@@ -23,7 +23,7 @@ var current_data : ComponentData = null
 ## delete things, but keep what they're building.
 ## When the player didn't delete something then cancel their build
 var deleted_something_during_cancel = false
-
+var last_spawn_position = Vector2(0.1, 0.1)
 #region Build Mode Axis Lock
 ## Sample the last few placement attempt positions to determine if the player
 ## is trying to build only on 1 axis
@@ -78,6 +78,7 @@ func exit_build_mode() -> void:
 	current_data = null
 	shape_cast.collision_mask |= Constants.ASSEMBLER_LAYER
 	exited_build_mode.emit()
+	last_spawn_position = Vector2(0.1, 0.1)
 
 ## Sample previous mouse positions to determine if the player wants to build only on 1 axis
 func detect_axis_lock(attempted_placement_pos: Vector2) -> void:
@@ -120,6 +121,9 @@ func _on_player_selected() -> void:
 
 	var placer_position = placing_position(placer.position)
 	detect_axis_lock(placer_position)
+	# This wouldn't be an issue if converted to a Grid approach instead of Physics
+	if placer_position == last_spawn_position:
+		return
 	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return
@@ -132,6 +136,7 @@ func _on_player_selected() -> void:
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
 	objects_parent.add_child(placed_node)
+	last_spawn_position = placed_node.position
 
 func _on_player_released_selected() -> void:
 	locked_to_x_axis = false
