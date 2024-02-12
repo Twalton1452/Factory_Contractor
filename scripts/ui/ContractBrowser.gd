@@ -49,5 +49,6 @@ func _on_accepted_contract(contract: Contract) -> void:
 		return
 	
 	cleanup_available_contracts()
-	display_available_contracts()
+	#display_available_contracts()
+	contract_button.button_pressed = false
 	contract_detail_display.contract = null
