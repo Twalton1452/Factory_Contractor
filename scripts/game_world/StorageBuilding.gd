@@ -7,9 +7,7 @@ class Slot:
 	var component_data: ComponentData
 	var amount = 0
 
-# TODO: Refactor into Slot approach so there can be multiple Stacks of a thing
-#var inventory : Dictionary = {} # { key: ComponentData, val: int }
-var inventory_slots : Array[Slot] = [] # { key: ComponentData, val: int }
+var inventory_slots : Array[Slot] = []
 const MAX_SLOTS = 16
 const MAX_SLOT_SIZE = 99
 
@@ -98,11 +96,11 @@ func spawn(to_spawn_data: ComponentData) -> Component:
 func can_take() -> bool:
 	return get_first_slot_with_anything() != -1
 
-func take_from() -> Component:
+## Subtract the amount from the Slot and spawn an ingame entity
+func _take(slot: Slot) -> Component:
 	var taking : Component = null
 	
-	if can_take():
-		var slot : Slot = inventory_slots[get_first_slot_with_anything()]
+	if slot.component_data != null and slot.amount > 0:
 		var taking_data : ComponentData = slot.component_data
 		taking = spawn(taking_data)
 		slot.amount -= 1
@@ -112,6 +110,33 @@ func take_from() -> Component:
 		
 		taken_from_this_frame = true
 		component_taken.emit(taking)
-		return taking
-	
+		
 	return taking
+
+## Subtract the amount from the Slot, but don't spawn an ingame entity
+func _take_no_component_spawn(slot: Slot) -> ComponentData:
+	var taking : ComponentData = null
+	
+	if slot.component_data != null and slot.amount > 0:
+		taking = slot.component_data
+		slot.amount -= 1
+		if slot.amount <= 0:
+			slot.component_data = null
+			slot.amount = 0
+		
+		taken_from_this_frame = true
+		component_taken.emit(null)
+		
+	return taking
+
+func take_from() -> Component:
+	var slot_i = get_first_slot_with_anything()
+	if slot_i == -1:
+		return null
+	return _take(inventory_slots[slot_i])
+
+func take_from_slot(slot: Slot) -> Component:
+	return _take(slot)
+
+func take_from_slot_no_spawn(slot: Slot) -> ComponentData:
+	return _take_no_component_spawn(slot)

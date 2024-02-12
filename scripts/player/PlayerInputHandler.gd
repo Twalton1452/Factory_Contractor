@@ -136,9 +136,13 @@ func _on_player_selected() -> void:
 
 	var placer_position = placing_position(placer.position)
 	detect_axis_lock(placer_position)
+	
 	# This wouldn't be an issue if converted to a Grid approach instead of Physics
+	# Had overlapping buildings despite the collision checks
+	# This checks the last building placed's position, accounting for multiple sizes
 	if snapped(placer_position.distance_to(last_spawn_position), 1.0) < (Constants.TILE_SIZE * current_data.size - 1):
 		return
+	
 	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return

@@ -8,6 +8,7 @@ const UNDERGROUND_CONVEYOR_MAX_RANGE = 5 * Constants.TILE_SIZE
 const ASSEMBLER_GROUP = "Assemblers"
 const BUILDING_GROUP = "Buildings"
 const CONVEYOR_GROUP = "ConveyorBelts"
+const DELIVERY_SPACE_GROUP = "DeliverySpaces"
 const EXTRACTOR_GROUP = "Extractors"
 const SPLITTER_GROUP = "Splitters"
 const UNDERGROUND_CONVEYOR_GROUP = "UndergroundConveyors"

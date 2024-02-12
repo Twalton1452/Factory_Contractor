@@ -19,4 +19,5 @@ signal player_picking_up
 signal player_released_picking_up
 
 # Contracts
-signal delivered_component(component_data: ComponentData)
+#signal delivery_ready(delivery_space: DeliverySpace)
+#signal delivered_component(component_data: ComponentData)

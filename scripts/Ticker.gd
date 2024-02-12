@@ -21,5 +21,8 @@ func tick_buildings() -> void:
 	for extractor in get_tree().get_nodes_in_group(Constants.EXTRACTOR_GROUP):
 		(extractor as Extractor).tick()
 	
+	for delivery_space in get_tree().get_nodes_in_group(Constants.DELIVERY_SPACE_GROUP):
+		(delivery_space as DeliverySpace).tick()
+	
 	for building in get_tree().get_nodes_in_group(Constants.BUILDING_GROUP):
 		building.post_tick()

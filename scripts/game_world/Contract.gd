@@ -31,13 +31,10 @@ var display_name = ""
 var requested_by = ""
 
 func start() -> void:
-	MessageBus.delivered_component.connect(_on_component_delivered)
 	for goal in goals:
 		goal.fulfilled.connect(_on_goal_fulfilled, CONNECT_ONE_SHOT)
 
 func complete() -> void:
-	MessageBus.delivered_component.disconnect(_on_component_delivered)
-	
 	goals_fulfilled = true
 	fulfilled.emit(self)
 
@@ -48,7 +45,7 @@ func _on_goal_fulfilled() -> void:
 	
 	complete()
 
-func _on_component_delivered(component_data: ComponentData) -> void:
+func deliver(component_data: ComponentData) -> void:
 	for goal in goals:
 		if goal.component_data == component_data:
 			goal.progress()
