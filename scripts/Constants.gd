@@ -33,3 +33,4 @@ const BUILDING_TICK_RATE = 20
 
 # UI
 const TOOLTIP_LINE = "{amount}x {display_name}"
+const CONTRACT_GOAL_TOOLTIP_LINE = "{display_name}: {current_amount}/{required_amount}"

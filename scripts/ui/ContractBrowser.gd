@@ -28,10 +28,9 @@ func _on_contract_button_toggled(toggled_on: bool) -> void:
 
 func display_available_contracts() -> void:
 	for available_contract in Contracts.available_contracts:
-		var contract_slot = contract_slot_scene.instantiate()
-		var contract_slot_button : Button = contract_slot.get_node("MarginContainer/Button")
-		contract_slot_button.pressed.connect(_on_contract_slot_pressed.bind(available_contract))
-		contract_slot_button.text = available_contract.display_name
+		var contract_slot : ContractSlot = contract_slot_scene.instantiate()
+		contract_slot.contract = available_contract
+		contract_slot.button.pressed.connect(_on_contract_slot_pressed.bind(available_contract))
 		contracts_parent.add_child(contract_slot)
 
 func select_first_contract() -> void:
@@ -39,7 +38,8 @@ func select_first_contract() -> void:
 		return
 	
 	var first_contract_slot : Control = contracts_parent.get_child(0)
-	first_contract_slot.get_node("MarginContainer/Button").pressed.emit()
+	if first_contract_slot is ContractSlot:
+		first_contract_slot.button.pressed.emit()
 
 func cleanup_available_contracts() -> void:
 	for child in contracts_parent.get_children():

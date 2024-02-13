@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=34 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Texture2D" uid="uid://b82qxftkda407" path="res://art/game_icons/iron_icon.tres" id="1_kdv46"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
@@ -25,11 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://d355370jprifg" path="res://art/game_icons/conveyor_belt_icon.tres" id="13_0tsmh"]
 [ext_resource type="PackedScene" uid="uid://blls2jbpnrhbo" path="res://scenes/ui/contract_slot.tscn" id="13_5vlik"]
 [ext_resource type="Script" path="res://scripts/ui/ContractBrowser.gd" id="13_e616b"]
-[ext_resource type="PackedScene" uid="uid://cknfw37wbjy0n" path="res://scenes/ui/component_goal_slot.tscn" id="13_q52lk"]
 [ext_resource type="Script" path="res://scripts/ui/StorageContainerDisplay.gd" id="13_uixcr"]
 [ext_resource type="Texture2D" uid="uid://p1cmp4y5pl4o" path="res://art/editor_icons/factory.svg" id="14_47x5a"]
 [ext_resource type="Script" path="res://scripts/ui/ContractDetailDisplay.gd" id="14_lj6pf"]
-[ext_resource type="Script" path="res://scripts/ui/TrackerDisplay.gd" id="14_td1vc"]
 [ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
@@ -276,7 +274,6 @@ toggle_mode = true
 icon = ExtResource("15_60g7f")
 
 [node name="SelectedDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -327,7 +324,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AssemblerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -402,6 +398,7 @@ grow_vertical = 2
 texture = ExtResource("13_0tsmh")
 
 [node name="StorageContainerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -451,23 +448,38 @@ grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("15_0kvvc")
 
-[node name="TrackerDisplay" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD"]
+[node name="DeliveryZoneDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 16.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-script = ExtResource("14_td1vc")
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Goals" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay"]
+[node name="PanelContainer" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/DeliveryZoneDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = -118.0
+offset_right = 147.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/DeliveryZoneDisplay/PanelContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="ComponentGoalSlot" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay/Goals" instance=ExtResource("13_q52lk")]
-layout_mode = 2
-
-[node name="ComponentGoalSlot2" parent="Camera2D/CanvasLayer/HUD/TrackerDisplay/Goals" instance=ExtResource("13_q52lk")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="ContractBrowser" type="Control" parent="Camera2D/CanvasLayer/HUD"]

@@ -1,6 +1,7 @@
 extends Node
 class_name Contract
 
+signal progressed
 signal fulfilled(contract: Contract)
 
 class Goal:
@@ -27,15 +28,18 @@ class Goal:
 
 var goals : Array[Goal] = []
 var goals_fulfilled = false
+var active = false
 var display_name = ""
 var requested_by = ""
 
 func start() -> void:
 	for goal in goals:
 		goal.fulfilled.connect(_on_goal_fulfilled, CONNECT_ONE_SHOT)
+	active = true
 
 func complete() -> void:
 	goals_fulfilled = true
+	active = false
 	fulfilled.emit(self)
 
 func _on_goal_fulfilled() -> void:
@@ -49,4 +53,5 @@ func deliver(component_data: ComponentData) -> void:
 	for goal in goals:
 		if goal.component_data == component_data:
 			goal.progress()
+			progressed.emit()
 			break
