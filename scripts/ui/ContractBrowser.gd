@@ -10,8 +10,12 @@ var contract_slot_scene : PackedScene = load("res://scenes/ui/contract_slot.tscn
 
 func _ready():
 	Contracts.accepted_contract.connect(_on_accepted_contract)
+	MessageBus.player_contract_toggle.connect(_on_player_contract_toggle)
 	contract_button.toggled.connect(_on_contract_button_toggled)
 	_on_contract_button_toggled(false) # Hide the display
+
+func _on_player_contract_toggle() -> void:
+	contract_button.button_pressed = !contract_button.button_pressed
 
 func _on_contract_button_toggled(toggled_on: bool) -> void:
 	cleanup_available_contracts()

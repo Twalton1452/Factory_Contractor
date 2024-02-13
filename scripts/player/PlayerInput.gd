@@ -29,6 +29,9 @@ func _unhandled_input(event):
 	elif event.is_action_pressed("pickup"):
 		pickup()
 	
+	if event.is_action_pressed("contracts"):
+		contracts()
+	
 	if event.is_action_pressed("menu"):
 		pass # Open inventory/crafting
 
@@ -76,3 +79,6 @@ func pickup() -> void:
 func stop_pickup() -> void:
 	picking_up = false
 	MessageBus.player_released_picking_up.emit()
+
+func contracts() -> void:
+	MessageBus.player_contract_toggle.emit()

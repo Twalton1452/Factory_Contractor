@@ -17,6 +17,7 @@ signal player_rotated
 signal player_picked
 signal player_picking_up
 signal player_released_picking_up
+signal player_contract_toggle
 
 # Contracts
 #signal delivery_ready(delivery_space: DeliverySpace)
