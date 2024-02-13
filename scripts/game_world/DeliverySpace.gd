@@ -24,13 +24,6 @@ func _ready():
 	
 	building = get_parent()
 	building.received_component.connect(_on_received_component)
-	
-	# TODO: Set contract to DeliverySpace through UI
-	# For Testing
-	if Contracts.active_contracts.size() == 0:
-		contract_to_deliver_to = await Contracts.accepted_contract
-	else:
-		contract_to_deliver_to = Contracts.active_contracts[0]
 
 func _on_received_component(_component: Component) -> void:
 	check_to_see_if_packaging_should_occur()

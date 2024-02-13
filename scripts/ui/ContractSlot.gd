@@ -14,6 +14,7 @@ var contract : Contract = null :
 		if contract and button:
 			button.text = contract.display_name
 			contract.progressed.connect(_on_contract_progressed)
+			update_progress_bar()
 
 func _ready():
 	mouse_entered.connect(_on_mouse_hover_enter)
@@ -24,6 +25,9 @@ func _exit_tree():
 		contract.progressed.disconnect(_on_contract_progressed)
 
 func _on_contract_progressed() -> void:
+	update_progress_bar()
+
+func update_progress_bar() -> void:
 	var sum_goal_percent = 0.0
 	for goal in contract.goals:
 		sum_goal_percent += float(goal.current_amount) / float(goal.required_amount)
@@ -36,8 +40,8 @@ func _on_mouse_hover_enter() -> void:
 	while hovering and contract.active:
 		var prev_progress = progress_bar.value
 		# Update the tooltip at the same tickrate as Buildings
+		await get_tree().physics_frame
 		if Engine.get_physics_frames() % Constants.BUILDING_TICK_RATE != 0:
-			await get_tree().physics_frame
 			continue
 		
 		# Only update tooltip if progress changed

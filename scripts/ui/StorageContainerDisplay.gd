@@ -5,6 +5,7 @@ class_name StorageContainerDisplay
 
 @onready var storage_slots_parent : Container = $PanelContainer/MarginContainer/Inventory
 @onready var empty_button : Button = $EmptyButton
+@onready var delivery_zone_display : DeliveryZoneDisplay = $DeliveryZoneDisplay
 
 var storage_focus : StorageBuilding = null
 
@@ -18,10 +19,16 @@ func show_display(storage_container: StorageBuilding) -> void:
 	populate_storage_slots_for(storage_container)
 	listen_for_changes_in(storage_container)
 	show()
+	var delivery_space = storage_container.get_node_or_null(Constants.DELIVERY_SPACE)
+	if delivery_space != null:
+		delivery_zone_display.show_display(delivery_space)
+	else:
+		delivery_zone_display.hide_display()
 
 func hide_display() -> void:
 	stop_listening_for_changes()
 	storage_focus = null
+	delivery_zone_display.hide_display()
 	hide()
 
 func setup_storage_slots() -> void:
