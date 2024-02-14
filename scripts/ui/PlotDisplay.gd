@@ -11,5 +11,9 @@ var contract : Contract = null
 func _ready() -> void:
 	Plots.moved_to_plot.connect(_on_moved_to_plot)
 
-func _on_moved_to_plot(plot: Plot) -> void:
-	title_label.text = plot.display_name
+func _on_moved_to_plot(location: Vector2) -> void:
+	var plot = Plots.get_plot(location)
+	if plot == null:
+		title_label.text = str(location.x) + "," + str(location.y)
+	else:
+		title_label.text = plot.display_name
