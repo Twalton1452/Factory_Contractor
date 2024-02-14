@@ -4,6 +4,11 @@ class_name Contract
 signal progressed
 signal fulfilled(contract: Contract)
 
+enum Type {
+	ON_SITE,
+	REMOTE
+}
+
 class Goal:
 	signal progressed
 	signal fulfilled
@@ -31,6 +36,7 @@ var goals_fulfilled = false
 var active = false
 var display_name = ""
 var requested_by = ""
+var contract_type : Type = Type.ON_SITE
 
 func start() -> void:
 	for goal in goals:

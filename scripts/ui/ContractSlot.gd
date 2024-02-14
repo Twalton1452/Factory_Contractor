@@ -36,6 +36,9 @@ func update_progress_bar() -> void:
 #region Tooltip
 func _on_mouse_hover_enter() -> void:
 	hovering = true
+	if contract == null:
+		return
+	
 	update_tooltip()
 	while hovering and contract.active:
 		var prev_progress = progress_bar.value

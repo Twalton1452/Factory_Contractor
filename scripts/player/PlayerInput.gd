@@ -5,6 +5,15 @@ var canceling = false
 var picking_up = false
 
 func _unhandled_input(event):
+	if event.is_action_pressed("navigate_left"):
+		navigate_left()
+	if event.is_action_pressed("navigate_right"):
+		navigate_right()
+	if event.is_action_pressed("navigate_up"):
+		navigate_up()
+	if event.is_action_pressed("navigate_down"):
+		navigate_down()
+	
 	if event.is_action_released("select"):
 		stop_select()
 	elif event.is_action_pressed("select"):
@@ -82,3 +91,15 @@ func stop_pickup() -> void:
 
 func contracts() -> void:
 	MessageBus.player_contract_toggle.emit()
+
+func navigate_left() -> void:
+	MessageBus.player_navigated_left.emit()
+
+func navigate_right() -> void:
+	MessageBus.player_navigated_right.emit()
+
+func navigate_up() -> void:
+	MessageBus.player_navigated_up.emit()
+
+func navigate_down() -> void:
+	MessageBus.player_navigated_down.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=39 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Texture2D" uid="uid://b82qxftkda407" path="res://art/game_icons/iron_icon.tres" id="1_kdv46"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="4_t7mge"]
 [ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="5_yjmxl"]
 [ext_resource type="Texture2D" uid="uid://bbrv2knns1d74" path="res://art/game_icons/delivery_zone_icon.tres" id="6_t1x4x"]
+[ext_resource type="Texture2D" uid="uid://be1l6c2prgn6r" path="res://art/game_icons/next_icon.tres" id="7_38gb4"]
 [ext_resource type="Resource" uid="uid://4wa3ctsf8gv2" path="res://resources/components/basic_extractor.tres" id="7_mdcut"]
 [ext_resource type="Resource" uid="uid://c562g761xxc7j" path="res://resources/components/delivery_zone.tres" id="8_xi875"]
 [ext_resource type="PackedScene" uid="uid://cbxds4sxc77aq" path="res://scenes/component_patch.tscn" id="9_iknef"]
@@ -32,6 +33,8 @@
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
 [ext_resource type="Script" path="res://scripts/ui/DeliveryZoneDisplay.gd" id="20_d6ol1"]
+[ext_resource type="Script" path="res://scripts/ui/PlotDisplay.gd" id="27_ggj81"]
+[ext_resource type="Script" path="res://scripts/game_world/Plot.gd" id="30_v1035"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wumlp"]
 bg_color = Color(0.164706, 0.12549, 0.14902, 1)
@@ -43,17 +46,18 @@ border_color = Color(0.74902, 0.47451, 0.345098, 1)
 border_blend = true
 shadow_size = 10
 
+[sub_resource type="LabelSettings" id="LabelSettings_70yry"]
+font_size = 12
+font_color = Color(0.921569, 0.921569, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncy1r"]
 size = Vector2(15, 15)
 
 [node name="Main" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-
-[node name="Lore" type="Label" parent="Camera2D/CanvasLayer"]
+[node name="Lore" type="Label" parent="CanvasLayer"]
 offset_left = -416.0
 offset_right = -32.0
 offset_bottom = 480.0
@@ -66,7 +70,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="raw_iron" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="raw_iron" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -81,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kdv46")
 
-[node name="raw_copper" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="raw_copper" type="TextureRect" parent="CanvasLayer/Lore"]
 self_modulate = Color(0.815686, 0.486275, 0.290196, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -97,7 +101,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_qjpsx")
 
-[node name="extractor" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="extractor" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -112,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_pm8s6")
 
-[node name="extracted_iron" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="extracted_iron" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -127,7 +131,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kdv46")
 
-[node name="conveyor_one" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="conveyor_one" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -142,7 +146,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_0tsmh")
 
-[node name="assembler" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="assembler" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -157,7 +161,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_yw04d")
 
-[node name="conveyor_two" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="conveyor_two" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -172,7 +176,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_0tsmh")
 
-[node name="delivery" type="TextureRect" parent="Camera2D/CanvasLayer/Lore"]
+[node name="delivery" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -187,7 +191,22 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_t1x4x")
 
-[node name="HUD" type="Control" parent="Camera2D/CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Lore"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -54.0
+offset_right = 24.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("7_38gb4")
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,7 +215,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BuilderPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD"]
+[node name="BuilderPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -210,55 +229,55 @@ offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/BuilderPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/BuilderPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Slot" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("7_mdcut")
 
-[node name="Slot2" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot2" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("3_631xw")
 
-[node name="Slot3" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot3" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("4_n2mmp")
 
-[node name="Slot4" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot4" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("9_xekue")
 
-[node name="Slot5" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot5" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("10_siwwc")
 
-[node name="Slot6" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot6" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("11_rh0mx")
 
-[node name="Slot7" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot7" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="Slot8" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot8" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="Slot9" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot9" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="Slot10" parent="Camera2D/CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot10" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("8_xi875")
 
-[node name="ContractButton" type="Button" parent="Camera2D/CanvasLayer/HUD"]
+[node name="ContractButton" type="Button" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -274,7 +293,7 @@ grow_vertical = 0
 toggle_mode = true
 icon = ExtResource("15_60g7f")
 
-[node name="SelectedDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD"]
+[node name="SelectedDisplay" type="Control" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -284,7 +303,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_o3b7r")
 
-[node name="SelectedIcon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+[node name="SelectedIcon" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -299,7 +318,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_yw04d")
 
-[node name="Background" type="ColorRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/SelectedIcon"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/HUD/SelectedDisplay/SelectedIcon"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 8
@@ -316,7 +335,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.164706, 0.12549, 0.14902, 0.823529)
 
-[node name="CurrentRecipeIcon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/SelectedIcon"]
+[node name="CurrentRecipeIcon" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay/SelectedIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -324,7 +343,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AssemblerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+[node name="AssemblerDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -335,7 +354,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("12_s24bi")
 
-[node name="AvailableRecipesPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
+[node name="AvailableRecipesPanel" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -349,18 +368,18 @@ offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Recipes" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel/MarginContainer"]
+[node name="Recipes" type="GridContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/AvailableRecipesPanel/MarginContainer"]
 layout_mode = 2
 columns = 8
 
-[node name="RequiredComponentsPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
+[node name="RequiredComponentsPanel" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -374,17 +393,17 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Components" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel/MarginContainer"]
+[node name="Components" type="GridContainer" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay/RequiredComponentsPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="CurrentRecipeIcon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
+[node name="CurrentRecipeIcon" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay/AssemblerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -399,7 +418,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_0tsmh")
 
-[node name="StorageContainerDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay"]
+[node name="StorageContainerDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -409,7 +428,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("13_uixcr")
 
-[node name="PanelContainer" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -423,18 +442,18 @@ offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Inventory" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer/MarginContainer"]
+[node name="Inventory" type="GridContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/PanelContainer/MarginContainer"]
 layout_mode = 2
 columns = 8
 
-[node name="EmptyButton" type="Button" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
+[node name="EmptyButton" type="Button" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -449,7 +468,7 @@ grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("15_0kvvc")
 
-[node name="DeliveryZoneDisplay" type="Control" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
+[node name="DeliveryZoneDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -459,7 +478,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("20_d6ol1")
 
-[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -474,7 +493,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("15_60g7f")
 
-[node name="PanelContainer" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -488,23 +507,23 @@ offset_bottom = 161.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Contracts" type="VBoxContainer" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer"]
+[node name="Contracts" type="VBoxContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ContractSlot" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts" instance=ExtResource("13_5vlik")]
+[node name="ContractSlot" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts" instance=ExtResource("13_5vlik")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="Camera2D/CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts"]
 layout_mode = 2
 
-[node name="ContractBrowser" type="Control" parent="Camera2D/CanvasLayer/HUD"]
+[node name="ContractBrowser" type="Control" parent="CanvasLayer/HUD"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -515,7 +534,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("13_e616b")
 
-[node name="ContractsPanel" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser"]
+[node name="ContractsPanel" type="PanelContainer" parent="CanvasLayer/HUD/ContractBrowser"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -527,13 +546,13 @@ offset_bottom = 186.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wumlp")
 
-[node name="Contracts" type="VBoxContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractsPanel"]
+[node name="Contracts" type="VBoxContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractsPanel"]
 layout_mode = 2
 
-[node name="PanelContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractsPanel/Contracts" instance=ExtResource("13_5vlik")]
+[node name="PanelContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractsPanel/Contracts" instance=ExtResource("13_5vlik")]
 layout_mode = 2
 
-[node name="ContractDetails" type="PanelContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser"]
+[node name="ContractDetails" type="PanelContainer" parent="CanvasLayer/HUD/ContractBrowser"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -549,17 +568,17 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wumlp")
 script = ExtResource("14_lj6pf")
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Content" type="Control" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer"]
+[node name="Content" type="Control" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
+[node name="TitleLabel" type="Label" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -571,7 +590,7 @@ grow_horizontal = 2
 text = "Title"
 horizontal_alignment = 1
 
-[node name="RequestorNameLabel" type="Label" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/TitleLabel"]
+[node name="RequestorNameLabel" type="Label" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/TitleLabel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -589,7 +608,7 @@ text = "Person"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -598,7 +617,7 @@ offset_bottom = 57.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
-[node name="RequirementsLabel" type="Label" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
+[node name="RequirementsLabel" type="Label" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -610,7 +629,7 @@ offset_bottom = 94.0
 grow_horizontal = 2
 text = "Requirements"
 
-[node name="Goals" type="GridContainer" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel"]
+[node name="Goals" type="GridContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -625,31 +644,31 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="ContractGoalSlot" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot2" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot2" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot3" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot3" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot4" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot4" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot5" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot5" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot6" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot6" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot7" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot7" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="ContractGoalSlot8" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
+[node name="ContractGoalSlot8" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel/Goals" instance=ExtResource("15_0ol8u")]
 layout_mode = 2
 
-[node name="AcceptButton" type="Button" parent="Camera2D/CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
+[node name="AcceptButton" type="Button" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -669,6 +688,37 @@ text = "Accept"
 icon = ExtResource("14_47x5a")
 expand_icon = true
 
+[node name="PlotDisplay" type="PanelContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+script = ExtResource("27_ggj81")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/PlotDisplay"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Home"
+label_settings = SubResource("LabelSettings_70yry")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+max_value = 1.0
+show_percentage = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
 [node name="Ticker" type="Node" parent="."]
 script = ExtResource("4_safy8")
 
@@ -677,7 +727,7 @@ script = ExtResource("1_vnbxi")
 
 [node name="PlayerInputHandler" type="Node" parent="." node_paths=PackedStringArray("objects_parent")]
 script = ExtResource("2_tg2pd")
-objects_parent = NodePath("../FirstSection")
+objects_parent = NodePath("../Home")
 
 [node name="Placer" type="Node2D" parent="PlayerInputHandler"]
 
@@ -705,53 +755,54 @@ z_index = 10
 [node name="Outline" type="Sprite2D" parent="PlayerInputHandler/Placer"]
 texture = ExtResource("3_xdq3l")
 
-[node name="FirstSection" type="Node2D" parent="."]
+[node name="Home" type="Node2D" parent="."]
+script = ExtResource("30_v1035")
 
-[node name="ComponentPatch" parent="FirstSection" instance=ExtResource("9_iknef")]
+[node name="ComponentPatch" parent="Home" instance=ExtResource("9_iknef")]
 position = Vector2(80, 96)
 component_to_extract = ExtResource("4_t7mge")
 
-[node name="ComponentPatch2" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch2" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 96)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch3" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch3" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch4" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch4" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch5" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch5" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 128)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch6" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch6" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 336)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch7" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch7" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 336)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch8" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch8" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 352)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch9" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch9" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 352)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
 
-[node name="ComponentPatch10" parent="FirstSection" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+[node name="ComponentPatch10" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 320)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")

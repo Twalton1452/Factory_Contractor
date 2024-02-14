@@ -4,7 +4,9 @@
 [ext_resource type="Script" path="res://scripts/ui/ContractSlot.gd" id="1_baw45"]
 
 [node name="ContractSlot" type="PanelContainer" node_paths=PackedStringArray("button", "progress_bar")]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 16)
+offset_right = 34.0
+offset_bottom = 31.0
 script = ExtResource("1_baw45")
 button = NodePath("MarginContainer/Button")
 progress_bar = NodePath("MarginContainer/ProgressBar")
@@ -19,10 +21,11 @@ theme_override_constants/margin_bottom = 3
 [node name="Button" type="Button" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/icon_max_width = 16
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 12
 text = "Backyard Rollercoaster"
 icon = ExtResource("1_21wt6")
 text_overrun_behavior = 3
+expand_icon = true
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
 layout_mode = 2

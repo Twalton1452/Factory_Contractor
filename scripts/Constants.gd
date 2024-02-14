@@ -10,6 +10,7 @@ const BUILDING_GROUP = "Buildings"
 const CONVEYOR_GROUP = "ConveyorBelts"
 const DELIVERY_SPACE_GROUP = "DeliverySpaces"
 const EXTRACTOR_GROUP = "Extractors"
+const PLOT_GROUP = "Plots"
 const SPLITTER_GROUP = "Splitters"
 const UNDERGROUND_CONVEYOR_GROUP = "UndergroundConveyors"
 

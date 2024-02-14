@@ -19,6 +19,11 @@ signal player_picking_up
 signal player_released_picking_up
 signal player_contract_toggle
 
+signal player_navigated_left
+signal player_navigated_right
+signal player_navigated_up
+signal player_navigated_down
+
 # Contracts
 #signal delivery_ready(delivery_space: DeliverySpace)
 #signal delivered_component(component_data: ComponentData)

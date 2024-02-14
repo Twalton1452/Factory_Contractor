@@ -15,6 +15,7 @@ const LAST_PLACER_POSITIONS_SIZE = 5
 @onready var outline : Sprite2D = $Placer/Outline
 @onready var shape_cast : ShapeCast2D = $Placer/PlaceShapeCast2D
 @onready var required_shape_cast : ShapeCast2D = $Placer/RequiredShapeCast2D
+@onready var camera : Camera2D = $"../Camera2D"
 
 var placed_scene : PackedScene = preload("res://scenes/building.tscn")
 
@@ -216,7 +217,7 @@ func placing_position(pos: Vector2) -> Vector2:
 	return Vector2(snapped(floor(pos.x), Constants.TILE_SIZE), snapped(floor(pos.y), Constants.TILE_SIZE))
 
 func _physics_process(_delta):
-	var next_placer_pos = placing_position(get_viewport().get_mouse_position())
+	var next_placer_pos = placing_position(get_viewport().get_mouse_position() + camera.position)
 	
 	if required_shape_cast.is_colliding() and not shape_cast.is_colliding():
 		sprite.modulate = Color.GREEN
