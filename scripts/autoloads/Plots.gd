@@ -4,7 +4,7 @@ extends Node
 
 ## Class to handle moving and managing different Plots the player will use
 
-signal moved_to_plot(plot: Plot)
+signal moved_to_coordinates(coords: Vector2)
 
 ## increments of 1, to get real position, multiply by plot_size or get camera position
 var current_location : Vector2 = Vector2.ZERO
@@ -46,7 +46,7 @@ func get_plot(location: Vector2) -> Plot:
 
 func go_to(destination: Vector2) -> void:
 	current_location = destination
-	moved_to_plot.emit(current_location)
+	moved_to_coordinates.emit(current_location)
 	center_camera_on_current_location()
 
 func center_camera_on_current_location() -> void:

@@ -61,11 +61,12 @@ size = Vector2(15, 15)
 offset_left = -416.0
 offset_right = -32.0
 offset_bottom = 480.0
-text = "You are a Contractor starting out.
-You own large amounts of land with an abundant amount of raw resources.
+text = "1/2
+You are a Contractor starting out.
+You own a small space with some raw resources.
 
 
-Harvest these resources and build a factory. Distribute the refined materials to clients through contracts."
+Harvest these resources to build a factory. Use your factory to fulfill contracts and gain more space for a larger factory."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -109,9 +110,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = -88.0
-offset_bottom = 144.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_pm8s6")
@@ -124,9 +125,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -80.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = -40.0
-offset_bottom = 144.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kdv46")
@@ -139,9 +140,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -32.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = 8.0
-offset_bottom = 144.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_0tsmh")
@@ -154,9 +155,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 8.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = 48.0
-offset_bottom = 144.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_yw04d")
@@ -169,9 +170,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 48.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = 88.0
-offset_bottom = 144.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_0tsmh")
@@ -184,14 +185,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 88.0
-offset_top = 104.0
+offset_top = 120.0
 offset_right = 136.0
-offset_bottom = 152.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_t1x4x")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Lore"]
+[node name="next" type="TextureRect" parent="CanvasLayer/Lore"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -205,6 +206,23 @@ offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("7_38gb4")
+
+[node name="Growing" type="Label" parent="CanvasLayer"]
+offset_left = -416.0
+offset_top = 496.0
+offset_right = -32.0
+offset_bottom = 976.0
+text = "2/2
+Use WASD (or Arrow Keys) to navigate to nearby spaces.
+
+Build a factory for a Client on a nearby space and fulfill their request. Clients will relinquish the space to you after fulfilling the Contract.
+
+Some clients will offer research as rewards.
+
+The Factory Must Grow"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -703,12 +721,18 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Home"
 label_settings = SubResource("LabelSettings_70yry")
 horizontal_alignment = 1
+
+[node name="Coordinates" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "0,0"
+label_settings = SubResource("LabelSettings_70yry")
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
 layout_mode = 2
