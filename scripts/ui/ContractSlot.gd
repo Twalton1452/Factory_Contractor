@@ -6,23 +6,31 @@ class_name ContractSlot
 @export var button : Button
 @export var progress_bar : ProgressBar
 
-var hovering = false
-
 var contract : Contract = null :
 	set(value):
+		if contract:
+			if contract.progressed.is_connected(_on_contract_progressed):
+				contract.progressed.disconnect(_on_contract_progressed)
+		
 		contract = value
 		if contract and button:
 			button.text = contract.display_name
 			contract.progressed.connect(_on_contract_progressed)
 			update_progress_bar()
 
+var hovering = false
+
 func _ready():
 	mouse_entered.connect(_on_mouse_hover_enter)
 	mouse_exited.connect(_on_mouse_hover_exit)
+	button.pressed.connect(_on_button_pressed)
 
 func _exit_tree():
 	if contract != null and contract.progressed.is_connected(_on_contract_progressed):
 		contract.progressed.disconnect(_on_contract_progressed)
+
+func _on_button_pressed() -> void:
+	MessageBus.contract_slot_pressed.emit(self)
 
 func _on_contract_progressed() -> void:
 	update_progress_bar()

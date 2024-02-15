@@ -11,6 +11,7 @@ var contract_slot_scene : PackedScene = load("res://scenes/ui/contract_slot.tscn
 func _ready():
 	Contracts.accepted_contract.connect(_on_accepted_contract)
 	MessageBus.player_contract_toggle.connect(_on_player_contract_toggle)
+	MessageBus.contract_slot_pressed.connect(_on_contract_slot_pressed)
 	contract_button.toggled.connect(_on_contract_button_toggled)
 	_on_contract_button_toggled(false) # Hide the display
 
@@ -30,7 +31,6 @@ func display_available_contracts() -> void:
 	for available_contract in Contracts.available_contracts:
 		var contract_slot : ContractSlot = contract_slot_scene.instantiate()
 		contract_slot.contract = available_contract
-		contract_slot.button.pressed.connect(_on_contract_slot_pressed.bind(available_contract))
 		contracts_parent.add_child(contract_slot)
 
 func select_first_contract() -> void:
@@ -45,8 +45,9 @@ func cleanup_available_contracts() -> void:
 	for child in contracts_parent.get_children():
 		child.queue_free()
 
-func _on_contract_slot_pressed(contract: Contract) -> void:
-	contract_detail_display.contract = contract
+func _on_contract_slot_pressed(contract_slot: ContractSlot) -> void:
+	contract_detail_display.contract = contract_slot.contract
+	show()
 
 func _on_accepted_contract(contract: Contract) -> void:
 	if not visible:

@@ -16,5 +16,6 @@ ExtResource("3_gj1fe"): 5,
 ExtResource("2_5jjq2"): 3
 }
 to_attach = ExtResource("5_nj6og")
+size = 1
 placed_layer = 1
 required_layer = 0

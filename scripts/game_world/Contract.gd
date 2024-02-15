@@ -5,8 +5,8 @@ signal progressed
 signal fulfilled(contract: Contract)
 
 enum Type {
-	ON_SITE,
-	REMOTE
+	ON_SITE, ## Unlocks the space for the Player to build on upon completion
+	REMOTE, ## Unlocks bonuses for the Player upon completion
 }
 
 class Goal:
@@ -37,6 +37,7 @@ var active = false
 var display_name = ""
 var requested_by = ""
 var contract_type : Type = Type.ON_SITE
+var coordinates : Vector2 # Where it needs to be fulfilled when ON_SITE
 
 func start() -> void:
 	for goal in goals:

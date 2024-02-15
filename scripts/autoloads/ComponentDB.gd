@@ -11,6 +11,11 @@ const COMPONENT_SCENE = preload("res://scenes/component.tscn")
 const COPPER = preload("res://resources/components/copper.tres")
 const IRON = preload("res://resources/components/iron.tres")
 
+const RAW_COMPONENTS : Array[ComponentData] = [
+	COPPER,
+	IRON,
+]
+
 # Tier 1 Components - Takes Refined/Unrefined Components
 const BASIC_EXTRACTOR = preload("res://resources/components/basic_extractor.tres")
 const BASIC_ASSEMBLER = preload("res://resources/components/basic_assembler.tres")
@@ -19,8 +24,21 @@ const DELIVERY_ZONE = preload("res://resources/components/delivery_zone.tres")
 const STORAGE_BUILDING = preload("res://resources/components/storage_building.tres")
 const SPLITTER = preload("res://resources/components/splitter.tres")
 
+const TIER_ONE_COMPONENTS : Array[ComponentData] = [
+	BASIC_EXTRACTOR,
+	BASIC_ASSEMBLER,
+	CONVEYOR_BELT,
+	DELIVERY_ZONE,
+	STORAGE_BUILDING,
+	SPLITTER,
+]
+
 # Tier 2 Components - Takes a Tier 1 Component
 const UNDERGROUND_CONVEYOR = preload("res://resources/components/underground_conveyor.tres")
+
+const TIER_TWO_COMPONENTS : Array[ComponentData] = [
+	UNDERGROUND_CONVEYOR,
+]
 
 # This might need its own Resource
 var available_recipes : Array[ComponentData] = [
@@ -32,6 +50,21 @@ var available_recipes : Array[ComponentData] = [
 	STORAGE_BUILDING,
 	UNDERGROUND_CONVEYOR,
 ]
+
+## Used for indicies in TIERS array
+enum Tier {
+	RAW = 0,
+	TIER_ONE = 1,
+	TIER_TWO = 2,
+}
+
+## lower tier components appear first
+var TIERS : Array[Array] = []
+
+func _ready():
+	TIERS.push_back(RAW_COMPONENTS)
+	TIERS.push_back(TIER_ONE_COMPONENTS)
+	TIERS.push_back(TIER_TWO_COMPONENTS)
 
 func construct_tooltip(data: ComponentData) -> String:
 	if data == null:

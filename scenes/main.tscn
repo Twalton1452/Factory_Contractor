@@ -32,19 +32,10 @@
 [ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
-[ext_resource type="Script" path="res://scripts/ui/DeliveryZoneDisplay.gd" id="20_d6ol1"]
+[ext_resource type="Script" path="res://scripts/ui/UnownedPlotDisplay.gd" id="20_d6ol1"]
+[ext_resource type="StyleBox" uid="uid://di2frkvv5wvew" path="res://resources/theme/contract_box_panel.tres" id="22_ypbl3"]
 [ext_resource type="Script" path="res://scripts/ui/PlotDisplay.gd" id="27_ggj81"]
 [ext_resource type="Script" path="res://scripts/game_world/Plot.gd" id="30_v1035"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wumlp"]
-bg_color = Color(0.164706, 0.12549, 0.14902, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.74902, 0.47451, 0.345098, 1)
-border_blend = true
-shadow_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_70yry"]
 font_size = 12
@@ -312,6 +303,7 @@ toggle_mode = true
 icon = ExtResource("15_60g7f")
 
 [node name="SelectedDisplay" type="Control" parent="CanvasLayer/HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -486,61 +478,6 @@ grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("15_0kvvc")
 
-[node name="DeliveryZoneDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("20_d6ol1")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -48.0
-offset_right = 24.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("15_60g7f")
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -141.0
-offset_top = 6.0
-offset_right = 152.0
-offset_bottom = 161.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Contracts" type="VBoxContainer" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ContractSlot" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts" instance=ExtResource("13_5vlik")]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/HUD/SelectedDisplay/StorageContainerDisplay/DeliveryZoneDisplay/PanelContainer/MarginContainer/Contracts"]
-layout_mode = 2
-
 [node name="ContractBrowser" type="Control" parent="CanvasLayer/HUD"]
 visible = false
 layout_mode = 1
@@ -552,17 +489,30 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("13_e616b")
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD/ContractBrowser"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.301961)
+
 [node name="ContractsPanel" type="PanelContainer" parent="CanvasLayer/HUD/ContractBrowser"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 48.0
-offset_top = -182.0
-offset_right = 263.0
-offset_bottom = 186.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wumlp")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -120.0
+offset_right = 89.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("22_ypbl3")
 
 [node name="Contracts" type="VBoxContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractsPanel"]
 layout_mode = 2
@@ -577,13 +527,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -182.0
-offset_right = 272.0
-offset_bottom = 186.0
+offset_left = -112.0
+offset_top = -192.0
+offset_right = 112.0
+offset_bottom = 91.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wumlp")
+theme_override_styles/panel = ExtResource("22_ypbl3")
 script = ExtResource("14_lj6pf")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails"]
@@ -601,8 +551,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -126.0
-offset_right = 126.0
+offset_left = -105.0
+offset_right = 105.0
 offset_bottom = 23.0
 grow_horizontal = 2
 text = "Title"
@@ -637,14 +587,17 @@ theme_override_constants/separation = 10
 
 [node name="RequirementsLabel" type="Label" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -48.0
-offset_top = 71.0
-offset_right = 61.0
-offset_bottom = 94.0
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -58.5
+offset_right = 55.0
+offset_bottom = -35.5
 grow_horizontal = 2
+grow_vertical = 2
 text = "Requirements"
 
 [node name="Goals" type="GridContainer" parent="CanvasLayer/HUD/ContractBrowser/ContractDetails/MarginContainer/Content/RequirementsLabel"]
@@ -656,7 +609,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -54.5
 offset_top = 22.5
-offset_right = 117.5
+offset_right = 77.5
 offset_bottom = 98.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -706,35 +659,111 @@ text = "Accept"
 icon = ExtResource("14_47x5a")
 expand_icon = true
 
-[node name="PlotDisplay" type="PanelContainer" parent="CanvasLayer/HUD"]
+[node name="PlotDisplay" type="Control" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("27_ggj81")
+
+[node name="UnownedDisplay" type="Control" parent="CanvasLayer/HUD/PlotDisplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("20_d6ol1")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -80.0
+offset_right = 18.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_60g7f")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = -26.0
+offset_right = 146.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ContractSlot" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay/PanelContainer/MarginContainer" instance=ExtResource("13_5vlik")]
+layout_mode = 2
+
+[node name="HiddenPlot" type="Control" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD/PlotDisplay/UnownedDisplay/HiddenPlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.733333)
+
+[node name="TopPanel" type="PanelContainer" parent="CanvasLayer/HUD/PlotDisplay"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 21.0
 grow_horizontal = 2
-script = ExtResource("27_ggj81")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/PlotDisplay"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/PlotDisplay/TopPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Title" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Home"
 label_settings = SubResource("LabelSettings_70yry")
 horizontal_alignment = 1
 
-[node name="Coordinates" type="Label" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+[node name="Coordinates" type="Label" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "0,0"
 label_settings = SubResource("LabelSettings_70yry")
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 max_value = 1.0
