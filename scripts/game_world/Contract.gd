@@ -1,6 +1,7 @@
 extends Node
 class_name Contract
 
+signal started
 signal progressed
 signal fulfilled(contract: Contract)
 
@@ -40,9 +41,11 @@ var contract_type : Type = Type.ON_SITE
 var coordinates : Vector2 # Where it needs to be fulfilled when ON_SITE
 
 func start() -> void:
+	assert(!active, "Tried to start " + display_name + " while already started")
 	for goal in goals:
 		goal.fulfilled.connect(_on_goal_fulfilled, CONNECT_ONE_SHOT)
 	active = true
+	started.emit()
 
 func complete() -> void:
 	goals_fulfilled = true

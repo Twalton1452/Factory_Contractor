@@ -46,8 +46,14 @@ func _ready():
 	MessageBus.player_rotated.connect(_on_player_rotated)
 	MessageBus.player_picked.connect(_on_player_picked)
 	MessageBus.player_picking_up.connect(_on_player_picking_up)
+	Plots.moved_to_coordinates.connect(_on_moved_to_coordinates)
 	exit_build_mode()
 	last_placer_positions.resize(LAST_PLACER_POSITIONS_SIZE)
+
+func _on_moved_to_coordinates(_coords: Vector2) -> void:
+	var plot = Plots.get_current_plot()
+	if plot == null or (plot.contract == null and in_build_mode()):
+		exit_build_mode()
 
 func in_build_mode() -> bool:
 	return current_data != null

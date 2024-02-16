@@ -25,6 +25,7 @@ func _ready() -> void:
 	MessageBus.player_navigated_down.connect(go_down)
 	var home : Plot = get_node("/root/Main/Home")
 	home.player_owned = true
+	home.coordinates = HOME_COORDINATES
 	plots[HOME_COORDINATES] = home
 	go_to(HOME_COORDINATES)
 	#spawn_neighboring_plots_for(HOME_COORDINATES)
@@ -48,6 +49,7 @@ func spawn_neighboring_plots_for(center: Vector2) -> void:
 		if get_plot(neighbor_coords) == null:
 			var suitable_contract = Contracts.generate_contract_for_coordinates(neighbor_coords)
 			plots[neighbor_coords] = Plot.new(suitable_contract)
+			plots[neighbor_coords].coordinates = neighbor_coords
 
 func spawn(contract: Contract) -> Plot:
 	var plot = plots.get(current_location)
@@ -62,6 +64,9 @@ func spawn(contract: Contract) -> Plot:
 func get_plot(location: Vector2) -> Plot:
 	return plots.get(location)
 
+func get_current_plot() -> Plot:
+	return get_plot(current_location)
+
 func go_to(destination: Vector2) -> void:
 	current_location = destination
 	spawn_neighboring_plots_for(current_location)
@@ -70,6 +75,7 @@ func go_to(destination: Vector2) -> void:
 
 func center_camera_on_current_location() -> void:
 	camera.position = current_location * plot_size
+
 
 func go_left() -> void:
 	go_to(Vector2(current_location.x - 1, current_location.y))

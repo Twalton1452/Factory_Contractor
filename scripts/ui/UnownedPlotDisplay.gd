@@ -6,6 +6,9 @@ class_name UnownedPlotDisplay
 @onready var contract_slot : ContractSlot = $PanelContainer/MarginContainer/ContractSlot
 @onready var hidden_display : Control = $HiddenPlot
 
+func _ready():
+	contract_slot.button.pressed.connect(_on_contract_slot_pressed)
+
 func show_display(plot: Plot) -> void:
 	if plot == null:
 		show_unowned_and_hidden_plot()
@@ -28,3 +31,7 @@ func show_unowned_and_hidden_plot() -> void:
 	icon.hide()
 	contract_panel.hide()
 	hidden_display.show()
+
+func _on_contract_slot_pressed() -> void:
+	icon.hide()
+	contract_panel.hide()

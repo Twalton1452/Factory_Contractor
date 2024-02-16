@@ -23,16 +23,21 @@ func _ready():
 	add_to_group(Constants.DELIVERY_SPACE_GROUP)
 	
 	building = get_parent()
-	building.received_component.connect(_on_received_component)
+	var plot : Plot = Plots.get_current_plot()
+	assert(plot != null, "Placed DeliverySpace on a null Plot")
+	
+	if plot.contract == null:
+		plot.accepted_contract.connect(_on_accepted_plot_contract.bind(plot), CONNECT_ONE_SHOT)
+	else:
+		contract_to_deliver_to = plot.contract
 
-func _on_received_component(_component: Component) -> void:
-	check_to_see_if_packaging_should_occur()
+func _on_accepted_plot_contract(plot: Plot) -> void:
+	contract_to_deliver_to = plot.contract
 
 func check_to_see_if_packaging_should_occur() -> void:
 	if packaging_delivery or \
 	contract_to_deliver_to == null or \
-	contract_to_deliver_to.goals_fulfilled or \
-	building.inventory_slots.all(func(slot): return slot.amount == 0):
+	contract_to_deliver_to.goals_fulfilled:
 		return
 	
 	begin_packaging()
