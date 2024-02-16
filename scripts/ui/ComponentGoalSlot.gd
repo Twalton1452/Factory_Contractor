@@ -8,14 +8,28 @@ class_name ComponentGoalSlot
 @onready var max_amount_label : Label = $MaxAmountLabel
 
 var data : ComponentData = null
+var goal : Contract.Goal = null : set = _set_goal
 
-#func _ready():
-	#MessageBus.delivered_component.connect(_on_delivered_component)
+func _set_goal(new_goal: Contract.Goal) -> void:
+	if goal != null:
+		if goal.progressed.is_connected(_on_goal_progressed):
+			goal.progressed.disconnect(_on_goal_progressed)
+	
+	goal = new_goal
+	
+	if goal != null:
+		goal.progressed.connect(_on_goal_progressed)
+		texture_rect.texture = goal.component_data.icon
+		texture_rect.self_modulate = goal.component_data.color_adjustment
+		current_amount_label.text = str(goal.current_amount)
+		max_amount_label.text = "/" + str(goal.required_amount)
+		show()
+	else:
+		hide()
+	
 
-func _on_delivered_component(_delivered: ComponentData) -> void:
-	#if delivered == data:
-		#current_amount_label
-	pass
+func _on_goal_progressed() -> void:
+	update_amount(goal.current_amount)
 
 func update_amount(new_amount: int) -> void:
 	current_amount_label.text = str(new_amount)

@@ -17,19 +17,21 @@ layout_mode = 2
 offset_right = 16.0
 offset_bottom = 16.0
 texture = ExtResource("1_mp5hq")
+expand_mode = 2
 
 [node name="CurrentAmountLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
-offset_right = 57.0
+offset_right = 45.0
 offset_bottom = 17.0
 text = "9999"
 label_settings = SubResource("LabelSettings_s5iii")
+horizontal_alignment = 2
 
 [node name="MaxAmountLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 46.0
-offset_right = 86.0
+offset_right = 81.0
 offset_bottom = 17.0
 text = "/9999"
 label_settings = SubResource("LabelSettings_s5iii")

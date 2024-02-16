@@ -28,6 +28,7 @@ class Goal:
 		if current_amount >= required_amount:
 			if not met:
 				met = true
+				progressed.emit()
 				fulfilled.emit()
 		else:
 			progressed.emit()

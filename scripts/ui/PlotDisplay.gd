@@ -7,12 +7,16 @@ class_name PlotDisplay
 @onready var coordinates_label : Label = $TopPanel/MarginContainer/Coordinates
 @onready var progress_bar : ProgressBar = $TopPanel/MarginContainer/ProgressBar
 @onready var unowned_display : UnownedPlotDisplay = $UnownedDisplay
+@onready var goals_panel : Container = $GoalPanel
+@onready var goals_parent : Container = $GoalPanel/MarginContainer/Goals
 
 var plot : Plot = null
 
 func _ready() -> void:
 	Plots.moved_to_coordinates.connect(_on_moved_to_coordinates)
 	unowned_display.hide_display()
+	hide_goals()
+	update_progress_bar(null)
 
 func _on_moved_to_coordinates(location: Vector2) -> void:
 	coordinates_label.text = str(location.x) + "," + str(location.y)
@@ -28,22 +32,29 @@ func _on_moved_to_coordinates(location: Vector2) -> void:
 	
 	if plot == null:
 		unowned_display.show_display(plot)
+		goals_parent.hide()
 		title_label.text = "Hidden"
+		update_progress_bar(null)
+		hide_goals()
 		return
 	
 	title_label.text = plot.display_name
+	update_progress_bar(plot.contract)
 	
 	# Active contract in Plot
 	if plot.contract != null:
 		plot.contract.progressed.connect(_on_contract_progressed)
 		unowned_display.hide_display()
+		show_goals()
 	# Available contract in Plot
 	elif not plot.player_owned and plot.available_contract != null and plot.contract == null:
 		plot.accepted_contract.connect(_on_accepted_plot_contract)
 		unowned_display.show_display(plot)
+		hide_goals()
 	# Out of range Plot
 	else:
 		unowned_display.hide_display()
+		hide_goals()
 
 func _on_contract_progressed() -> void:
 	update_progress_bar(plot.contract)
@@ -61,5 +72,21 @@ func update_progress_bar(contract: Contract) -> void:
 
 func _on_accepted_plot_contract(contract: Contract) -> void:
 	update_progress_bar(contract)
+	show_goals()
 	if not plot.contract.progressed.is_connected(_on_contract_progressed):
 		plot.contract.progressed.connect(_on_contract_progressed)
+
+func hide_goals() -> void:
+	goals_panel.hide()
+	for child in goals_parent.get_children():
+		(child as ComponentGoalSlot).goal = null
+
+func show_goals() -> void:
+	var i = 0
+	for goal in plot.contract.goals:
+		(goals_parent.get_child(i) as ComponentGoalSlot).goal = goal
+		i += 1
+	
+	for child_i in range(i, goals_parent.get_child_count()):
+		(goals_parent.get_child(child_i) as ComponentGoalSlot).goal = null
+	goals_panel.show()

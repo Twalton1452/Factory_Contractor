@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=43 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Texture2D" uid="uid://b82qxftkda407" path="res://art/game_icons/iron_icon.tres" id="1_kdv46"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
@@ -36,7 +36,14 @@
 [ext_resource type="Script" path="res://scripts/ui/UnownedPlotDisplay.gd" id="20_d6ol1"]
 [ext_resource type="StyleBox" uid="uid://di2frkvv5wvew" path="res://resources/theme/contract_box_panel.tres" id="22_ypbl3"]
 [ext_resource type="Script" path="res://scripts/ui/PlotDisplay.gd" id="27_ggj81"]
+[ext_resource type="PackedScene" uid="uid://cknfw37wbjy0n" path="res://scenes/ui/component_goal_slot.tscn" id="30_qvn3v"]
 [ext_resource type="Script" path="res://scripts/game_world/Plot.gd" id="30_v1035"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5jis"]
+bg_color = Color(0, 0.341176, 0.341176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lcew"]
+bg_color = Color(0, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_70yry"]
 font_size = 12
@@ -735,6 +742,15 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_a5jis")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8lcew")
+max_value = 1.0
+value = 0.67
+show_percentage = false
+
 [node name="Title" type="Label" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -748,11 +764,46 @@ size_flags_horizontal = 8
 text = "0,0"
 label_settings = SubResource("LabelSettings_70yry")
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/PlotDisplay/TopPanel/MarginContainer"]
+[node name="GoalPanel" type="PanelContainer" parent="CanvasLayer/HUD/PlotDisplay"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 21.0
+offset_bottom = 38.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel"]
 layout_mode = 2
-size_flags_vertical = 8
-max_value = 1.0
-show_percentage = false
+theme_override_constants/margin_left = 15
+
+[node name="Goals" type="GridContainer" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer"]
+layout_mode = 2
+columns = 7
+
+[node name="ComponentGoalSlot" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot2" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot3" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot4" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot5" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot6" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot7" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+layout_mode = 2
+
+[node name="ComponentGoalSlot8" parent="CanvasLayer/HUD/PlotDisplay/GoalPanel/MarginContainer/Goals" instance=ExtResource("30_qvn3v")]
+visible = false
+layout_mode = 2
 
 [node name="ContractButton" type="Button" parent="CanvasLayer/HUD"]
 visible = false
