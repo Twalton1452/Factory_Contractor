@@ -11,6 +11,10 @@ var building_focus : Building = null
 func _ready():
 	MessageBus.player_selected_building.connect(_on_player_selected_building)
 	hide_display()
+	Plots.moved_to_coordinates.connect(_on_moved_to_coordinates)
+
+func _on_moved_to_coordinates(_coords: Vector2) -> void:
+	hide_display()
 
 func show_display() -> void:
 	show()
