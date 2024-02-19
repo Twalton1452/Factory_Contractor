@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b5aji6qvfhwet"]
+[gd_scene load_steps=44 format=3 uid="uid://b5aji6qvfhwet"]
 
 [ext_resource type="Texture2D" uid="uid://b82qxftkda407" path="res://art/game_icons/iron_icon.tres" id="1_kdv46"]
 [ext_resource type="Script" path="res://scripts/player/PlayerInput.gd" id="1_vnbxi"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://cg1pnb8okiorv" path="res://art/game_icons/trash_can_icon.tres" id="15_0kvvc"]
 [ext_resource type="PackedScene" uid="uid://burace24iyqdk" path="res://scenes/ui/contract_goal_slot.tscn" id="15_0ol8u"]
 [ext_resource type="Texture2D" uid="uid://bysetw8d16ekr" path="res://art/game_icons/contracts_icon.tres" id="15_60g7f"]
+[ext_resource type="Resource" uid="uid://dtcidbu0swnqx" path="res://resources/components/smelter.tres" id="16_nhhku"]
 [ext_resource type="Script" path="res://scripts/ui/UnownedPlotDisplay.gd" id="20_d6ol1"]
 [ext_resource type="StyleBox" uid="uid://di2frkvv5wvew" path="res://resources/theme/contract_box_panel.tres" id="22_ypbl3"]
 [ext_resource type="Script" path="res://scripts/ui/PlotDisplay.gd" id="27_ggj81"]
@@ -284,6 +285,7 @@ data = ExtResource("11_rh0mx")
 
 [node name="Slot7" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2
+data = ExtResource("16_nhhku")
 
 [node name="Slot8" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
 layout_mode = 2

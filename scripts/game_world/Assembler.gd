@@ -81,9 +81,3 @@ func craft() -> Component:
 	component.data = end_result
 	building.get_parent().add_child(component)
 	return component
-
-func _on_building_entered(_area) -> void:
-	pass
-
-func _on_building_exited(_area) -> void:
-	pass

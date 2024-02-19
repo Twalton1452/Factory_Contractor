@@ -17,6 +17,8 @@ var contract : Contract = null :
 			button.text = contract.display_name
 			contract.progressed.connect(_on_contract_progressed)
 			update_progress_bar()
+			# TODO: clear tooltip if hovering
+			# setting tooltip_text = "" | doesn't update existing tooltip
 
 var hovering = false
 
@@ -61,6 +63,7 @@ func _on_mouse_hover_enter() -> void:
 
 func update_tooltip() -> void:
 	var tooltip = ""
+	
 	for goal in contract.goals:
 		tooltip += Constants.CONTRACT_GOAL_TOOLTIP_LINE.format({ \
 			"display_name": goal.component_data.display_name, \

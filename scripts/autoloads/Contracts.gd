@@ -62,14 +62,14 @@ func get_component_distribution_from_difficulty(difficulty: int) -> Dictionary:
 			}
 		1:
 			return {
-				ComponentDB.Tier.RAW: {
+				ComponentDB.Tier.TIER_HALF: {
 					"num_goals": 2,
 					"pool_percent": 1.0
 				}
 			}
 		2:
 			return {
-				ComponentDB.Tier.RAW: {
+				ComponentDB.Tier.TIER_HALF: {
 					"num_goals": 2,
 					"pool_percent": 0.8
 				},
@@ -80,7 +80,7 @@ func get_component_distribution_from_difficulty(difficulty: int) -> Dictionary:
 			}
 		3:
 			return {
-				ComponentDB.Tier.RAW: {
+				ComponentDB.Tier.TIER_HALF: {
 					"num_goals": 1,
 					"pool_percent": 0.3
 				},
@@ -95,7 +95,7 @@ func get_component_distribution_from_difficulty(difficulty: int) -> Dictionary:
 			}
 		4:
 			return {
-				ComponentDB.Tier.RAW: {
+				ComponentDB.Tier.TIER_HALF: {
 					"num_goals": 1,
 					"pool_percent": 0.2
 				},

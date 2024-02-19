@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ComponentData" load_steps=4 format=3 uid="uid://b8a6ejmy530h"]
+
+[ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_g3btd"]
+[ext_resource type="Texture2D" uid="uid://bqvm4rv4cq3j8" path="res://art/game_icons/smelted_copper_icon.tres" id="1_k6hfb"]
+[ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="2_6hnir"]
+
+[resource]
+script = ExtResource("1_g3btd")
+display_name = &"Smelted Copper"
+icon = ExtResource("1_k6hfb")
+color_adjustment = Color(0.870588, 0.541176, 0.345098, 1)
+required_components = {
+ExtResource("2_6hnir"): 1
+}
+size = 1
+placed_layer = 0
+required_layer = 0

@@ -16,6 +16,15 @@ const RAW_COMPONENTS : Array[ComponentData] = [
 	IRON,
 ]
 
+# Tier 1.5 Components - Refined Raw Components
+const SMELTED_COPPER = preload("res://resources/components/smelted_copper.tres")
+const SMELTED_IRON = preload("res://resources/components/smelted_iron.tres")
+
+const TIER_HALF : Array[ComponentData] = [
+	SMELTED_COPPER,
+	SMELTED_IRON,
+]
+
 # Tier 1 Components - Takes Refined/Unrefined Components
 const BASIC_EXTRACTOR = preload("res://resources/components/basic_extractor.tres")
 const BASIC_ASSEMBLER = preload("res://resources/components/basic_assembler.tres")
@@ -49,13 +58,22 @@ var available_recipes : Array[ComponentData] = [
 	SPLITTER,
 	STORAGE_BUILDING,
 	UNDERGROUND_CONVEYOR,
+	# TODO: Remove later
+	SMELTED_COPPER,
+	SMELTED_IRON
+]
+
+var smeltable_recipes : Array[ComponentData] = [
+	SMELTED_COPPER,
+	SMELTED_IRON,
 ]
 
 ## Used for indicies in TIERS array
 enum Tier {
 	RAW = 0,
-	TIER_ONE = 1,
-	TIER_TWO = 2,
+	TIER_HALF = 1,
+	TIER_ONE = 2,
+	TIER_TWO = 3,
 }
 
 ## lower tier components appear first
@@ -63,6 +81,7 @@ var TIERS : Array[Array] = []
 
 func _ready():
 	TIERS.push_back(RAW_COMPONENTS)
+	TIERS.push_back(TIER_HALF)
 	TIERS.push_back(TIER_ONE_COMPONENTS)
 	TIERS.push_back(TIER_TWO_COMPONENTS)
 

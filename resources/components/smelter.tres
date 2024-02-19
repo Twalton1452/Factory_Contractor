@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ComponentData" load_steps=5 format=3 uid="uid://dtcidbu0swnqx"]
+
+[ext_resource type="Texture2D" uid="uid://bgotbyjuxcktu" path="res://art/game_icons/smelter_icon.tres" id="1_fdldo"]
+[ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_vjvor"]
+[ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="2_p7b21"]
+[ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="3_jljy0"]
+
+[resource]
+script = ExtResource("1_vjvor")
+display_name = &"Smelter"
+icon = ExtResource("1_fdldo")
+color_adjustment = Color(1, 1, 1, 1)
+required_components = {
+ExtResource("2_p7b21"): 10,
+ExtResource("3_jljy0"): 5
+}
+size = 1
+placed_layer = 1
+required_layer = 0

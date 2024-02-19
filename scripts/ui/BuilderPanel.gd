@@ -10,7 +10,6 @@ func _on_accepted_contract(contract: Contract) -> void:
 	assert(plot != null, "Accepted Contract on an empty space")
 	if plot.contract == contract:
 		show()
-	
 
 func _on_moved_to_coordinates(_coords: Vector2) -> void:
 	var plot = Plots.get_current_plot()
