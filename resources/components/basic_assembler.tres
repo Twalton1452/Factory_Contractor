@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cvvljxphw85bg" path="res://art/game_icons/basic_assembler_icon.tres" id="1_6ccgk"]
 [ext_resource type="Script" path="res://scripts/data/ComponentData.gd" id="1_j1fjs"]
-[ext_resource type="Resource" uid="uid://dbnjeqlvv6fwl" path="res://resources/components/copper.tres" id="2_5jjq2"]
-[ext_resource type="Resource" uid="uid://cb2pd6h300fto" path="res://resources/components/iron.tres" id="3_gj1fe"]
+[ext_resource type="Resource" uid="uid://crrmw6ubcvqr5" path="res://resources/components/smelted_iron.tres" id="2_ho5ev"]
+[ext_resource type="Resource" uid="uid://b8a6ejmy530h" path="res://resources/components/smelted_copper.tres" id="3_hy2cw"]
 [ext_resource type="Script" path="res://scripts/game_world/Assembler.gd" id="5_nj6og"]
 
 [resource]
@@ -12,9 +12,10 @@ display_name = &"Assembler"
 icon = ExtResource("1_6ccgk")
 color_adjustment = Color(1, 1, 1, 1)
 required_components = {
-ExtResource("3_gj1fe"): 5,
-ExtResource("2_5jjq2"): 3
+ExtResource("2_ho5ev"): 5,
+ExtResource("3_hy2cw"): 3
 }
+crafting_time_seconds = 3.0
 to_attach = ExtResource("5_nj6og")
 size = 1
 placed_layer = 1

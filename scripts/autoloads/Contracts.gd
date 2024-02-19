@@ -118,7 +118,7 @@ func get_component_distribution_from_difficulty(difficulty: int) -> Dictionary:
 func get_unique_goals(tier: ComponentDB.Tier, num_goals: int, total_amount: int) -> Array[Contract.Goal]:
 	var goals : Array[Contract.Goal] = []
 	var tier_copy = ComponentDB.TIERS[tier].duplicate()
-	var amount_per_goal : int = floori(float(total_amount) / float(num_goals))
+	var amount_per_goal : int = floori(float(total_amount) / float(num_goals)) # Even distribution
 	
 	while goals.size() < num_goals and tier_copy.size() > 0:
 		var random_i = randi_range(0, tier_copy.size() - 1)
