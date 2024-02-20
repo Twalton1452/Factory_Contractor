@@ -15,7 +15,6 @@ var camera : Camera2D
 var plots : Dictionary = {} # { key: Vector2, val: Plot }
 
 func _ready() -> void:
-	Contracts.accepted_contract.connect(_on_accepted_contract)
 	plot_size = get_viewport().get_visible_rect().size
 	camera = get_viewport().get_camera_2d()
 	
@@ -28,13 +27,6 @@ func _ready() -> void:
 	home.coordinates = HOME_COORDINATES
 	plots[HOME_COORDINATES] = home
 	go_to(HOME_COORDINATES)
-	#spawn_neighboring_plots_for(HOME_COORDINATES)
-
-func _on_accepted_contract(contract: Contract) -> void:
-	if contract.contract_type == Contract.Type.ON_SITE:
-		spawn(current_location, contract)
-	else:
-		pass # Get current location and assign contract to it
 
 ## Spawns Plots around a point in 4 directions: left, right, up, down
 func spawn_neighboring_plots_for(center: Vector2) -> void:
@@ -48,19 +40,21 @@ func spawn_neighboring_plots_for(center: Vector2) -> void:
 	for neighbor_coords in new_neighbor_coords:
 		if get_plot(neighbor_coords) == null:
 			var suitable_contract = Contracts.generate_contract_for_coordinates(neighbor_coords)
-			plots[neighbor_coords] = spawn(neighbor_coords, suitable_contract)
-			plots[neighbor_coords].coordinates = neighbor_coords
-			plots[neighbor_coords].hide()
+			spawn(neighbor_coords, suitable_contract)
 
 func spawn(coords: Vector2, contract: Contract) -> Plot:
 	var plot = plots.get(coords)
 	if plot == null:
 		var new_plot = Plot.new(contract)
 		new_plot.position = coords * plot_size
+		new_plot.coordinates = coords
 		new_plot.display_name = contract.display_name
 		new_plot.name = "Plot " + str(coords)
+		new_plot.hide()
+		plots[coords] = new_plot
+		get_node("/root/Main").add_child(new_plot)
+		
 		plot = new_plot
-		get_node("/root/Main").add_child(plot)
 	
 	return plot
 

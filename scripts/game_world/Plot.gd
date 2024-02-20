@@ -6,7 +6,9 @@ signal accepted_contract(accepted_contract: Contract)
 var display_name = "Home"
 var player_owned = false
 var coordinates : Vector2
+
 var contract : Contract = null
+
 var available_contract : Contract = null : 
 	set(value):
 		available_contract = value

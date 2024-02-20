@@ -928,6 +928,3 @@ sprite = NodePath("../ComponentPatch/Sprite2D")
 position = Vector2(96, 384)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(640, -480)

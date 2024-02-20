@@ -50,7 +50,10 @@ func _ready():
 
 func _on_moved_to_coordinates(_coords: Vector2) -> void:
 	var plot = Plots.get_current_plot()
-	if plot == null or (plot.contract == null and in_build_mode()):
+	if not in_build_mode() or plot.player_owned:
+		return
+	
+	if plot == null or plot.contract == null:
 		exit_build_mode()
 
 func in_build_mode() -> bool:
