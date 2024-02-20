@@ -8,8 +8,6 @@ signal exited_build_mode
 const DETECTED_AXIS_LOCK_AMOUNT = 12.0
 const LAST_PLACER_POSITIONS_SIZE = 5
 
-@export var objects_parent : Node2D
-
 @onready var placer : Node2D = $Placer
 @onready var sprite : Sprite2D = $Placer/Sprite2D
 @onready var outline : Sprite2D = $Placer/Outline
@@ -158,10 +156,11 @@ func _on_player_selected() -> void:
 	if placed_node is Building or placed_node is Component:
 		placed_node.data = current_data
 	
-	placed_node.position = placer_position
+	var plot : Plot = Plots.get_current_plot()
+	plot.add_child(placed_node)
+	placed_node.position = placer_position - camera.position
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
-	objects_parent.add_child(placed_node)
 	last_spawn_position = placed_node.position
 
 func _on_player_released_selected() -> void:

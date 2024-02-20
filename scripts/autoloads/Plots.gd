@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _on_accepted_contract(contract: Contract) -> void:
 	if contract.contract_type == Contract.Type.ON_SITE:
-		spawn(contract)
+		spawn(current_location, contract)
 	else:
 		pass # Get current location and assign contract to it
 
@@ -48,16 +48,19 @@ func spawn_neighboring_plots_for(center: Vector2) -> void:
 	for neighbor_coords in new_neighbor_coords:
 		if get_plot(neighbor_coords) == null:
 			var suitable_contract = Contracts.generate_contract_for_coordinates(neighbor_coords)
-			plots[neighbor_coords] = Plot.new(suitable_contract)
+			plots[neighbor_coords] = spawn(neighbor_coords, suitable_contract)
 			plots[neighbor_coords].coordinates = neighbor_coords
+			plots[neighbor_coords].hide()
 
-func spawn(contract: Contract) -> Plot:
-	var plot = plots.get(current_location)
+func spawn(coords: Vector2, contract: Contract) -> Plot:
+	var plot = plots.get(coords)
 	if plot == null:
-		var new_plot = Plot.new()
-		new_plot.position = current_location * plot_size
+		var new_plot = Plot.new(contract)
+		new_plot.position = coords * plot_size
 		new_plot.display_name = contract.display_name
+		new_plot.name = "Plot " + str(coords)
 		plot = new_plot
+		get_node("/root/Main").add_child(plot)
 	
 	return plot
 
@@ -68,7 +71,10 @@ func get_current_plot() -> Plot:
 	return get_plot(current_location)
 
 func go_to(destination: Vector2) -> void:
+	get_current_plot().hide()
 	current_location = destination
+	get_current_plot().show()
+	
 	spawn_neighboring_plots_for(current_location)
 	moved_to_coordinates.emit(current_location)
 	center_camera_on_current_location()

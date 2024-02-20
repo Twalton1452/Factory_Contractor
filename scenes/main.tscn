@@ -349,7 +349,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AssemblerDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -424,6 +423,7 @@ grow_vertical = 2
 texture = ExtResource("13_0tsmh")
 
 [node name="StorageContainerDisplay" type="Control" parent="CanvasLayer/HUD/SelectedDisplay"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -833,9 +833,8 @@ script = ExtResource("4_safy8")
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("1_vnbxi")
 
-[node name="PlayerInputHandler" type="Node" parent="." node_paths=PackedStringArray("objects_parent")]
+[node name="PlayerInputHandler" type="Node" parent="."]
 script = ExtResource("2_tg2pd")
-objects_parent = NodePath("../Home")
 
 [node name="Placer" type="Node2D" parent="PlayerInputHandler"]
 
@@ -914,3 +913,21 @@ sprite = NodePath("../ComponentPatch/Sprite2D")
 position = Vector2(80, 320)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+
+[node name="ComponentPatch11" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(80, 368)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
+
+[node name="ComponentPatch12" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(96, 368)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
+
+[node name="ComponentPatch13" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
+position = Vector2(96, 384)
+component_to_extract = ExtResource("5_yjmxl")
+sprite = NodePath("../ComponentPatch/Sprite2D")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(640, -480)
