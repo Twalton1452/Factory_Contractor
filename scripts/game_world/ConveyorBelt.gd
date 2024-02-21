@@ -20,6 +20,12 @@ func _ready() -> void:
 	update_neighbors()
 
 func update_neighbors() -> void:
+	# This is dependent on physics updating, but signal frames can occur faster than physics updates
+	# So make sure we're on the latest physics update before attempting anything
+	# If we don't, its possible it doesn't detect neighbors correctly.
+	# Again another problem for Physics based detection instead of using a Grid
+	await get_tree().physics_frame
+	
 	next_in_line = Helpers.ray_forward(building)
 	grabbing_from = Helpers.ray_behind(building)
 
