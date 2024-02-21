@@ -222,6 +222,7 @@ func _on_player_picking_up() -> void:
 	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building and node.holding:
+			Inventory.add(node.holding.data)
 			node.take_from().queue_free()
 
 func placing_position(pos: Vector2) -> Vector2:
