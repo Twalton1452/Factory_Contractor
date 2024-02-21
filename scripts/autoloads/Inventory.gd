@@ -11,8 +11,13 @@ const MAX_INVENTORY_SLOT_CAPACITY = 999
 var items : Dictionary = {} # { key: ComponentData: val: int }
 
 func _ready():
-	for data in ComponentDB.available_recipes:
-		add(data, MAX_INVENTORY_SLOT_CAPACITY)
+	if OS.has_feature("editor"):
+		for data in ComponentDB.available_recipes:
+			add(data, MAX_INVENTORY_SLOT_CAPACITY)
+	else:
+		add(ComponentDB.BASIC_EXTRACTOR, 1)
+		add(ComponentDB.CONVEYOR_BELT, 10)
+		add(ComponentDB.BASIC_ASSEMBLER, 1)
 
 func add(data: ComponentData, amount: int = 1) -> void:
 	if items.has(data):
