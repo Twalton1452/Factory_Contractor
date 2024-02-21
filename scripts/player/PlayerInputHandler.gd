@@ -151,11 +151,8 @@ func _on_player_selected() -> void:
 	# Had overlapping buildings despite the collision checks
 	# This checks the last building placed's position, accounting for multiple sizes
 	if snapped(placer_position.distance_to(last_spawn_position), 1.0) < (Constants.TILE_SIZE * current_data.size - 1):
-		await get_tree().physics_frame
-		await get_tree().physics_frame
-		last_spawn_position = Vector2(0.1, 0.1)
+		shape_cast.force_shapecast_update()
 	
-	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return
 	
