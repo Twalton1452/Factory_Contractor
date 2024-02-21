@@ -73,5 +73,8 @@ func _update_storage_container_display(_received_component: Component, storage_c
 func _on_empty_button_pressed() -> void:
 	if storage_focus == null:
 		return
+	for slot in storage_focus.inventory_slots:
+		if slot.amount > 0:
+			Inventory.add(slot.component_data, slot.amount)
 	storage_focus.empty_slots()
 	_update_storage_container_display(null, storage_focus)

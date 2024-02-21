@@ -141,7 +141,9 @@ func detect_axis_lock(attempted_placement_pos: Vector2) -> void:
 func _on_player_selected() -> void:
 	if not in_build_mode():
 		return
-
+	if not Inventory.has(current_data) or not Inventory.how_many(current_data) > 0:
+		return
+	
 	var placer_position = placing_position(placer.position)
 	detect_axis_lock(placer_position)
 	
@@ -149,7 +151,9 @@ func _on_player_selected() -> void:
 	# Had overlapping buildings despite the collision checks
 	# This checks the last building placed's position, accounting for multiple sizes
 	if snapped(placer_position.distance_to(last_spawn_position), 1.0) < (Constants.TILE_SIZE * current_data.size - 1):
-		return
+		await get_tree().physics_frame
+		await get_tree().physics_frame
+		last_spawn_position = Vector2(0.1, 0.1)
 	
 	await get_tree().physics_frame # Let previous spawns set themselves up
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
@@ -165,6 +169,7 @@ func _on_player_selected() -> void:
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
 	last_spawn_position = placed_node.position
+	Inventory.subtract(current_data, 1)
 
 func _on_player_released_selected() -> void:
 	locked_to_x_axis = false
@@ -185,6 +190,7 @@ func _on_player_canceled() -> void:
 	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
 		if node is Building and not node.is_queued_for_deletion():
+			Inventory.add(node.data)
 			node.queue_free()
 			deleted_something_during_cancel = true
 

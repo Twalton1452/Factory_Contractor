@@ -255,45 +255,45 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer"]
+[node name="Slots" type="HBoxContainer" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Slot" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("7_mdcut")
 
-[node name="Slot2" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot2" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("3_631xw")
 
-[node name="Slot3" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot3" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("4_n2mmp")
 
-[node name="Slot4" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot4" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("9_xekue")
 
-[node name="Slot5" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot5" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("10_siwwc")
 
-[node name="Slot6" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot6" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("11_rh0mx")
 
-[node name="Slot7" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot7" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("16_nhhku")
 
-[node name="Slot8" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot8" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="Slot9" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot9" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 
-[node name="Slot10" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/HBoxContainer" instance=ExtResource("3_wmb04")]
+[node name="Slot10" parent="CanvasLayer/HUD/BuilderPanel/MarginContainer/Slots" instance=ExtResource("3_wmb04")]
 layout_mode = 2
 data = ExtResource("8_xi875")
 
