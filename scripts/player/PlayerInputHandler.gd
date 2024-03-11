@@ -144,14 +144,15 @@ func _on_player_selected() -> void:
 	if not Inventory.has(current_data) or not Inventory.how_many(current_data) > 0:
 		return
 	
-	var placer_position = placing_position(placer.position)
+	var placer_position = placing_position(placer.global_position)
 	detect_axis_lock(placer_position)
 	
 	# This wouldn't be an issue if converted to a Grid approach instead of Physics
 	# Had overlapping buildings despite the collision checks
 	# This checks the last building placed's position, accounting for multiple sizes
-	if snapped(placer_position.distance_to(last_spawn_position), 1.0) < (Constants.TILE_SIZE * current_data.size - 1):
+	if snapped(placer_position.distance_to(last_spawn_position), 16.0) < (Constants.TILE_SIZE * current_data.size):
 		shape_cast.force_shapecast_update()
+		return
 	
 	if shape_cast.is_colliding() or (required_shape_cast.collision_mask > 0 and not required_shape_cast.is_colliding()):
 		return
@@ -165,7 +166,7 @@ func _on_player_selected() -> void:
 	placed_node.position = placer_position - camera.position
 	placed_node.rotation = sprite.rotation
 	placed_node.collision_layer = current_data.placed_layer
-	last_spawn_position = placed_node.position
+	last_spawn_position = placer_position
 	Inventory.subtract(current_data, 1)
 
 func _on_player_released_selected() -> void:
