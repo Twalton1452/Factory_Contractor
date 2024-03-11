@@ -15,9 +15,10 @@ func _ready():
 		for data in ComponentDB.available_recipes:
 			add(data, MAX_INVENTORY_SLOT_CAPACITY)
 	else:
-		add(ComponentDB.BASIC_EXTRACTOR, 1)
-		add(ComponentDB.CONVEYOR_BELT, 10)
-		add(ComponentDB.BASIC_ASSEMBLER, 1)
+		add(ComponentDB.BASIC_EXTRACTOR, 2)
+		add(ComponentDB.CONVEYOR_BELT, 30)
+		add(ComponentDB.BASIC_ASSEMBLER, 4)
+		add(ComponentDB.STORAGE_BUILDING, 3)
 
 func add(data: ComponentData, amount: int = 1) -> void:
 	if items.has(data):
