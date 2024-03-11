@@ -10,6 +10,7 @@ Left click - Select and Place Buildings
 Right click - Delete Buildings  
 R - Rotate  
 Q - Pick Building (Similar to an Eye dropper)  
+F - Pick up component from Building/Storage  
 
 ## Credits
 - 1-bit pack by Kenney: www.kenney.nl
