@@ -25,3 +25,8 @@ func _on_button_pressed():
 func update_amount(amount: int) -> void:
 	button.disabled = amount <= 0
 	amount_label.text = str(amount)
+	update_tooltip(amount)
+
+func update_tooltip(amount: int) -> void:
+	button.tooltip_text = data.display_name + " (" + str(amount) + ")"
+	
