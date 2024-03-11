@@ -866,63 +866,76 @@ script = ExtResource("30_v1035")
 [node name="ComponentPatch" parent="Home" instance=ExtResource("9_iknef")]
 position = Vector2(80, 96)
 component_to_extract = ExtResource("4_t7mge")
+amount = 10000
 
 [node name="ComponentPatch2" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 96)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch3" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch4" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 112)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch5" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 128)
 component_to_extract = ExtResource("4_t7mge")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch6" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 336)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch7" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 336)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch8" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 352)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch9" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 352)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch10" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 320)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch11" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(80, 368)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch12" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 368)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
 
 [node name="ComponentPatch13" parent="Home" node_paths=PackedStringArray("sprite") instance=ExtResource("9_iknef")]
 position = Vector2(96, 384)
 component_to_extract = ExtResource("5_yjmxl")
 sprite = NodePath("../ComponentPatch/Sprite2D")
+amount = 10000
