@@ -63,9 +63,14 @@ var available_recipes : Array[ComponentData] = [
 	SMELTED_IRON
 ]
 
-var smeltable_recipes : Array[ComponentData] = [
+var smelted_recipes : Array[ComponentData] = [
 	SMELTED_COPPER,
 	SMELTED_IRON,
+]
+
+var smeltables : Array[ComponentData] = [
+	COPPER,
+	IRON,
 ]
 
 ## Used for indicies in TIERS array

@@ -39,6 +39,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
