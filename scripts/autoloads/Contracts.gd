@@ -44,10 +44,11 @@ func generate_contract_for_coordinates(coords: Vector2) -> Contract:
 	
 	new_contract.display_name = "Contract: " + str(coords) + " Difficulty: " + str(difficulty_level)
 	new_contract.requested_by = "Auto-Generated"
-	print("Spawned New Contract for {coords} {display_name}".format({ "coords": coords, "display_name": new_contract.display_name }))
-	for goal in new_contract.goals:
-		print("Goal: {component} {amount}".format({ "component": goal.component_data.display_name, "amount": goal.required_amount }))
-	print("--------------------------------------------------------")
+	if OS.has_feature("editor"):
+		print("Spawned New Contract for {coords} {display_name}".format({ "coords": coords, "display_name": new_contract.display_name }))
+		for goal in new_contract.goals:
+			print("Goal: {component} {amount}".format({ "component": goal.component_data.display_name, "amount": goal.required_amount }))
+		print("--------------------------------------------------------")
 	return new_contract
 
 ## Hard coded difficulty settings until I can figure out a formula for how I want it

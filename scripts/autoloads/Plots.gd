@@ -50,7 +50,6 @@ func spawn(coords: Vector2, contract: Contract) -> Plot:
 		new_plot.coordinates = coords
 		new_plot.display_name = contract.display_name
 		new_plot.name = "Plot " + str(coords)
-		new_plot.hide()
 		plots[coords] = new_plot
 		get_node("/root/Main").add_child(new_plot)
 		
@@ -65,9 +64,7 @@ func get_current_plot() -> Plot:
 	return get_plot(current_location)
 
 func go_to(destination: Vector2) -> void:
-	get_current_plot().hide()
 	current_location = destination
-	get_current_plot().show()
 	
 	spawn_neighboring_plots_for(current_location)
 	moved_to_coordinates.emit(current_location)
