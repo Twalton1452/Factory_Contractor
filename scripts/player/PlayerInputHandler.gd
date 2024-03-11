@@ -221,7 +221,16 @@ func _on_player_picked() -> void:
 func _on_player_picking_up() -> void:
 	if shape_cast.is_colliding():
 		var node = shape_cast.get_collider(0)
-		if node is Building and node.holding:
+		if node is StorageBuilding:
+			var storage_building : StorageBuilding = node
+			for slot in node.inventory_slots:
+				if slot.amount <= 0:
+					continue
+				
+				Inventory.add(slot.component_data, slot.amount)
+				storage_building.take_from_slot(slot, slot.amount)
+			
+		elif node is Building and node.holding:
 			Inventory.add(node.holding.data)
 			node.take_from().queue_free()
 

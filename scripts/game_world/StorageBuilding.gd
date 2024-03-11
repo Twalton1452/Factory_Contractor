@@ -97,13 +97,13 @@ func can_take() -> bool:
 	return get_first_slot_with_anything() != -1
 
 ## Subtract the amount from the Slot and spawn an ingame entity
-func _take(slot: Slot) -> Component:
+func _take(slot: Slot, amount: int = 1) -> Component:
 	var taking : Component = null
 	
-	if slot.component_data != null and slot.amount > 0:
+	if slot.component_data != null and slot.amount - amount >= 0:
 		var taking_data : ComponentData = slot.component_data
 		taking = spawn(taking_data)
-		slot.amount -= 1
+		slot.amount -= amount
 		if slot.amount <= 0:
 			slot.component_data = null
 			slot.amount = 0
@@ -135,8 +135,8 @@ func take_from() -> Component:
 		return null
 	return _take(inventory_slots[slot_i])
 
-func take_from_slot(slot: Slot) -> Component:
-	return _take(slot)
+func take_from_slot(slot: Slot, amount: int = 1) -> Component:
+	return _take(slot, amount)
 
 func take_from_slot_no_spawn(slot: Slot) -> ComponentData:
 	return _take_no_component_spawn(slot)
